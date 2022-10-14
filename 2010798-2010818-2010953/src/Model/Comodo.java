@@ -4,13 +4,13 @@ package Model;
 // implementar passagem secreta
 class Comodo {
 	// um cômodo sabe que cômodo ele é, quantos e quem está dentro dele
-	String comodo;
-	Pessoa []pessoasDentro;
-	Casa []entradas;
-	int qtdDentro;
+	private String comodo;
+	private Pessoa []pessoasDentro;
+	private Casa []entradas;
+	private int qtdDentro;
 	
 	// init
-	public Comodo(String comodo, Casa []entradas) {
+	public Comodo(String comodo, Casa entradas[]) {
 		this.comodo = comodo;
 		this.entradas = entradas;
 		this.pessoasDentro = new Pessoa[6];
@@ -18,7 +18,7 @@ class Comodo {
 	}
 	
 	// se uma pessoa 'p' está no cômodo
-	public boolean estaEmComodo(Pessoa p) {
+	boolean estaEmComodo(Pessoa p) {
 		for (Pessoa pi: pessoasDentro) {
 			if (pi == p) {
 				return true;
@@ -51,8 +51,8 @@ class Comodo {
 		pessoasDentro = novoDentro;
 	}
 	
-	// cálculos de trajeto/operações para entrar e sair vão precisar saber as entradas
-	public Casa[] retornaEntradas() {
+	// operações para entrar e sair vão precisar saber as entradas de um cômodo
+	public Casa[] entradas() {
 		return entradas;
 	}
 	
