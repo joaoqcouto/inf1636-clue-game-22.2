@@ -4,7 +4,7 @@ package Model;
 // implementar passagem secreta
 class Comodo {
 	// um cômodo sabe que cômodo ele é, quantos e quem está dentro dele
-	private String comodo;
+	public String comodo;
 	private Pessoa []pessoasDentro;
 	private Casa []entradas;
 	private int qtdDentro;

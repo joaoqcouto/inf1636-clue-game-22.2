@@ -53,7 +53,7 @@ public class Jogo {
 		int num_suspeito = 6 + gerador.nextInt(6);
 		int num_comodo = 12 + gerador.nextInt(9);
 		
-		Cartas envolepe [] = 
+		Cartas envelope [] = 
 		{
 				new Cartas(cartas_jogo[num_arma].Tipo(), cartas_jogo[num_arma].Nome()),
 				new Cartas(cartas_jogo[num_suspeito].Tipo(), cartas_jogo[num_suspeito].Nome()),
