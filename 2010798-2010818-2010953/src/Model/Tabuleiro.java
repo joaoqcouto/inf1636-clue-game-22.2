@@ -4,8 +4,8 @@ class Tabuleiro {
 	Object [][]tabuleiro;
 	
 	// matriz de ints que representa o tabuleiro
-	// tabuleiro é 26 linhas : 24 colunas, coordenadas [linha][coluna]
-	// 0 = espaço válido; 1 - 9 = cômodos; -1 -> -6 = jogadores; 10 = espaço inválido
+	// tabuleiro ï¿½ 26 linhas : 24 colunas, coordenadas [linha][coluna]
+	// 0 = espaï¿½o vï¿½lido; 1 - 9 = cï¿½modos; -1 -> -6 = jogadores; 10 = espaï¿½o invï¿½lido
 	int tabuleiro_base[][] =
 		{
 			{10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,  2,  2, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
@@ -37,10 +37,10 @@ class Tabuleiro {
 		};
 	
 	public Tabuleiro(Pessoa jogadores[]) {
-		// alocando espaço para tabuleiro
+		// alocando espaï¿½o para tabuleiro
 		tabuleiro = new Object[tabuleiro_base.length][tabuleiro_base[0].length];
 		
-		// inicializando todo o tabuleiro exceto os cômodos (cômodos precisam vir depois por causa de suas entradas)
+		// inicializando todo o tabuleiro exceto os cï¿½modos (cï¿½modos precisam vir depois por causa de suas entradas)
 		int rowI = 0;
 		for (int row[]:tabuleiro_base) {
 			int colI = 0;
@@ -57,52 +57,52 @@ class Tabuleiro {
 			rowI++;
 		}
 		
-		// separando entradas dos cômodos
+		// separando entradas dos cï¿½modos
 		Casa entradas[][] =
 			{
-				// entradas cômodo 1
+				// entradas cï¿½modo 1
 				{ (Casa)tabuleiro[ 5][ 6] },
 				
-				// entradas cômodo 2
+				// entradas cï¿½modo 2
 				{ (Casa)tabuleiro[ 5][ 8], (Casa)tabuleiro[ 8][11], (Casa)tabuleiro[ 8][12] },
 				
-				// entradas cômodo 3
+				// entradas cï¿½modo 3
 				{ (Casa)tabuleiro[ 7][17] },
 				
-				// entradas cômodo 4
+				// entradas cï¿½modo 4
 				{ (Casa)tabuleiro[ 9][ 7], (Casa)tabuleiro[12][ 3] },
 				
-				// entradas cômodo 5
+				// entradas cï¿½modo 5
 				{ (Casa)tabuleiro[12][ 1], (Casa)tabuleiro[16][ 6] },
 				
-				// entradas cômodo 6
+				// entradas cï¿½modo 6
 				{ (Casa)tabuleiro[ 9][17], (Casa)tabuleiro[13][15] },
 				
-				// entradas cômodo 7
+				// entradas cï¿½modo 7
 				{ (Casa)tabuleiro[20][ 5] },
 				
-				// entradas cômodo 8
+				// entradas cï¿½modo 8
 				{ (Casa)tabuleiro[20][ 7], (Casa)tabuleiro[17][ 9], (Casa)tabuleiro[17][14], (Casa)tabuleiro[20][16] },
 				
-				// entradas cômodo 9
+				// entradas cï¿½modo 9
 				{ (Casa)tabuleiro[18][19] },
 			};
 		
-		// criando cômodos
+		// criando cï¿½modos
 		Comodo comodos[] =
 			{
-				new Comodo("Escritório", entradas[0] ),	
+				new Comodo("Escritorio", entradas[0] ),	
 				new Comodo("Entrada", entradas[1] ),
 				new Comodo("Sala de estar", entradas[2] ),
 				new Comodo("Biblioteca", entradas[3] ),
-				new Comodo("Salão de jogos", entradas[4] ),
+				new Comodo("Salao de jogos", entradas[4] ),
 				new Comodo("Sala de jantar", entradas[5] ),
 				new Comodo("Jardim de inverno", entradas[6] ),
-				new Comodo("Sala de música", entradas[7] ),
+				new Comodo("Sala de musica", entradas[7] ),
 				new Comodo("Cozinha", entradas[8] ),
 			};
 		
-		// colocando cômodos no tabuleiro
+		// colocando cï¿½modos no tabuleiro
 		rowI = 0;
 		for (int row[]:tabuleiro_base) {
 			int colI = 0;
@@ -114,8 +114,8 @@ class Tabuleiro {
 		}
 	}
 	
-	// cálculo da distância entre um ponto (x1, y1) e outro (x2, y2) do tabuleiro
-	// distância de manhattan utilizada para checar jogada válida
+	// cï¿½lculo da distï¿½ncia entre um ponto (x1, y1) e outro (x2, y2) do tabuleiro
+	// distï¿½ncia de manhattan utilizada para checar jogada vï¿½lida
 	// vai precisar ser um algoritmo mais complexo para calcular corretamente o custo (alguma busca por largura)
 	int calculaDistancia(int []ini, int []fim) {
 		int distancia = Math.abs(ini[0]-fim[0]) + Math.abs(ini[1]-fim[1]);
@@ -124,16 +124,16 @@ class Tabuleiro {
 	
 	// valida movimento a partir de uma coordenada (x, y) para outra (x,y) no tabuleiro
 	boolean validaMovimento(int xIni, int yIni, int xFim, int yFim, int dado) {
-		// final fora do tabuleiro jogável
+		// final fora do tabuleiro jogï¿½vel
 		if (!(tabuleiro[xFim][yFim] instanceof Casa) && !(tabuleiro[xFim][yFim] instanceof Comodo)) return false;
 		
-		// ambos são casas
+		// ambos sï¿½o casas
 		if (tabuleiro[xIni][yIni] instanceof Casa && tabuleiro[xFim][yFim] instanceof Casa) {
-			// custo até a casa precisa ser igual ao custo do trajeto
+			// custo atï¿½ a casa precisa ser igual ao custo do trajeto
 			return dado == calculaDistancia(new int[]{xIni, yIni}, new int[]{xFim, yFim});
 		}
 		
-		// de uma casa para um cômodo
+		// de uma casa para um cï¿½modo
 		else if (tabuleiro[xIni][yIni] instanceof Casa && tabuleiro[xFim][yFim] instanceof Comodo) {
 			//  basta chegar em uma entrada livre
 			Comodo f = (Comodo)tabuleiro[xFim][yFim];
@@ -144,9 +144,9 @@ class Tabuleiro {
 			return dado >= calculaDistancia(new int[]{xIni, yIni}, new int[]{xFim, yFim});
 		}
 		
-		// de um cômodo para uma casa
+		// de um cï¿½modo para uma casa
 		else if (tabuleiro[xIni][yIni] instanceof Comodo && tabuleiro[xFim][yFim] instanceof Casa) {
-			// uma das entradas do cômodo precisa ter a distância certa até a casa
+			// uma das entradas do cï¿½modo precisa ter a distï¿½ncia certa atï¿½ a casa
 			Comodo i = (Comodo)tabuleiro[xIni][yIni];
 			Casa inicios[] = i.entradas();
 			for (Casa ini:inicios) {
@@ -154,9 +154,9 @@ class Tabuleiro {
 			}
 		}
 		
-		// de cômodo X para cômodo Y
+		// de cï¿½modo X para cï¿½modo Y
 		else {
-			// uma das entradas de X precisa estar dentro da distância para uma das entradas de Y
+			// uma das entradas de X precisa estar dentro da distï¿½ncia para uma das entradas de Y
 			Comodo i = (Comodo)tabuleiro[xIni][yIni];
 			Casa inicios[] = i.entradas();
 			Comodo f = (Comodo)tabuleiro[xFim][yFim];
