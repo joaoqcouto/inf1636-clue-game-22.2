@@ -4,9 +4,14 @@ import java.util.Random;
 
 public class Jogo {
 	// mantem o tabuleiro, os jogadores, a ordem das jogadas, a resposta certa, etc.
+	Cartas cartas_jogo[];
+	Pessoa jogadores[];
+	Cartas envelope [];
+	Tabuleiro tabuleiro;
+	
 	public Jogo() {
 		
-		Cartas cartas_jogo[] = 
+		cartas_jogo = new Cartas[] 
 			{
 				new Cartas("arma", "Corda"),
 				new Cartas("arma", "Cano de Chumbo"),
@@ -32,7 +37,7 @@ public class Jogo {
 		};
 		
 		// criando jogadores (Da pra dar mais liberdade na escolha)
-		Pessoa jogadores[] =
+		jogadores = new Pessoa[]
 			{
 				new Pessoa("Srta. Scarlet"),	
 				new Pessoa("Coronel Mustard"),
@@ -53,7 +58,7 @@ public class Jogo {
 		int num_suspeito = 6 + gerador.nextInt(6);
 		int num_comodo = 12 + gerador.nextInt(9);
 		
-		Cartas envelope [] = 
+		envelope = new Cartas[] 
 		{
 				new Cartas(cartas_jogo[num_arma].Tipo(), cartas_jogo[num_arma].Nome()),
 				new Cartas(cartas_jogo[num_suspeito].Tipo(), cartas_jogo[num_suspeito].Nome()),
@@ -84,7 +89,7 @@ public class Jogo {
 			
 		
 		// criando tabuleiro e posicionando os jogadores nele
-		Tabuleiro tabuleiro = new Tabuleiro(jogadores);
+		tabuleiro = new Tabuleiro(jogadores);
 		
 	}
 }
