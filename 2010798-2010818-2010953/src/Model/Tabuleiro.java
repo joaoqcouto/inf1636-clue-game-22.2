@@ -1,4 +1,7 @@
 package Model;
+import java.util.LinkedList;
+import java.util.Queue;
+// imports para busca por largura dos caminhos
 
 class Tabuleiro {
 	Object [][]tabuleiro;
@@ -112,14 +115,55 @@ class Tabuleiro {
 			}
 			rowI++;
 		}
+		
+		// adicionando os vizinhos (precisa ser feito após inicialização do tabuleiro todo)
+		rowI = 0;
+		for (Object row[]:tabuleiro) {
+			int colI = 0;
+			for (Object casa:row) {
+				// casas para adicionar vizinhos
+				if (casa instanceof Casa) {
+					// vizinho de baixo
+					if (rowI < tabuleiro.length-1 && tabuleiro[rowI+1][colI] instanceof Casa) ((Casa) casa).addVizinho((Casa)tabuleiro[rowI+1][colI]);
+					// vizinho de cima
+					if (rowI > 0 && tabuleiro[rowI-1][colI] instanceof Casa) ((Casa) casa).addVizinho((Casa)tabuleiro[rowI-1][colI]);
+					// vizinho da direita
+					if (colI < tabuleiro[0].length-1 && tabuleiro[rowI][colI+1] instanceof Casa) ((Casa) casa).addVizinho((Casa)tabuleiro[rowI][colI+1]);
+					// vizinho da esquerda
+					if (colI > 0 && tabuleiro[rowI][colI-1] instanceof Casa) ((Casa) casa).addVizinho((Casa)tabuleiro[rowI][colI-1]);
+				}
+				colI++;
+			}
+			rowI++;
+		}
 	}
 	
-	// cï¿½lculo da distï¿½ncia entre um ponto (x1, y1) e outro (x2, y2) do tabuleiro
-	// distï¿½ncia de manhattan utilizada para checar jogada vï¿½lida
-	// vai precisar ser um algoritmo mais complexo para calcular corretamente o custo (alguma busca por largura)
-	int calculaDistancia(int []ini, int []fim) {
-		int distancia = Math.abs(ini[0]-fim[0]) + Math.abs(ini[1]-fim[1]);
-		return distancia;
+	// reset do tabuleiro para algoritmo de distância
+	void resetDist() {
+		for (Object row[]:tabuleiro) for (Object casa:row) if (casa instanceof Casa) ((Casa) casa).resetDist();
+	}
+	
+	// cï¿½lculo da distï¿½ncia entre duas casas do tabuleiro
+	int calculaDistancia(Casa ini, Casa fim) {
+		int distancia = 0;
+		this.resetDist();
+		Queue<Casa> q = new LinkedList<>();
+		
+		ini.setDist(0);
+		q.add(ini);
+		while (q.size() > 0) {
+			Casa c = q.remove();
+			if (c == fim) return distancia;
+			for (Casa n:c.vizinhos()) {
+				if (!n.ocupado()) {
+					n.setDist(distancia+1);
+					q.add(n);
+				}
+			}
+			distancia++;
+		}
+		
+		return 1000; // não tem trajeto (distância infinita -> muito alto)
 	}
 	
 	// valida movimento a partir de uma coordenada (x, y) para outra (x,y) no tabuleiro
@@ -130,7 +174,7 @@ class Tabuleiro {
 		// ambos sï¿½o casas
 		if (tabuleiro[xIni][yIni] instanceof Casa && tabuleiro[xFim][yFim] instanceof Casa) {
 			// custo atï¿½ a casa precisa ser igual ao custo do trajeto
-			return dado == calculaDistancia(new int[]{xIni, yIni}, new int[]{xFim, yFim});
+			return dado == calculaDistancia((Casa)tabuleiro[xIni][yIni], (Casa)tabuleiro[xFim][yFim]);
 		}
 		
 		// de uma casa para um cï¿½modo
@@ -139,9 +183,8 @@ class Tabuleiro {
 			Comodo f = (Comodo)tabuleiro[xFim][yFim];
 			Casa destinos[] = f.entradas();
 			for (Casa dest:destinos) {
-				if (!dest.ocupado() && calculaDistancia(new int[]{xIni, yIni}, dest.posicao()) <= dado) return true;
+				if (!dest.ocupado() && calculaDistancia((Casa)tabuleiro[xIni][yIni], dest) <= dado) return true;
 			}
-			return dado >= calculaDistancia(new int[]{xIni, yIni}, new int[]{xFim, yFim});
 		}
 		
 		// de um cï¿½modo para uma casa
@@ -150,7 +193,7 @@ class Tabuleiro {
 			Comodo i = (Comodo)tabuleiro[xIni][yIni];
 			Casa inicios[] = i.entradas();
 			for (Casa ini:inicios) {
-				if (!ini.ocupado() && calculaDistancia(ini.posicao(), new int[]{xIni, yIni}) == dado) return true;
+				if (!ini.ocupado() && calculaDistancia(ini, (Casa)tabuleiro[xFim][yFim]) == dado) return true;
 			}
 		}
 		
@@ -163,7 +206,7 @@ class Tabuleiro {
 			Casa destinos[] = f.entradas();
 			for (Casa ini:inicios) {
 				for (Casa dest:destinos) {
-					if (!ini.ocupado() && !dest.ocupado() && calculaDistancia(ini.posicao(), dest.posicao()) <= dado) return true;
+					if (!ini.ocupado() && !dest.ocupado() && calculaDistancia(ini, dest) <= dado) return true;
 				}
 			}
 		}
