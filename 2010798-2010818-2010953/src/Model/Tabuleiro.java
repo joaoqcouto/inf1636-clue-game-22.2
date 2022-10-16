@@ -110,7 +110,7 @@ class Tabuleiro {
 		for (int row[]:tabuleiro_base) {
 			int colI = 0;
 			for (int val:row) {
-				if (val > 1 && val < 10) tabuleiro[rowI][colI] = comodos[val-1];			
+				if (val > 0 && val < 10) tabuleiro[rowI][colI] = comodos[val-1];			
 				colI++;
 			}
 			rowI++;
@@ -145,7 +145,6 @@ class Tabuleiro {
 	
 	// cï¿½lculo da distï¿½ncia entre duas casas do tabuleiro
 	int calculaDistancia(Casa ini, Casa fim) {
-		int distancia = 0;
 		this.resetDist();
 		Queue<Casa> q = new LinkedList<>();
 		
@@ -153,56 +152,55 @@ class Tabuleiro {
 		q.add(ini);
 		while (q.size() > 0) {
 			Casa c = q.remove();
-			if (c == fim) return distancia;
+			if (c == fim) return c.getDist();
 			for (Casa n:c.vizinhos()) {
 				if (!n.ocupado()) {
-					n.setDist(distancia+1);
+					n.setDist(c.getDist()+1);
 					q.add(n);
 				}
 			}
-			distancia++;
 		}
 		
 		return 1000; // não tem trajeto (distância infinita -> muito alto)
 	}
 	
 	// valida movimento a partir de uma coordenada (x, y) para outra (x,y) no tabuleiro
-	boolean validaMovimento(int xIni, int yIni, int xFim, int yFim, int dado) {
+	boolean validaMovimento(int rowIni, int colIni, int rowFim, int colFim, int dado) {
 		// final fora do tabuleiro jogï¿½vel
-		if (!(tabuleiro[xFim][yFim] instanceof Casa) && !(tabuleiro[xFim][yFim] instanceof Comodo)) return false;
-		
+		if (!(tabuleiro[rowFim][colFim] instanceof Casa) && !(tabuleiro[rowFim][colFim] instanceof Comodo)) return false;
+
 		// ambos sï¿½o casas
-		if (tabuleiro[xIni][yIni] instanceof Casa && tabuleiro[xFim][yFim] instanceof Casa) {
+		if (tabuleiro[rowIni][colIni] instanceof Casa && tabuleiro[rowFim][colFim] instanceof Casa) {
 			// custo atï¿½ a casa precisa ser igual ao custo do trajeto
-			return dado == calculaDistancia((Casa)tabuleiro[xIni][yIni], (Casa)tabuleiro[xFim][yFim]);
+			return dado == calculaDistancia((Casa)tabuleiro[rowIni][colIni], (Casa)tabuleiro[rowFim][colFim]);
 		}
 		
 		// de uma casa para um cï¿½modo
-		else if (tabuleiro[xIni][yIni] instanceof Casa && tabuleiro[xFim][yFim] instanceof Comodo) {
+		else if (tabuleiro[rowIni][colIni] instanceof Casa && tabuleiro[rowFim][colFim] instanceof Comodo) {
 			//  basta chegar em uma entrada livre
-			Comodo f = (Comodo)tabuleiro[xFim][yFim];
+			Comodo f = (Comodo)tabuleiro[rowFim][colFim];
 			Casa destinos[] = f.entradas();
 			for (Casa dest:destinos) {
-				if (!dest.ocupado() && calculaDistancia((Casa)tabuleiro[xIni][yIni], dest) <= dado) return true;
+				if (!dest.ocupado() && calculaDistancia((Casa)tabuleiro[rowIni][colIni], dest) <= dado) return true;				
 			}
 		}
 		
 		// de um cï¿½modo para uma casa
-		else if (tabuleiro[xIni][yIni] instanceof Comodo && tabuleiro[xFim][yFim] instanceof Casa) {
+		else if (tabuleiro[rowIni][colIni] instanceof Comodo && tabuleiro[rowFim][colFim] instanceof Casa) {
 			// uma das entradas do cï¿½modo precisa ter a distï¿½ncia certa atï¿½ a casa
-			Comodo i = (Comodo)tabuleiro[xIni][yIni];
+			Comodo i = (Comodo)tabuleiro[rowIni][colIni];
 			Casa inicios[] = i.entradas();
 			for (Casa ini:inicios) {
-				if (!ini.ocupado() && calculaDistancia(ini, (Casa)tabuleiro[xFim][yFim]) == dado) return true;
+				if (!ini.ocupado() && calculaDistancia(ini, (Casa)tabuleiro[rowFim][colFim]) == dado) return true;
 			}
 		}
 		
 		// de cï¿½modo X para cï¿½modo Y
 		else {
 			// uma das entradas de X precisa estar dentro da distï¿½ncia para uma das entradas de Y
-			Comodo i = (Comodo)tabuleiro[xIni][yIni];
+			Comodo i = (Comodo)tabuleiro[rowIni][colIni];
 			Casa inicios[] = i.entradas();
-			Comodo f = (Comodo)tabuleiro[xFim][yFim];
+			Comodo f = (Comodo)tabuleiro[rowFim][colFim];
 			Casa destinos[] = f.entradas();
 			for (Casa ini:inicios) {
 				for (Casa dest:destinos) {
@@ -210,7 +208,6 @@ class Tabuleiro {
 				}
 			}
 		}
-		
 		return false;
 	}
 }

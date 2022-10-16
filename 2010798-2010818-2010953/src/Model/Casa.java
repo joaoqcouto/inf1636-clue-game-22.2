@@ -5,7 +5,7 @@ package Model;
 // vizinhos = casas acessíveis através da casa atual
 class Casa {
 	private boolean ocupado;
-	private int posicao[];
+	private int posicao[] = new int[2];
 	private Casa vizinhos[]={};
 	private int dist;
 	
@@ -31,7 +31,7 @@ class Casa {
 	// para adicionar um vizinho
 	public void addVizinho(Casa vizinho) {
 		Casa[] newVizinhos = new Casa[vizinhos.length+1];
-		System.arraycopy(vizinho, 0, newVizinhos, 0, vizinhos.length);
+		System.arraycopy(vizinhos, 0, newVizinhos, 0, vizinhos.length);
 		newVizinhos[vizinhos.length] = vizinho;
 		this.vizinhos = newVizinhos;
 	}
