@@ -1,10 +1,11 @@
 package Model;
 
 class Pessoa {
-	private int posicao[] = new int[2];
+	public int posicao[] = new int[2];
 	private String nome;
 	public Cartas cartas_jogador[] = new Cartas[6];
 	private int num_cartas = 0; 
+	public boolean tem_vez;
 	
 	public Pessoa (String name) {
 		this.nome = name;
