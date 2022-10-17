@@ -3,7 +3,7 @@ package Model;
 class Pessoa {
 	private int posicao[] = new int[2];
 	private String nome;
-	public Cartas []cartas_jogador;
+	public Cartas cartas_jogador[] = new Cartas[6];
 	private int num_cartas = 0; 
 	
 	public Pessoa (String name) {
