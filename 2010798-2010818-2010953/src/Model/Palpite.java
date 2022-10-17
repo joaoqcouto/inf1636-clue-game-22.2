@@ -30,7 +30,7 @@ class Palpite {
 			//neste caso, ninguem teve que mostrar nada porque ninguem tinha as cartas palpitadas e o jogo seguiu
 		}
 		else {
-			
+			System.out.printf("Mostre a carta referente ao palpite");
 			return false;
 		}
 	}
