@@ -116,6 +116,12 @@ class Tabuleiro {
 			rowI++;
 		}
 		
+		// adicionando passagens secretas
+		comodos[0].setPassagemSecreta(comodos[8]);
+		comodos[8].setPassagemSecreta(comodos[0]);
+		comodos[2].setPassagemSecreta(comodos[6]);
+		comodos[6].setPassagemSecreta(comodos[2]);
+		
 		// adicionando os vizinhos (precisa ser feito após inicialização do tabuleiro todo)
 		rowI = 0;
 		for (Object row[]:tabuleiro) {
@@ -166,6 +172,9 @@ class Tabuleiro {
 	
 	// valida movimento a partir de uma coordenada (x, y) para outra (x,y) no tabuleiro
 	boolean validaMovimento(int rowIni, int colIni, int rowFim, int colFim, int dado) {
+		// mesmo lugar
+		if (rowIni==rowFim && colIni==colFim) return false;
+		
 		// final fora do tabuleiro jogï¿½vel
 		if (!(tabuleiro[rowFim][colFim] instanceof Casa) && !(tabuleiro[rowFim][colFim] instanceof Comodo)) return false;
 
@@ -196,18 +205,26 @@ class Tabuleiro {
 		}
 		
 		// de cï¿½modo X para cï¿½modo Y
-		else {
+		else if (tabuleiro[rowIni][colIni] instanceof Comodo && tabuleiro[rowFim][colFim] instanceof Comodo) {			
 			// uma das entradas de X precisa estar dentro da distï¿½ncia para uma das entradas de Y
 			Comodo i = (Comodo)tabuleiro[rowIni][colIni];
 			Casa inicios[] = i.entradas();
 			Comodo f = (Comodo)tabuleiro[rowFim][colFim];
 			Casa destinos[] = f.entradas();
+			
+			// mesmo cômodo
+			if (i == f) return false;
+			
+			// caso especial: passagem secreta
+			if (i.passagemSecreta() == f) return true;
+			
 			for (Casa ini:inicios) {
 				for (Casa dest:destinos) {
 					if (!ini.ocupado() && !dest.ocupado() && calculaDistancia(ini, dest) <= dado) return true;
 				}
 			}
 		}
+		// else
 		return false;
 	}
 }

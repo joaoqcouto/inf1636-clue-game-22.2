@@ -44,19 +44,37 @@ public class TabuleiroTest {
 		assertFalse(testTabuleiro.validaMovimento(9, 8, 9, 14, 6));
 		
 	// TESTES DE CASA -> COMODO
-		// testes simples horizontal
 		assertTrue(testTabuleiro.validaMovimento(9, 8, 9, 3, 1));
 		assertTrue(testTabuleiro.validaMovimento(9, 8, 9, 3, 4));
 		
-		// testes simples vertical
-		assertTrue(testTabuleiro.validaMovimento(7, 6, 4, 6, 2));
-		assertFalse(testTabuleiro.validaMovimento(7, 6, 4, 6, 1));
 		
-		// testes com cantos
-		assertTrue(testTabuleiro.validaMovimento(16, 16, 15, 16, 4));
-		assertTrue(testTabuleiro.validaMovimento( 7, 15, 7, 14, 5));
-		assertFalse(testTabuleiro.validaMovimento(16, 16, 15, 16, 3));
-		assertFalse(testTabuleiro.validaMovimento( 7, 15, 7, 14, 2));
+	// TESTES DE COMODO -> CASA
+		// comodo com uma entrada
+		assertTrue(testTabuleiro.validaMovimento(4, 6, 6, 6, 1));
+		assertTrue(testTabuleiro.validaMovimento(3, 2, 6, 6, 1));
+		assertFalse(testTabuleiro.validaMovimento(3, 2, 5, 6, 1));
+		
+		// comodo com mais entradas
+		assertTrue(testTabuleiro.validaMovimento(20, 11, 16, 13, 2));
+		assertTrue(testTabuleiro.validaMovimento(20, 11, 16, 13, 5));
+		assertFalse(testTabuleiro.validaMovimento(20, 11, 16, 13, 3));
+		
+	// TESTES DE COMODO -> COMODO
+		// passagens normais
+		assertTrue(testTabuleiro.validaMovimento(3, 3, 4, 11, 2));
+		assertTrue(testTabuleiro.validaMovimento(3, 3, 4, 11, 5));
+		assertTrue(testTabuleiro.validaMovimento(4, 20, 12, 20, 2));
+		assertFalse(testTabuleiro.validaMovimento(4, 20, 12, 20, 1));
+		
+		// mesmo cômodo
+		assertFalse(testTabuleiro.validaMovimento(3, 3, 1, 3, 1));
+		assertFalse(testTabuleiro.validaMovimento(13, 16, 13, 20, 4));
+		
+		// passagem secreta (dado não importaria para passar)
+		assertTrue(testTabuleiro.validaMovimento(3, 3, 22, 22, 0));
+		assertTrue(testTabuleiro.validaMovimento(22, 2, 3, 20, 5));
+		assertTrue(testTabuleiro.validaMovimento(22, 22, 3, 3, 6));
+		assertTrue(testTabuleiro.validaMovimento(3, 20, 22, 2, 3));
 	}
 
 }

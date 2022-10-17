@@ -8,13 +8,15 @@ class Comodo {
 	private Pessoa []pessoasDentro;
 	private Casa []entradas;
 	private int qtdDentro;
+	private Comodo passagemSecreta;
 	
 	// init
 	public Comodo(String comodo, Casa entradas[]) {
 		this.comodo = comodo;
 		this.entradas = entradas;
 		this.pessoasDentro = new Pessoa[6];
-		qtdDentro = 0;
+		this.passagemSecreta = null;
+		this.qtdDentro = 0;
 	}
 	
 	// se uma pessoa 'p' está no cômodo
@@ -52,8 +54,10 @@ class Comodo {
 	}
 	
 	// operações para entrar e sair vão precisar saber as entradas de um cômodo
-	public Casa[] entradas() {
-		return entradas;
-	}
+	public Casa[] entradas() { return entradas; }
+	
+	// set e get passagem secreta
+	public void setPassagemSecreta(Comodo passagemSecreta) { this.passagemSecreta = passagemSecreta; }
+	public Comodo passagemSecreta() { return passagemSecreta; }
 	
 }
