@@ -8,9 +8,10 @@ public class Jogo {
 	Pessoa jogadores[];
 	Cartas envelope [];
 	Tabuleiro tabuleiro;
+	Dados dados;
 	
 	public Jogo() {
-		
+		dados = new Dados();
 		cartas_jogo = new Cartas[] 
 			{
 				new Cartas("arma", "Corda"),
