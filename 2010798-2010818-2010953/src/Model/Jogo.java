@@ -1,11 +1,14 @@
 package Model;
 import java.util.Scanner;
 import java.util.Random;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Jogo {
 	// mantem o tabuleiro, os jogadores, a ordem das jogadas, a resposta certa, etc.
 	Cartas cartas_jogo[];
 	Pessoa jogadores[];
+	Queue<Pessoa> filaJogadores;
 	Cartas envelope [];
 	Tabuleiro tabuleiro;
 	Dados dados;
@@ -87,10 +90,34 @@ public class Jogo {
 			}
 			
 		}
-			
+		
+		// coloca jogadores na fila de próximo de acordo com a quantidade
+		filaJogadores = new LinkedList<>();
+		for (int i = 0; i < qtd_jogadores; i++) {
+			filaJogadores.add(jogadores[i]);
+		}
 		
 		// criando tabuleiro e posicionando os jogadores nele
 		tabuleiro = new Tabuleiro(jogadores);
 		
+	}
+	
+	public Pessoa getJogadorAtual() {
+		Pessoa atual = filaJogadores.peek();
+		return atual;
+	}
+	
+	public void passaVez() {
+		Pessoa atual = filaJogadores.remove();
+		filaJogadores.add(atual);
+	}
+	
+	public void tiraDoJogo(String nome) {
+		for (Pessoa p:jogadores) {
+			if (p.nome() == nome) {
+				filaJogadores.remove(p);
+				break;
+			}
+		}
 	}
 }
