@@ -14,6 +14,7 @@ public class CluePanel extends JPanel {
 		this.panelName = panelName;
 	}
 	public void paintComponent(Graphics g) {
+		
 		Image i;
 		try {
 			i=ImageIO.read(new File(panelName));
@@ -27,7 +28,7 @@ public class CluePanel extends JPanel {
 	}
 	
 	public static void main(String[] args) {
-		//CapaFrame c = new CapaFrame("Clue - Início");
+		//CapaFrame c = new CapaFrame("Clue - Inï¿½cio");
 		//c.setVisible(true);
 		
 		//PersonagensFrame p = new PersonagensFrame("Clue - Personagens");
