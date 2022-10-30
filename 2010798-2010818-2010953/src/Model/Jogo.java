@@ -12,9 +12,41 @@ public class Jogo {
 	Cartas envelope [];
 	Tabuleiro tabuleiro;
 	Dados dados;
+	Armas armas[];
 	
 	public Jogo(int qtd_jogadores) {
+		Random gerador = new Random();
 		dados = new Dados();
+		
+		armas = new Armas[] 
+		{
+				new Armas("Corda"),
+				new Armas("Cano de Chumbo"),
+				new Armas("Faca"),
+				new Armas("Chave Inglesa"),
+				new Armas( "Castiçal"),
+				new Armas("Revólver"),
+		};
+		
+		int pos_arma[] = new int[6];
+		 
+		for (int i = 0; i < pos_arma.length; i++) {
+			pos_arma[i] = -1; 
+		}
+		
+		for(int i = 0; i < pos_arma.length; i++) {
+			int position = 1 + gerador.nextInt(9);
+			while(pos_arma[position]!=-1) {
+				position = (position + 1) % 6; 
+			}
+			pos_arma[position] = i; 
+		}
+		
+		for(int i = 0; i<6;i++) {
+			armas[i].inicializaPosicaoArma(pos_arma[i]); 
+		}
+		
+		
 		cartas_jogo = new Cartas[] 
 			{
 				new Cartas("arma", "Corda"),
@@ -54,7 +86,7 @@ public class Jogo {
 		int total_cartas = 21; 
 		
 		//gabarito
-		Random gerador = new Random();
+		
 		int num_arma = gerador.nextInt(6);
 		int num_suspeito = 6 + gerador.nextInt(6);
 		int num_comodo = 12 + gerador.nextInt(9);
@@ -88,7 +120,7 @@ public class Jogo {
 			
 		}
 		
-		// coloca jogadores na fila de pr�ximo de acordo com a quantidade
+		// coloca jogadores na fila de pr�ximo de acordo com a quantidade
 		filaJogadores = new LinkedList<>();
 		for (int i = 0; i < qtd_jogadores; i++) {
 			filaJogadores.add(jogadores[i]);

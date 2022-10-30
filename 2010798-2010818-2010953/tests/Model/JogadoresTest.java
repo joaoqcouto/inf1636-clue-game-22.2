@@ -45,7 +45,13 @@ public class JogadoresTest {
 				new Pessoa("Sra. White"),
 				new Pessoa("Sra. Peacock"),
 			};
+		
 		testJogadores[0].atribuirCarta(cartas_jogo[0]);
+		testJogadores[1].atribuirCarta(cartas_jogo[1]);
+		testJogadores[2].atribuirCarta(cartas_jogo[2]);
+		testJogadores[0].atribuirCarta(cartas_jogo[3]);
+		testJogadores[1].atribuirCarta(cartas_jogo[4]);
+		testJogadores[2].atribuirCarta(cartas_jogo[5]);
 	}
 	
 	@Test
@@ -53,6 +59,19 @@ public class JogadoresTest {
 		assertSame("Srta. Scarlet", testJogadores[0].nome());
 		assertSame(cartas_jogo[0].Tipo(), testJogadores[0].cartas_jogador[0].Tipo());
 		assertSame(cartas_jogo[0].Nome(), testJogadores[0].cartas_jogador[0].Nome());
+		assertSame(cartas_jogo[3].Tipo(), testJogadores[0].cartas_jogador[1].Tipo());
+		assertSame(cartas_jogo[3].Nome(), testJogadores[0].cartas_jogador[1].Nome());
+		assertSame("Coronel Mustard", testJogadores[1].nome());
+		assertSame(cartas_jogo[1].Tipo(), testJogadores[1].cartas_jogador[0].Tipo());
+		assertSame(cartas_jogo[1].Nome(), testJogadores[1].cartas_jogador[0].Nome());
+		assertSame(cartas_jogo[4].Tipo(), testJogadores[1].cartas_jogador[1].Tipo());
+		assertSame(cartas_jogo[4].Nome(), testJogadores[1].cartas_jogador[1].Nome());
+		assertSame("Professor Plum", testJogadores[2].nome());
+		assertSame(cartas_jogo[2].Tipo(), testJogadores[2].cartas_jogador[0].Tipo());
+		assertSame(cartas_jogo[2].Nome(), testJogadores[2].cartas_jogador[0].Nome());
+		assertSame(cartas_jogo[5].Tipo(), testJogadores[2].cartas_jogador[1].Tipo());
+		assertSame(cartas_jogo[5].Nome(), testJogadores[2].cartas_jogador[1].Nome());
+		
 	}
 
 }
