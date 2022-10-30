@@ -15,8 +15,8 @@ public class ClueFrame extends JFrame {
 	JButton b9 = new JButton ("Escolher Dados");
 	
 	
-	public final int LARG_DEFAULT=900;
-	public final int ALT_DEFAULT=696;
+	public final int LARG_DEFAULT=810;
+	public final int ALT_DEFAULT=626;
 	public ClueFrame(String name) {
 		
 		super(name); 
@@ -43,15 +43,15 @@ public class ClueFrame extends JFrame {
 		p.add(b7);
 		p.add(b8);
 		p.add(b9);
-		b1.setBounds(710,20,160,30);
-		b2.setBounds(710,60,160,30);
-		b3.setBounds(710,100,160,30);
-		b4.setBounds(710,140,160,30);
-		b5.setBounds(710,180,160,30);
-		b6.setBounds(710,220,160,30);
-		b7.setBounds(710,260,160,30);
-		b8.setBounds(710,500,160,30);
-		b9.setBounds(710,540,160,30);
+		b1.setBounds(620,20,160,30);
+		b2.setBounds(620,60,160,30);
+		b3.setBounds(620,100,160,30);
+		b4.setBounds(620,140,160,30);
+		b5.setBounds(620,180,160,30);
+		b6.setBounds(620,220,160,30);
+		b7.setBounds(620,260,160,30);
+		b8.setBounds(620,500,160,30);
+		b9.setBounds(620,540,160,30);
 
 		p.setLayout(null);
 	}

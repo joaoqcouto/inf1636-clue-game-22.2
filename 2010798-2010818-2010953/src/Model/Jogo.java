@@ -13,7 +13,7 @@ public class Jogo {
 	Tabuleiro tabuleiro;
 	Dados dados;
 	
-	public Jogo() {
+	public Jogo(int qtd_jogadores) {
 		dados = new Dados();
 		cartas_jogo = new Cartas[] 
 			{
@@ -51,9 +51,6 @@ public class Jogo {
 				new Pessoa("Sra. Peacock"),
 			};
 		
-		Scanner sc = new Scanner(System.in);
-		System.out.printf("Insira quantidade de Jogadores(de 3 a 6):%n");
-		int qtd_jogadores = sc.nextInt();
 		int total_cartas = 21; 
 		
 		//gabarito
