@@ -1,7 +1,8 @@
 package View;
-
+import Controller.TabuleiroClickHandler;
 import java.awt.*;
 import javax.swing.*;
+import java.awt.geom.*;
 
 public class ClueFrame extends JFrame {
 	JButton b1 = new JButton ("Passagem Secreta");
@@ -13,10 +14,14 @@ public class ClueFrame extends JFrame {
 	JButton b7 = new JButton ("Salvar Jogo");
 	JButton b8 = new JButton ("Jogar Dados");
 	JButton b9 = new JButton ("Escolher Dados");
-	
+	Color coresPersonagens[] = { Color.RED, Color.YELLOW, Color.PINK, Color.GREEN, Color.WHITE, Color.BLUE };
+	CluePanel gamePanel;
 	
 	public final int LARG_DEFAULT=810;
-	public final int ALT_DEFAULT=626;
+	public final int ALT_DEFAULT=670;
+	
+	public int currentColor = 0;
+	
 	public ClueFrame(String name) {
 		
 		super(name); 
@@ -32,17 +37,17 @@ public class ClueFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//Putting on Panel
-		CluePanel p = new CluePanel("./Resources/Tabuleiro-Clue.jpg");
-		getContentPane().add(p);
-		p.add(b1);
-		p.add(b2);
-		p.add(b3);
-		p.add(b4);
-		p.add(b5);
-		p.add(b6);
-		p.add(b7);
-		p.add(b8);
-		p.add(b9);
+		gamePanel = new CluePanel("./Resources/Tabuleiro-Clue.jpg");
+		getContentPane().add(gamePanel);
+		gamePanel.add(b1);
+		gamePanel.add(b2);
+		gamePanel.add(b3);
+		gamePanel.add(b4);
+		gamePanel.add(b5);
+		gamePanel.add(b6);
+		gamePanel.add(b7);
+		gamePanel.add(b8);
+		gamePanel.add(b9);
 		b1.setBounds(620,20,160,30);
 		b2.setBounds(620,60,160,30);
 		b3.setBounds(620,100,160,30);
@@ -52,7 +57,10 @@ public class ClueFrame extends JFrame {
 		b7.setBounds(620,260,160,30);
 		b8.setBounds(620,500,160,30);
 		b9.setBounds(620,540,160,30);
-
-		p.setLayout(null);
+		
+		gamePanel.addMouseListener(new TabuleiroClickHandler());
+		
+		gamePanel.setLayout(null);
+		
 	}
 }

@@ -26,16 +26,4 @@ public class CluePanel extends JPanel {
 			System.exit(1);
 		}
 	}
-	
-	public static void main(String[] args) {
-		//CapaFrame c = new CapaFrame("Clue - In�cio");
-		//c.setVisible(true);
-		
-		//PersonagensFrame p = new PersonagensFrame("Clue - Personagens");
-		//p.setVisible(true);
-		
-		ClueFrame f=new ClueFrame("Clue - Jogo");
-		f.setVisible(true);
-		
-	}
 }

@@ -1,6 +1,6 @@
 package Model;
-import java.util.Scanner;
 import java.util.Random;
+import java.awt.Color;
 import java.util.LinkedList;
 import java.util.Queue;
 

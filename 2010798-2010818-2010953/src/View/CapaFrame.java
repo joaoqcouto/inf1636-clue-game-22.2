@@ -2,11 +2,14 @@ package View;
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
+
 public class CapaFrame extends JFrame {
 	JButton b1 = new JButton ("Novo Jogo");
 	JButton b2 = new JButton ("Continuar");
 	public final int LARG_DEFAULT=966;
 	public final int ALT_DEFAULT=698;
+	JPanel capaPanel;
 	
 	public CapaFrame(String name) {
 		super(name);
@@ -24,14 +27,22 @@ public class CapaFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//Putting on Panel
-		JPanel p = new CluePanel("./Resources/Clue_Cover.png");
-		getContentPane().add(p);
-		p.add(b1);
-		p.add(b2);
+		capaPanel = new CluePanel("./Resources/Clue_Cover.png");
+		getContentPane().add(capaPanel);
+		capaPanel.add(b1);
+		capaPanel.add(b2);
 		size = b1.getPreferredSize();
 		b1.setBounds(160,240,size.width,size.height);
 		size = b1.getPreferredSize();
 		b2.setBounds(160,270,size.width,size.height);
-		p.setLayout(null);
+		capaPanel.setLayout(null);
+		
+        b1.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                dispose();
+                PersonagensFrame p = new PersonagensFrame("Clue - Personagens");
+                p.setVisible(true);
+            }
+        });
 	}
 }
