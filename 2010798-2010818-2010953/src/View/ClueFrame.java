@@ -6,7 +6,7 @@ import java.awt.geom.*;
 
 public class ClueFrame extends JFrame {
 	JButton b1 = new JButton ("Passagem Secreta");
-	JButton b2 = new JButton ("PrÃ³ximo");
+	JButton b2 = new JButton ("Próximo");
 	JButton b3 = new JButton ("Mostrar Cartas");
 	JButton b4 = new JButton ("Bloco de Notas");
 	JButton b5 = new JButton ("Palpite");
@@ -18,7 +18,7 @@ public class ClueFrame extends JFrame {
 	CluePanel gamePanel;
 	
 	public final int LARG_DEFAULT=810;
-	public final int ALT_DEFAULT=670;
+	public final int ALT_DEFAULT=665;
 	
 	public int currentColor = 0;
 	
@@ -48,15 +48,51 @@ public class ClueFrame extends JFrame {
 		gamePanel.add(b7);
 		gamePanel.add(b8);
 		gamePanel.add(b9);
+		
 		b1.setBounds(620,20,160,30);
+		b1.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
+		b1.setBackground(Color.WHITE);
+		b1.setForeground(Color.BLACK);
+		
 		b2.setBounds(620,60,160,30);
+		b2.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
+		b2.setBackground(Color.WHITE);
+		b2.setForeground(Color.BLACK);
+		
 		b3.setBounds(620,100,160,30);
+		b3.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
+		b3.setBackground(Color.WHITE);
+		b3.setForeground(Color.BLACK);
+		
 		b4.setBounds(620,140,160,30);
+		b4.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
+		b4.setBackground(Color.WHITE);
+		b4.setForeground(Color.BLACK);
+		
 		b5.setBounds(620,180,160,30);
+		b5.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
+		b5.setBackground(Color.WHITE);
+		b5.setForeground(Color.BLACK);
+		
 		b6.setBounds(620,220,160,30);
+		b6.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
+		b6.setBackground(Color.WHITE);
+		b6.setForeground(Color.BLACK);
+		
 		b7.setBounds(620,260,160,30);
+		b7.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
+		b7.setBackground(Color.WHITE);
+		b7.setForeground(Color.BLACK);
+		
 		b8.setBounds(620,500,160,30);
+		b8.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
+		b8.setBackground(Color.WHITE);
+		b8.setForeground(Color.BLACK);
+		
 		b9.setBounds(620,540,160,30);
+		b9.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
+		b9.setBackground(Color.WHITE);
+		b9.setForeground(Color.BLACK);
 		
 		gamePanel.addMouseListener(new TabuleiroClickHandler());
 		
