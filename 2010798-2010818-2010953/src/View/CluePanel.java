@@ -19,7 +19,7 @@ public class CluePanel extends JPanel {
 		try {
 			i=ImageIO.read(new File(panelName));
 			g.drawImage(i,TXT_X,TXT_Y,null);
-			g.dispose();
+			//g.dispose();
 		}
 		catch(IOException e) {
 			System.out.println(e.getMessage());
