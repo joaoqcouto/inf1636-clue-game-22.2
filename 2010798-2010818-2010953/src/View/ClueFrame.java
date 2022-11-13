@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import Model.Jogo;
 
-public class ClueFrame extends JFrame {
+public class ClueFrame extends JFrame implements Observer{
 	
 	Jogo jogo = Jogo.getJogo();
 	
@@ -28,10 +28,14 @@ public class ClueFrame extends JFrame {
 	Color coresPersonagens[] = { Color.RED, Color.YELLOW, Color.PINK, Color.GREEN, Color.WHITE, Color.BLUE };
 	CluePanel gamePanel;
 	
+	
 	public final int LARG_DEFAULT=810;
 	public final int ALT_DEFAULT=665;
 	
 	public int currentColor = 0;
+	
+	CluePanel dadosPanel;
+
 	
 	public static final int TXT_X=0;
 	public static final int TXT_Y=0;
@@ -120,7 +124,7 @@ public class ClueFrame extends JFrame {
 		
 		b4.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-            	NotasFrame n = new NotasFrame("Clue - Personagens");
+            	NotasFrame n = new NotasFrame(new StringBuilder().append(jogo.getJogadorAtualNome()).append("'s notes").toString() );
                 n.setVisible(true);
             }
         });
@@ -128,6 +132,19 @@ public class ClueFrame extends JFrame {
 		b2.addMouseListener(ProximoClickHandler.getInstance());
 		b8.addMouseListener(JogarDadosClickHandler.getInstance());
 		//gamePanel.add();
+		b5.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+            	PalpiteFrame p = new PalpiteFrame("Palpite");
+                p.setVisible(true);
+            }
+        });
+		
+		b6.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+            	AcusacaoFrame a = new AcusacaoFrame("Acusação");
+                a.setVisible(true);
+            }
+        });
 		
 		// log do estado
 		b1.addMouseListener(new PrintGameStateHandler());
@@ -136,6 +153,20 @@ public class ClueFrame extends JFrame {
 		//getContentPane().add(dadosPanel);
 		
 		gamePanel.setLayout(null);
+		
+	}
+	public void printaDados (int num) {
+		StringBuilder a = new StringBuilder()
+				.append("./Resources/dado")
+			    .append(String.valueOf(num))
+			    .append(".jpg");
+		dadosPanel = new CluePanel(a.toString());
+		dadosPanel.setBounds(620, 350, 40, 40);
+		gamePanel.add(dadosPanel);
+		
+	}
+	@Override
+	public void notify(Observed o) {
 		
 	}
 	
