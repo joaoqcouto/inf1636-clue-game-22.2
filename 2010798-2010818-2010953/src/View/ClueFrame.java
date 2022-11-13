@@ -1,10 +1,20 @@
 package View;
 import Controller.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.geom.*;
+import java.io.File;
+import java.io.IOException;
+import Model.Jogo;
 
 public class ClueFrame extends JFrame {
+	
+	Jogo jogo = Jogo.getJogo();
+	
 	// botao b1 de teste (printa no console estado atual)
 	JButton b1 = new JButton ("Print Game State");
 	JButton b2 = new JButton ("Próximo");
@@ -22,6 +32,9 @@ public class ClueFrame extends JFrame {
 	public final int ALT_DEFAULT=665;
 	
 	public int currentColor = 0;
+	
+	public static final int TXT_X=0;
+	public static final int TXT_Y=0;
 	
 	public ClueFrame(String name) {
 		
@@ -95,17 +108,35 @@ public class ClueFrame extends JFrame {
 		b9.setBackground(Color.WHITE);
 		b9.setForeground(Color.BLACK);
 		
+		JLabel l = new JLabel(jogo.getJogadorAtualNome());
+		gamePanel.add(l);
+		l.setBounds(620, 300,160,30);
+		l.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
+		
 		// listener do tabuleiro
 		gamePanel.addMouseListener(new TabuleiroClickHandler());
 		
 		// listeners dos botoes
+		
+		b4.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+            	NotasFrame n = new NotasFrame("Clue - Personagens");
+                n.setVisible(true);
+            }
+        });
+		
 		b2.addMouseListener(new ProximoClickHandler());
 		b8.addMouseListener(new JogarDadosClickHandler());
+		//gamePanel.add();
 		
 		// log do estado
 		b1.addMouseListener(new PrintGameStateHandler());
 		
+		//dadosPanel = new CluePanel("./Resources/dado1.jpg");
+		//getContentPane().add(dadosPanel);
+		
 		gamePanel.setLayout(null);
 		
 	}
+	
 }
