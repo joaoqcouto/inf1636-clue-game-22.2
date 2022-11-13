@@ -7,11 +7,9 @@ class Tabuleiro {
 	Object [][]tabuleiro;
 	
 	// matriz de ints que representa o tabuleiro
-	// tabuleiro � 26 linhas : 24 colunas, coordenadas [linha][coluna]
 	// 0 = espa�o v�lido; 1 - 9 = c�modos; -1 -> -6 = jogadores; 10 = espa�o inv�lido
 	int tabuleiro_base[][] =
 		{
-			{10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,  2,  2, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
 			{ 1,  1,  1,  1,  1,  1, 10,  0, 10,  2,  2,  2,  2,  2,  2, 10, -1, 10,  3,  3,  3,  3,  3,  3},
 			{ 1,  1,  1,  1,  1,  1,  1,  0,  0,  2,  2,  2,  2,  2,  2,  0,  0,  3,  3,  3,  3,  3,  3,  3},
 			{ 1,  1,  1,  1,  1,  1,  1,  0,  0,  2,  2,  2,  2,  2,  2,  0,  0,  3,  3,  3,  3,  3,  3,  3},
@@ -64,31 +62,31 @@ class Tabuleiro {
 		Casa entradas[][] =
 			{
 				// entradas c�modo 1
-				{ (Casa)tabuleiro[ 5][ 6] },
+				{ (Casa)tabuleiro[ 4][ 6] },
 				
 				// entradas c�modo 2
-				{ (Casa)tabuleiro[ 5][ 8], (Casa)tabuleiro[ 8][11], (Casa)tabuleiro[ 8][12] },
+				{ (Casa)tabuleiro[ 4][ 8], (Casa)tabuleiro[ 7][11], (Casa)tabuleiro[ 7][12] },
 				
 				// entradas c�modo 3
-				{ (Casa)tabuleiro[ 7][17] },
+				{ (Casa)tabuleiro[ 6][17] },
 				
 				// entradas c�modo 4
-				{ (Casa)tabuleiro[ 9][ 7], (Casa)tabuleiro[12][ 3] },
+				{ (Casa)tabuleiro[ 8][ 7], (Casa)tabuleiro[11][ 3] },
 				
 				// entradas c�modo 5
-				{ (Casa)tabuleiro[12][ 1], (Casa)tabuleiro[16][ 6] },
+				{ (Casa)tabuleiro[11][ 1], (Casa)tabuleiro[15][ 6] },
 				
 				// entradas c�modo 6
-				{ (Casa)tabuleiro[ 9][17], (Casa)tabuleiro[13][15] },
+				{ (Casa)tabuleiro[ 8][17], (Casa)tabuleiro[12][15] },
 				
 				// entradas c�modo 7
-				{ (Casa)tabuleiro[20][ 5] },
+				{ (Casa)tabuleiro[19][ 5] },
 				
 				// entradas c�modo 8
-				{ (Casa)tabuleiro[20][ 7], (Casa)tabuleiro[17][ 9], (Casa)tabuleiro[17][14], (Casa)tabuleiro[20][16] },
+				{ (Casa)tabuleiro[19][ 7], (Casa)tabuleiro[16][ 9], (Casa)tabuleiro[16][14], (Casa)tabuleiro[19][16] },
 				
 				// entradas c�modo 9
-				{ (Casa)tabuleiro[18][19] },
+				{ (Casa)tabuleiro[17][19] },
 			};
 		
 		// criando c�modos
@@ -161,8 +159,10 @@ class Tabuleiro {
 			if (c == fim) return c.getDist();
 			for (Casa n:c.vizinhos()) {
 				if (!n.ocupado()) {
-					n.setDist(c.getDist()+1);
-					q.add(n);
+					if (n.getDist() > c.getDist()+1 || n.getDist() == -1) {
+						n.setDist(c.getDist()+1);
+						q.add(n);
+					}
 				}
 			}
 		}
@@ -171,7 +171,7 @@ class Tabuleiro {
 	}
 	
 	// valida movimento a partir de uma coordenada (x, y) para outra (x,y) no tabuleiro
-	boolean validaMovimento(int rowIni, int colIni, int rowFim, int colFim, int dado) {
+	boolean validaMovimento(int rowIni, int colIni, int rowFim, int colFim, int dado) {		
 		// mesmo lugar
 		if (rowIni==rowFim && colIni==colFim) return false;
 		
@@ -225,6 +225,44 @@ class Tabuleiro {
 			}
 		}
 		// else
+		return false;
+	}
+	
+	boolean movePessoa(Pessoa p, int[] posicaoFim, int dados) {
+		int[] posicaoIni = p.posicao();
+		
+		// se movimento pode ser feito
+		boolean podeMover = validaMovimento(posicaoIni[0], posicaoIni[1], posicaoFim[0], posicaoFim[1], dados);
+		System.out.println("Movimento checado");
+		if ( podeMover ) {
+			
+			if (tabuleiro[posicaoIni[0]][posicaoIni[1]] instanceof Casa) {
+				Casa casaIni = (Casa)tabuleiro[posicaoIni[0]][posicaoIni[1]];
+				casaIni.desocupar();
+			}
+			
+			if (tabuleiro[posicaoFim[0]][posicaoFim[1]] instanceof Casa) {
+				Casa casaFim = (Casa)tabuleiro[posicaoFim[0]][posicaoFim[1]];
+				casaFim.ocupar();
+			}
+			
+			if (tabuleiro[posicaoIni[0]][posicaoIni[1]] instanceof Comodo) {
+				Comodo comodoIni = (Comodo)tabuleiro[posicaoIni[0]][posicaoIni[1]];
+				comodoIni.saiComodo(p);
+			}
+			
+			if (tabuleiro[posicaoFim[0]][posicaoFim[1]] instanceof Comodo) {
+				Comodo comodoFim = (Comodo)tabuleiro[posicaoFim[0]][posicaoFim[1]];
+				comodoFim.entraComodo(p);
+			}
+			
+			p.moverPara(posicaoFim[0], posicaoFim[1]);
+			
+			// movimento feito
+			return true;
+		}
+		
+		// movimento nao feito
 		return false;
 	}
 }

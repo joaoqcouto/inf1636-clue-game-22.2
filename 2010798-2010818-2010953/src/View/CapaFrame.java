@@ -39,10 +39,15 @@ public class CapaFrame extends JFrame {
 		
         b1.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                dispose();
-                PersonagensFrame p = new PersonagensFrame("Clue - Personagens");
-                p.setVisible(true);
+                newGameButtonPressed();
             }
         });
+	}
+	
+	// opening character menu
+	public void newGameButtonPressed() {
+		dispose();
+        PersonagensFrame p = new PersonagensFrame("Clue - Personagens");
+        p.setVisible(true);
 	}
 }

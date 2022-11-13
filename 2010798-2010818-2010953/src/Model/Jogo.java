@@ -1,10 +1,14 @@
 package Model;
 import java.util.Random;
+import javax.swing.JCheckBox;
 import java.awt.Color;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class Jogo {
+	// jogo é singleton
+	static Jogo jogo = null;
+	
 	// mantem o tabuleiro, os jogadores, a ordem das jogadas, a resposta certa, etc.
 	Cartas cartas_jogo[];
 	Pessoa jogadores[];
@@ -14,7 +18,21 @@ public class Jogo {
 	Dados dados;
 	Armas armas[];
 	
-	public Jogo(int qtd_jogadores) {
+	// mantem em que 'fase' de uma rodada o jogo esta
+	// vai ser util para limitar as acoes possiveis do jogador
+	// 0 => rola dados ; 1 => escolhe pra onde vai ; 2 => palpita/acusa/passa a vez 
+	int fase_rodada = 0;
+	
+	// operadores de singleton
+	public static void createJogo(boolean a_jogar[]) {
+		jogo = new Jogo(a_jogar);
+	}
+	
+	public static Jogo getJogo() {
+		return jogo;
+	}
+	
+	private Jogo(boolean a_jogar[]) {
 		Random gerador = new Random();
 		dados = new Dados();
 		
@@ -36,10 +54,7 @@ public class Jogo {
 		
 		for(int i = 0; i < pos_arma.length; i++) {
 			int position = 1 + gerador.nextInt(9);
-			while(pos_arma[position]!=-1) {
-				position = (position + 1) % 6; 
-			}
-			pos_arma[position] = i; 
+			pos_arma[i] = position; 
 		}
 		
 		for(int i = 0; i<6;i++) {
@@ -77,10 +92,10 @@ public class Jogo {
 			{
 				new Pessoa("Srta. Scarlet"),	
 				new Pessoa("Coronel Mustard"),
-				new Pessoa("Professor Plum"),
-				new Pessoa("Reverendo Green"),
 				new Pessoa("Sra. White"),
+				new Pessoa("Reverendo Green"),
 				new Pessoa("Sra. Peacock"),
+				new Pessoa("Professor Plum"),
 			};
 		
 		int total_cartas = 21; 
@@ -111,19 +126,22 @@ public class Jogo {
 			aux[pos] = i; 
 		}
 		
+		// distribuindo cartas
 		int j= 0; 
 		for(int i = 0; i < total_cartas; i++) {
 			if(aux[i] != num_arma && aux[i] != num_suspeito && aux[i] != num_comodo) {
+				// proximo que vai jogar
+				while (!a_jogar[j]) j = (j+1) % jogadores.length;
 				jogadores[j].atribuirCarta(cartas_jogo[aux[i]]);
-				j = (j+1) % qtd_jogadores; 
+				j = (j+1) % jogadores.length; 
 			}
 			
 		}
 		
-		// coloca jogadores na fila de prï¿½ximo de acordo com a quantidade
+		// coloca na fila quem for jogar
 		filaJogadores = new LinkedList<>();
-		for (int i = 0; i < qtd_jogadores; i++) {
-			filaJogadores.add(jogadores[i]);
+		for (int i = 0; i < jogadores.length; i++) {
+			if (a_jogar[i]) filaJogadores.add(jogadores[i]);
 		}
 		
 		// criando tabuleiro e posicionando os jogadores nele
@@ -131,22 +149,51 @@ public class Jogo {
 		
 	}
 	
-	public Pessoa getJogadorAtual() {
+	// controle de qual 'fase' da rodada esta
+	public int getFase() { return fase_rodada; }
+	public void proxFase() { if (fase_rodada<2) fase_rodada++; }
+		
+	// jogando dados
+	public void rolaDados() { dados.rolaDados(); }
+	public int[] getDados() { return dados.getDados(); }
+	
+	// pega jogador atual
+	public String getJogadorAtualNome() {
 		Pessoa atual = filaJogadores.peek();
-		return atual;
+		return atual.nome();
 	}
 	
+	// pos do jogador atual
+	public int[] getJogadorAtualPosicao() {
+		Pessoa atual = filaJogadores.peek();
+		return atual.posicao();
+	}
+	
+	// passa jogador atual pro fim
 	public void passaVez() {
-		Pessoa atual = filaJogadores.remove();
-		filaJogadores.add(atual);
+		if (fase_rodada == 2) {
+			fase_rodada = 0;
+			Pessoa atual = filaJogadores.remove();
+			filaJogadores.add(atual);
+		}
 	}
 	
+	// tira jogador atual da rotacao apos acusacao errada
 	public void tiraDoJogo(String nome) {
-		for (Pessoa p:jogadores) {
-			if (p.nome() == nome) {
-				filaJogadores.remove(p);
-				break;
-			}
+		if (fase_rodada == 2) {
+			fase_rodada = 0;
+			filaJogadores.remove();
+		}
+	}
+	
+	public void moveJogador(int[] posFinal) {
+		if (fase_rodada == 1) {
+			Pessoa atual = filaJogadores.peek();
+			boolean moveu = tabuleiro.movePessoa(atual, posFinal, dados.getSomaDados());
+			if (moveu) {
+				fase_rodada++;
+				System.out.println("Movimento feito");
+			};
 		}
 	}
 }

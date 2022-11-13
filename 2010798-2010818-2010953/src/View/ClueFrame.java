@@ -1,11 +1,12 @@
 package View;
-import Controller.TabuleiroClickHandler;
+import Controller.*;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.geom.*;
 
 public class ClueFrame extends JFrame {
-	JButton b1 = new JButton ("Passagem Secreta");
+	// botao b1 de teste (printa no console estado atual)
+	JButton b1 = new JButton ("Print Game State");
 	JButton b2 = new JButton ("Próximo");
 	JButton b3 = new JButton ("Mostrar Cartas");
 	JButton b4 = new JButton ("Bloco de Notas");
@@ -94,7 +95,15 @@ public class ClueFrame extends JFrame {
 		b9.setBackground(Color.WHITE);
 		b9.setForeground(Color.BLACK);
 		
+		// listener do tabuleiro
 		gamePanel.addMouseListener(new TabuleiroClickHandler());
+		
+		// listeners dos botoes
+		b2.addMouseListener(new ProximoClickHandler());
+		b8.addMouseListener(new JogarDadosClickHandler());
+		
+		// log do estado
+		b1.addMouseListener(new PrintGameStateHandler());
 		
 		gamePanel.setLayout(null);
 		

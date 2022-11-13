@@ -18,6 +18,12 @@ class Dados {
 	
 	int[] getDados() { return dados; }
 	
+	int getSomaDados() {
+		int s = 0;
+		for (int dado:dados) s += dado;
+		return s;
+	}
+	
 	// para testes somente
 	void setDados(int[] d) { dados = d; }
 

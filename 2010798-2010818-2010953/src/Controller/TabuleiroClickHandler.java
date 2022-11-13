@@ -1,7 +1,6 @@
 package Controller;
-import java.awt.*;
+import Model.Jogo;
 import java.awt.event.*;
-import javax.swing.*;
 
 public class TabuleiroClickHandler implements MouseListener {
 	public void mouseEntered(MouseEvent e) {}
@@ -13,11 +12,15 @@ public class TabuleiroClickHandler implements MouseListener {
 		int x=e.getX();
 	    int y=e.getY();
 	    if (x <= 603 && y <= 626) {
-	    	int tabuleiroCol = x/24;
-	    	int tabuleiroLinha = y/26;
+	    	int tabuleiroCol = x/25;
+	    	int tabuleiroLinha = y/25;
 	    	
 	    	System.out.println("Clicou no tabuleiro");
 	    	System.out.println("Linha "+tabuleiroLinha+", Coluna "+tabuleiroCol);
+	    	
+	    	Jogo jogo = Jogo.getJogo();
+	    	int[] pos = {tabuleiroLinha, tabuleiroCol};
+	    	jogo.moveJogador(pos);
 	    }
 	}
 }
