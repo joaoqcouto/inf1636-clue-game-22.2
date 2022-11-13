@@ -40,7 +40,7 @@ public class ProximoClickHandler implements MouseListener, Observed {
 	public void remove(Observer o) {
 		observerList.remove(o);
 	}
-	public int get(int updateInfo) {
+	public int get() {
 		// 2 indicates turn update
 		return 2;
 	}

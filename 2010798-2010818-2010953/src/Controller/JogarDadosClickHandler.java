@@ -44,7 +44,7 @@ public class JogarDadosClickHandler implements MouseListener, Observed {
 	public void remove(Observer o) {
 		observerList.remove(o);
 	}
-	public int get(int updateInfo) {
+	public int get() {
 		// 1 indicates dados update
 		return 1;
 	}

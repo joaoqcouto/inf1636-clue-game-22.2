@@ -47,7 +47,7 @@ public class TabuleiroClickHandler implements MouseListener, Observed {
 	public void remove(Observer o) {
 		observerList.remove(o);
 	}
-	public int get(int updateInfo) {
+	public int get() {
 		// 0 indicates update from tabuleiro
 		return 0;
 	}
