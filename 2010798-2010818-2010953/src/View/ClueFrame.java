@@ -114,7 +114,7 @@ public class ClueFrame extends JFrame {
 		l.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
 		
 		// listener do tabuleiro
-		gamePanel.addMouseListener(new TabuleiroClickHandler());
+		gamePanel.addMouseListener(TabuleiroClickHandler.getInstance());
 		
 		// listeners dos botoes
 		
@@ -125,8 +125,8 @@ public class ClueFrame extends JFrame {
             }
         });
 		
-		b2.addMouseListener(new ProximoClickHandler());
-		b8.addMouseListener(new JogarDadosClickHandler());
+		b2.addMouseListener(ProximoClickHandler.getInstance());
+		b8.addMouseListener(JogarDadosClickHandler.getInstance());
 		//gamePanel.add();
 		
 		// log do estado

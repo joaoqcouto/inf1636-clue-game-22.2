@@ -186,7 +186,7 @@ public class Jogo {
 		}
 	}
 	
-	public void moveJogador(int[] posFinal) {
+	public boolean moveJogador(int[] posFinal) {
 		if (fase_rodada == 1) {
 			Pessoa atual = filaJogadores.peek();
 			boolean moveu = tabuleiro.movePessoa(atual, posFinal, dados.getSomaDados());
@@ -194,6 +194,8 @@ public class Jogo {
 				fase_rodada++;
 				System.out.println("Movimento feito");
 			};
+			return moveu;
 		}
+		return false;
 	}
 }
