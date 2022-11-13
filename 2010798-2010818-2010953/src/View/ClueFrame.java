@@ -25,24 +25,28 @@ public class ClueFrame extends JFrame implements Observer{
 	JButton b7 = new JButton ("Salvar Jogo");
 	JButton b8 = new JButton ("Jogar Dados");
 	JButton b9 = new JButton ("Escolher Dados");
+	JLabel l1 = new JLabel();
+
 	Color coresPersonagens[] = { Color.RED, Color.YELLOW, Color.PINK, Color.GREEN, Color.WHITE, Color.BLUE };
 	CluePanel gamePanel;
-	
-	
-	public final int LARG_DEFAULT=810;
+	String jogador;
+		
+	public final int LARG_DEFAULT=850;
 	public final int ALT_DEFAULT=665;
 	
 	public int currentColor = 0;
 	
 	CluePanel dadosPanel;
+	CluePanel dadosPanel2;
 
 	
 	public static final int TXT_X=0;
 	public static final int TXT_Y=0;
 	
 	public ClueFrame(String name) {
-		
 		super(name); 
+
+		JogarDadosClickHandler.getInstance().add(this);
 		
 		Toolkit tk=Toolkit.getDefaultToolkit();
 		Dimension screenSize=tk.getScreenSize();
@@ -112,10 +116,15 @@ public class ClueFrame extends JFrame implements Observer{
 		b9.setBackground(Color.WHITE);
 		b9.setForeground(Color.BLACK);
 		
-		JLabel l = new JLabel(jogo.getJogadorAtualNome());
+		jogador = jogo.getJogadorAtualNome();
+		JLabel l = new JLabel(jogador);
 		gamePanel.add(l);
 		l.setBounds(620, 300,160,30);
 		l.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
+		
+		gamePanel.add(l1);
+		l1.setBounds(620, 320,200,30);
+		l1.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
 		
 		// listener do tabuleiro
 		gamePanel.addMouseListener(TabuleiroClickHandler.getInstance());
@@ -155,19 +164,54 @@ public class ClueFrame extends JFrame implements Observer{
 		gamePanel.setLayout(null);
 		
 	}
-	public void printaDados (int num) {
+	public void printaDados () {
+		Jogo jogo = Jogo.getJogo();
+		int vet[] = jogo.getDados();
+		
+		int total = vet[0]+vet[1];
+		StringBuilder c = new StringBuilder()
+				.append("Você deve andar ")
+			    .append(String.valueOf(total))
+			    .append(" posições");
+
+		l1.setText(c.toString());
+		super.update(this.getGraphics());
+		
+		int num = vet[0];
 		StringBuilder a = new StringBuilder()
 				.append("./Resources/dado")
 			    .append(String.valueOf(num))
 			    .append(".jpg");
 		dadosPanel = new CluePanel(a.toString());
-		dadosPanel.setBounds(620, 350, 40, 40);
 		gamePanel.add(dadosPanel);
+		dadosPanel.setBounds(620, 350, 95, 106);
+		
+		int num2 = vet[1];
+		StringBuilder b = new StringBuilder()
+				.append("./Resources/dado")
+			    .append(String.valueOf(num2))
+			    .append(".jpg");
+		dadosPanel2 = new CluePanel(b.toString());
+		gamePanel.add(dadosPanel2);
+		dadosPanel2.setBounds(730, 350, 95, 106);
+		
+		gamePanel.repaint();
 		
 	}
 	@Override
 	public void notify(Observed o) {
-		
+		int n = o.get();
+		if (n == 1) {
+			printaDados();
+		}
+		if (n == 2) {
+			Jogo jogo = Jogo.getJogo();
+			jogador = jogo.getJogadorAtualNome();
+			JLabel l = new JLabel(jogador);
+			gamePanel.add(l);
+			l.setBounds(620, 300,160,30);
+			l.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
+		}
 	}
 	
 }
