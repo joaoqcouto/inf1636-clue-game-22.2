@@ -7,8 +7,8 @@ import java.awt.event.*;
 public class CapaFrame extends JFrame {
 	JButton b1 = new JButton ("Novo Jogo");
 	JButton b2 = new JButton ("Continuar");
-	public final int LARG_DEFAULT=966;
-	public final int ALT_DEFAULT=698;
+	public final int LARG_DEFAULT=1023;
+	public final int ALT_DEFAULT=520;
 	JPanel capaPanel;
 	
 	public CapaFrame(String name) {
@@ -27,14 +27,23 @@ public class CapaFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//Putting on Panel
-		capaPanel = new CluePanel("./Resources/Clue_Cover.png");
+		capaPanel = new CluePanel("./Resources/CLUE-game-box (1).jpg");
 		getContentPane().add(capaPanel);
 		capaPanel.add(b1);
 		capaPanel.add(b2);
+		
 		size = b1.getPreferredSize();
-		b1.setBounds(160,240,size.width,size.height);
-		size = b1.getPreferredSize();
-		b2.setBounds(160,270,size.width,size.height);
+		b1.setBounds(190,75,size.width,size.height);
+		b1.setFont(new java.awt.Font("Arial", Font.BOLD, 12));
+		b1.setBackground(Color.WHITE);
+		b1.setForeground(Color.BLACK);
+		
+		size = b2.getPreferredSize();
+		b2.setBounds(730,75,size.width,size.height);
+		b2.setFont(new java.awt.Font("Arial", Font.BOLD, 12));
+		b2.setBackground(Color.WHITE);
+		b2.setForeground(Color.BLACK);
+		
 		capaPanel.setLayout(null);
 		
         b1.addMouseListener(new MouseAdapter() {
