@@ -89,18 +89,32 @@ class Tabuleiro {
 				{ (Casa)tabuleiro[17][19] },
 			};
 		
+		// posicoes em cada comodo de forma que todas as posicoes em volta sejam no comodo
+		int centros[][] =
+			{
+				{ 2 , 3  },
+				{ 3 , 11 },
+				{ 3 , 20 },
+				{ 8 , 3  },
+				{ 14, 3  },
+				{ 12, 20 },
+				{ 22, 3  },
+				{ 20, 11 },
+				{ 20, 20 },
+			};
+		
 		// criando c�modos
 		Comodo comodos[] =
 			{
-				new Comodo("Escritorio", entradas[0] ),	
-				new Comodo("Entrada", entradas[1] ),
-				new Comodo("Sala de estar", entradas[2] ),
-				new Comodo("Biblioteca", entradas[3] ),
-				new Comodo("Salao de jogos", entradas[4] ),
-				new Comodo("Sala de jantar", entradas[5] ),
-				new Comodo("Jardim de inverno", entradas[6] ),
-				new Comodo("Sala de musica", entradas[7] ),
-				new Comodo("Cozinha", entradas[8] ),
+				new Comodo("Escritorio", 		entradas[0], centros[0] ),	
+				new Comodo("Entrada", 			entradas[1], centros[1] ),
+				new Comodo("Sala de estar", 	entradas[2], centros[2] ),
+				new Comodo("Biblioteca", 		entradas[3], centros[3] ),
+				new Comodo("Salao de jogos", 	entradas[4], centros[4] ),
+				new Comodo("Sala de jantar", 	entradas[5], centros[5] ),
+				new Comodo("Jardim de inverno", entradas[6], centros[6] ),
+				new Comodo("Sala de musica", 	entradas[7], centros[7] ),
+				new Comodo("Cozinha", 			entradas[8], centros[8] ),
 			};
 		
 		// colocando c�modos no tabuleiro
@@ -228,6 +242,7 @@ class Tabuleiro {
 		return false;
 	}
 	
+	// movimento comum
 	boolean movePessoa(Pessoa p, int[] posicaoFim, int dados) {
 		int[] posicaoIni = p.posicao();
 		
@@ -261,8 +276,28 @@ class Tabuleiro {
 			// movimento feito
 			return true;
 		}
-		
-		// movimento nao feito
 		return false;
+	}
+		
+	// levando para comodo (palpite)
+	void transportaPessoa(Pessoa p, Comodo comodoFim) {
+		int[] posicaoIni = p.posicao();
+
+		System.out.println("Movimento checado");
+			
+		if (tabuleiro[posicaoIni[0]][posicaoIni[1]] instanceof Casa) {
+			Casa casaIni = (Casa)tabuleiro[posicaoIni[0]][posicaoIni[1]];
+			casaIni.desocupar();
+		}
+		
+		if (tabuleiro[posicaoIni[0]][posicaoIni[1]] instanceof Comodo) {
+			Comodo comodoIni = (Comodo)tabuleiro[posicaoIni[0]][posicaoIni[1]];
+			comodoIni.saiComodo(p);
+		}
+		
+		int[] livre = comodoFim.getPosicaoLivre();
+		comodoFim.entraComodo(p);
+		
+		p.moverPara(livre[0], livre[1]);
 	}
 }

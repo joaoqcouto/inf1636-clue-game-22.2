@@ -13,10 +13,14 @@ public class Jogo {
 	Cartas cartas_jogo[];
 	Pessoa jogadores[];
 	Queue<Pessoa> filaJogadores;
+	Queue<Pessoa> filaPalpites;
 	Cartas envelope [];
 	Tabuleiro tabuleiro;
 	Dados dados;
 	Armas armas[];
+	
+	Palpite palpite_corrente = null;
+	Acusacao acusacao_corrente = null;
 	
 	// mantem em que 'fase' de uma rodada o jogo esta
 	// vai ser util para limitar as acoes possiveis do jogador
@@ -108,9 +112,9 @@ public class Jogo {
 		
 		envelope = new Cartas[] 
 		{
-				new Cartas(cartas_jogo[num_arma].Tipo(), cartas_jogo[num_arma].Nome()),
-				new Cartas(cartas_jogo[num_suspeito].Tipo(), cartas_jogo[num_suspeito].Nome()),
-				new Cartas(cartas_jogo[num_comodo].Tipo(), cartas_jogo[num_comodo].Nome()),
+				cartas_jogo[num_arma],
+				cartas_jogo[num_suspeito],
+				cartas_jogo[num_comodo],
 		};
 		
 		int aux[] = new int[21]; 
@@ -140,8 +144,12 @@ public class Jogo {
 		
 		// coloca na fila quem for jogar
 		filaJogadores = new LinkedList<>();
+		filaPalpites = new LinkedList<>();
 		for (int i = 0; i < jogadores.length; i++) {
-			if (a_jogar[i]) filaJogadores.add(jogadores[i]);
+			if (a_jogar[i]) {
+				filaPalpites.add(jogadores[i]);
+				filaJogadores.add(jogadores[i]);
+			}
 		}
 		
 		// criando tabuleiro e posicionando os jogadores nele
@@ -198,4 +206,9 @@ public class Jogo {
 		}
 		return false;
 	}
+	
+	// palpite e acusacao
+	
+	
+	public Cartas[] getCartasEnvelope() { return envelope; }
 }

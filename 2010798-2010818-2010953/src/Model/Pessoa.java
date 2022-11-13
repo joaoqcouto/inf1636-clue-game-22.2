@@ -28,4 +28,8 @@ class Pessoa {
 	public int[] posicao() {
 		return posicao;
 	}
+	
+	// pegando cartas
+	public int qtdCartas() { return num_cartas; }
+	public Cartas[] cartas() { return cartas_jogador; }
 }
