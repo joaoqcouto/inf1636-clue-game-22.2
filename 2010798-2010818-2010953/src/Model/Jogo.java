@@ -219,6 +219,19 @@ public class Jogo {
 		return false;
 	}
 	
+	// pega posicoes dos jogadores
+	// ordem sempre igual do vetor original
+	public int[][] getPosicoesJogadores() {
+		int[][] pos = new int[jogadores.length][];
+		
+		// preenche posicoes
+		for (int i=0; i<jogadores.length; i++) {
+			pos[i] = jogadores[i].posicao();
+		}
+		
+		return pos;
+	}
+	
 	// palpite e acusacao
 	// retorna nome da carta que nega palpite (ou null)
 	public String palpita(String palpitado, String arma) {

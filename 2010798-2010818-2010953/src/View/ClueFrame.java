@@ -86,7 +86,6 @@ public class ClueFrame extends JFrame implements Observer{
 		gamePanel.add(piecesPanel);
 		piecesPanel.setBounds(0, 0, 603, 626);
 		piecesPanel.setOpaque(false);
-		// piecesPanel.setBackground(Color.BLACK);
 		
 		gamePanel.add(b1);
 		gamePanel.add(b2);
