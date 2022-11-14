@@ -45,7 +45,8 @@ public class ClueFrame extends JFrame implements Observer{
 	
 	public ClueFrame(String name) {
 		super(name); 
-
+		
+		EscolherDadosClickHandler.getInstance().add(this);
 		JogarDadosClickHandler.getInstance().add(this);
 		
 		Toolkit tk=Toolkit.getDefaultToolkit();
@@ -140,6 +141,7 @@ public class ClueFrame extends JFrame implements Observer{
 		
 		b2.addMouseListener(ProximoClickHandler.getInstance());
 		b8.addMouseListener(JogarDadosClickHandler.getInstance());
+		b9.addMouseListener(EscolherDadosClickHandler.getInstance());
 		//gamePanel.add();
 		b5.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
