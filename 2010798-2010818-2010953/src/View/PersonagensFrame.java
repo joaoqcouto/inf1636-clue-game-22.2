@@ -103,7 +103,7 @@ public class PersonagensFrame extends JFrame{
 	        GameMain.gameLoop();
 		}
 		else {
-			String message = "Para iniciar um jogo, é necessário selecionar 3 ou mais personagens.";
+			String message = "Para iniciar um jogo, selecione 3 ou mais personagens.";
 			JOptionPane.showMessageDialog(null, message,"Erro", JOptionPane.ERROR_MESSAGE);
 		}
 	}

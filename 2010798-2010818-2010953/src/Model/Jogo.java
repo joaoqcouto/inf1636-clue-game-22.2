@@ -172,6 +172,11 @@ public class Jogo {
 	public void rolaDados() { dados.rolaDados(); }
 	public int[] getDados() { return dados.getDados(); }
 	
+	// checa se tem jogadores
+	public boolean semJogadores() {
+		return filaJogadores.isEmpty();
+	}
+	
 	// pega jogador atual
 	public String getJogadorAtualNome() {
 		Pessoa atual = filaJogadores.peek();

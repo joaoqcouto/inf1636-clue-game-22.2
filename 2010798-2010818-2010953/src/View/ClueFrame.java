@@ -252,7 +252,17 @@ public class ClueFrame extends JFrame implements Observer{
 			gamePanel.remove(dadosPanel);
 			gamePanel.remove(dadosPanel2);
 			
+			// abrir uma tela de parabens que mata o jogo qd fecha
+			String errou = "Voce fez uma acusacao errada. Seu personagem foi removido do jogo";
+			JOptionPane.showMessageDialog(null, errou,"Acusacao errada", JOptionPane.ERROR_MESSAGE);
+						
 			Jogo jogo = Jogo.getJogo();
+			if (jogo.semJogadores()) {
+				String fim = "Todos os jogadores erraram. Fim de jogo.";
+				JOptionPane.showMessageDialog(null, fim,"Sem mais jogadores", JOptionPane.ERROR_MESSAGE);
+				System.exit(0);
+			}
+			
 			jogador = jogo.getJogadorAtualNome();
 			jogadorLabel.setText(jogador);
 			l1.setText("Role os dados");
@@ -260,6 +270,9 @@ public class ClueFrame extends JFrame implements Observer{
 		// acusacao certa (acabou o jogo)
 		if (n == 5) {
 			// abrir uma tela de parabens que mata o jogo qd fecha
+			String message = "Parabens! Acusacao correta. Voce ganhou!";
+			JOptionPane.showMessageDialog(null, message,"Fim de jogo", JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
 		}
 		
 		gamePanel.revalidate();
