@@ -34,6 +34,7 @@ public class PalpiteClickHandler implements Observed {
 			else {
 				System.out.println("Existe carta:");
 				System.out.println(palpiteResposta);
+				jogo.updateNotas(palpiteResposta, true);
 			}
 			
 			jogo.proxFase();

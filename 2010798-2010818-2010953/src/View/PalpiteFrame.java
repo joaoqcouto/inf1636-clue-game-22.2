@@ -32,8 +32,8 @@ public class PalpiteFrame extends JFrame {
 		JRadioButton r16 = new JRadioButton("Corda");
 		JRadioButton r17 = new JRadioButton("Faca");
 		JRadioButton r18 = new JRadioButton("Chave Inglesa");
-		JRadioButton r19 = new JRadioButton("Castiçal");
-		JRadioButton r20 = new JRadioButton("Revólver");
+		JRadioButton r19 = new JRadioButton("Castical");
+		JRadioButton r20 = new JRadioButton("Revolver");
 		JRadioButton r21 = new JRadioButton("Cano de chumbo");
 		
 		JButton b1 = new JButton ("Dar palpite");

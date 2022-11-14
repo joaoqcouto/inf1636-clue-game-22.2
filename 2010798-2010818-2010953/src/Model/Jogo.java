@@ -3,6 +3,7 @@ import java.util.Random;
 import javax.swing.JCheckBox;
 import java.awt.Color;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 public class Jogo {
@@ -43,8 +44,8 @@ public class Jogo {
 				new Armas("Cano de Chumbo"),
 				new Armas("Faca"),
 				new Armas("Chave Inglesa"),
-				new Armas( "Castiçal"),
-				new Armas("Revólver"),
+				new Armas( "Castical"),
+				new Armas("Revolver"),
 		};
 		
 		int pos_arma[] = new int[6];
@@ -69,8 +70,8 @@ public class Jogo {
 				new Cartas("arma", "Cano de Chumbo"),
 				new Cartas("arma", "Faca"),
 				new Cartas("arma", "Chave Inglesa"),
-				new Cartas("arma", "Castiçal"),
-				new Cartas("arma", "Revólver"),
+				new Cartas("arma", "Castical"),
+				new Cartas("arma", "Revolver"),
 				new Cartas("suspeito", "Srta. Scarlet"),
 				new Cartas("suspeito", "Coronel Mustard"),
 				new Cartas("suspeito", "Professor Plum"),
@@ -230,6 +231,16 @@ public class Jogo {
 		}
 		
 		return pos;
+	}
+	
+	// notas
+	public Map<String, Boolean> getNotas() {
+		Pessoa atual = filaJogadores.peek();
+		return atual.getNotas();
+	}
+	public void updateNotas(String s, Boolean b) {
+		Pessoa atual = filaJogadores.peek();
+		atual.updateNotas(s, b);
 	}
 	
 	// palpite e acusacao

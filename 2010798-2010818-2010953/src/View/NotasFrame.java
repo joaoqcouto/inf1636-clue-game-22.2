@@ -8,6 +8,7 @@ import Model.Jogo;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Map;
 
 import javax.swing.*;
 
@@ -16,32 +17,31 @@ public class NotasFrame extends JFrame{
 	public final int ALT_DEFAULT=400;
 	
 	Jogo jogo = Jogo.getJogo();
-	Cartas carta_jogador_vez [] = jogo.getCartasJogadorAtual();
-	int num_cartas = jogo.getQtdCartasJogadorAtual();
+	Map<String, Boolean> notas = jogo.getNotas();
 			
-	JCheckBox cb1 = new JCheckBox("Reverendo Green", false);
-	JCheckBox cb2 = new JCheckBox("Coronel Mustard", false);
-	JCheckBox cb3 = new JCheckBox("Sra. White", false);
-	JCheckBox cb4 = new JCheckBox("Professor Plum", false);
-	JCheckBox cb5 = new JCheckBox("Srta. Scarlet", false);
-	JCheckBox cb6 = new JCheckBox("Sra. Peacock", false);
+	JCheckBox cb1 = new JCheckBox("Reverendo Green"		, notas.get("Reverendo Green"));
+	JCheckBox cb2 = new JCheckBox("Coronel Mustard"		, notas.get("Coronel Mustard"));
+	JCheckBox cb3 = new JCheckBox("Sra. White"			, notas.get("Sra. White"));
+	JCheckBox cb4 = new JCheckBox("Professor Plum"		, notas.get("Professor Plum"));
+	JCheckBox cb5 = new JCheckBox("Srta. Scarlet"		, notas.get("Srta. Scarlet"));
+	JCheckBox cb6 = new JCheckBox("Sra. Peacock"		, notas.get("Sra. Peacock"));
 	
-	JCheckBox cb7 = new JCheckBox("Escritorio", false);
-	JCheckBox cb8 = new JCheckBox("Entrada", false);
-	JCheckBox cb9 = new JCheckBox("Sala de estar", false);
-	JCheckBox cb10 = new JCheckBox("Biblioteca", false);
-	JCheckBox cb11 = new JCheckBox("Salao de jogos", false);
-	JCheckBox cb12 = new JCheckBox("Sala de jantar", false);
-	JCheckBox cb13 = new JCheckBox("Jardim de inverno", false);
-	JCheckBox cb14 = new JCheckBox("Sala de musica", false);
-	JCheckBox cb15 = new JCheckBox("Cozinha", false);
+	JCheckBox cb7 = new JCheckBox("Escritorio"			, notas.get("Escritorio"));
+	JCheckBox cb8 = new JCheckBox("Entrada"				, notas.get("Entrada"));
+	JCheckBox cb9 = new JCheckBox("Sala de estar"		, notas.get("Sala de estar"));
+	JCheckBox cb10 = new JCheckBox("Biblioteca"			, notas.get("Biblioteca"));
+	JCheckBox cb11 = new JCheckBox("Salao de jogos"		, notas.get("Salao de jogos"));
+	JCheckBox cb12 = new JCheckBox("Sala de jantar"		, notas.get("Sala de jantar"));
+	JCheckBox cb13 = new JCheckBox("Jardim de inverno"	, notas.get("Jardim de inverno"));
+	JCheckBox cb14 = new JCheckBox("Sala de musica"		, notas.get("Sala de musica"));
+	JCheckBox cb15 = new JCheckBox("Cozinha"			, notas.get("Cozinha"));
 	
-	JCheckBox cb16 = new JCheckBox("Corda", false);
-	JCheckBox cb17 = new JCheckBox("Cano de Chumbo", false);
-	JCheckBox cb18 = new JCheckBox("Faca", false);
-	JCheckBox cb19 = new JCheckBox("Chave Inglesa", false);
-	JCheckBox cb20 = new JCheckBox("Castiçal", false);
-	JCheckBox cb21 = new JCheckBox("Revólver", false);
+	JCheckBox cb16 = new JCheckBox("Corda"				, notas.get("Corda"));
+	JCheckBox cb17 = new JCheckBox("Cano de Chumbo"		, notas.get("Cano de Chumbo"));
+	JCheckBox cb18 = new JCheckBox("Faca"				, notas.get("Faca"));
+	JCheckBox cb19 = new JCheckBox("Chave Inglesa"		, notas.get("Chave Inglesa"));
+	JCheckBox cb20 = new JCheckBox("Castical"			, notas.get("Castical"));
+	JCheckBox cb21 = new JCheckBox("Revolver"			, notas.get("Revolver"));
 	
 	
 	
@@ -64,6 +64,30 @@ public class NotasFrame extends JFrame{
 		p1.setLayout(new BoxLayout(p1,BoxLayout.Y_AXIS)); 
 		p2.setLayout(new BoxLayout(p2,BoxLayout.Y_AXIS));
 		p3.setLayout(new BoxLayout(p3,BoxLayout.Y_AXIS));
+		
+		cb1.setEnabled(false);
+		cb2.setEnabled(false);
+		cb3.setEnabled(false);
+		cb4.setEnabled(false);
+		cb5.setEnabled(false);
+		cb6.setEnabled(false);
+		
+		cb7.setEnabled(false);
+		cb8.setEnabled(false);
+		cb9.setEnabled(false);
+		cb10.setEnabled(false);
+		cb11.setEnabled(false);
+		cb12.setEnabled(false);
+		cb13.setEnabled(false);
+		cb14.setEnabled(false);
+		cb15.setEnabled(false);
+		
+		cb16.setEnabled(false);
+		cb17.setEnabled(false);
+		cb18.setEnabled(false);
+		cb19.setEnabled(false);
+		cb20.setEnabled(false);
+		cb21.setEnabled(false);
 		
 		p1.add(cb1);
 		p1.add(cb2);
