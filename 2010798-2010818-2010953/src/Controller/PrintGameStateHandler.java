@@ -20,6 +20,7 @@ public class PrintGameStateHandler implements MouseListener {
 		
 		System.out.println("O QUE FAZER");
 		int fase = jogo.getFase();
+		System.out.println(fase);
 		
 		if (fase == 0) {
 			System.out.println("-> JOGAR DADOS");
@@ -30,7 +31,12 @@ public class PrintGameStateHandler implements MouseListener {
 		}
 		
 		if (fase == 2) {
-			System.out.println("-> PALPITE/ACUSAR (NAO FUNCIONAL)");
+			System.out.println("-> PALPITE/ACUSAR");
+			System.out.println("-> PASSAR A VEZ");
+		}
+		
+		if (fase == 3) {
+			System.out.println("-> ACUSAR");
 			System.out.println("-> PASSAR A VEZ");
 		}
 	}

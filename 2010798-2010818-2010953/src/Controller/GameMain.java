@@ -13,6 +13,7 @@ public class GameMain {
 	// vai ser chamado com o jogo ja inicializado
 	public static void gameLoop() {
 		Jogo jogo = Jogo.getJogo();
+			
 		ClueFrame gameFrame = new ClueFrame("Clue - Jogo");
 		System.out.println(" --- INICIO DO JOGO --- ");
 		gameFrame.setVisible(true);

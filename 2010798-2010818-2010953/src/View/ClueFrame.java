@@ -26,6 +26,7 @@ public class ClueFrame extends JFrame implements Observer{
 	JButton b8 = new JButton ("Jogar Dados");
 	JButton b9 = new JButton ("Escolher Dados");
 	JLabel l1 = new JLabel();
+	JLabel jogadorLabel = new JLabel();
 
 	Color coresPersonagens[] = { Color.RED, Color.YELLOW, Color.PINK, Color.GREEN, Color.WHITE, Color.BLUE };
 	CluePanel gamePanel;
@@ -45,10 +46,11 @@ public class ClueFrame extends JFrame implements Observer{
 	
 	public ClueFrame(String name) {
 		super(name); 
-		
+		ProximoClickHandler.getInstance().add(this);
 		EscolherDadosClickHandler.getInstance().add(this);
 		JogarDadosClickHandler.getInstance().add(this);
 		PalpiteClickHandler.getInstance().add(this);
+		TabuleiroClickHandler.getInstance().add(this);
 		
 		Toolkit tk=Toolkit.getDefaultToolkit();
 		Dimension screenSize=tk.getScreenSize();
@@ -119,10 +121,10 @@ public class ClueFrame extends JFrame implements Observer{
 		b9.setForeground(Color.BLACK);
 		
 		jogador = jogo.getJogadorAtualNome();
-		JLabel l = new JLabel(jogador);
-		gamePanel.add(l);
-		l.setBounds(620, 300,160,30);
-		l.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
+		jogadorLabel = new JLabel(jogador);
+		gamePanel.add(jogadorLabel);
+		jogadorLabel.setBounds(620, 300,160,30);
+		jogadorLabel.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
 		
 		gamePanel.add(l1);
 		l1.setBounds(620, 320,200,30);
@@ -174,30 +176,35 @@ public class ClueFrame extends JFrame implements Observer{
 		// log do estado
 		b1.addMouseListener(new PrintGameStateHandler());
 		
-		//dadosPanel = new CluePanel("./Resources/dado1.jpg");
-		//getContentPane().add(dadosPanel);
+		printaDados();
+		l1.setText("Role os dados");
+		gamePanel.remove(dadosPanel);
+		gamePanel.remove(dadosPanel2);
 		
 		gamePanel.setLayout(null);
 		
 	}
 	public void printaDados () {
+		gamePanel.remove(l1);
+		
 		Jogo jogo = Jogo.getJogo();
 		int vet[] = jogo.getDados();
 		
 		int total = vet[0]+vet[1];
 		StringBuilder c = new StringBuilder()
-				.append("Voc� deve andar ")
+				.append("Voce deve andar ")
 			    .append(String.valueOf(total))
-			    .append(" posi��es");
+			    .append(" posicoes");
 
 		l1.setText(c.toString());
-		super.update(this.getGraphics());
+		gamePanel.add(l1);
 		
 		int num = vet[0];
 		StringBuilder a = new StringBuilder()
 				.append("./Resources/dado")
 			    .append(String.valueOf(num))
 			    .append(".jpg");
+		
 		dadosPanel = new CluePanel(a.toString());
 		gamePanel.add(dadosPanel);
 		dadosPanel.setBounds(620, 350, 95, 106);
@@ -207,27 +214,42 @@ public class ClueFrame extends JFrame implements Observer{
 				.append("./Resources/dado")
 			    .append(String.valueOf(num2))
 			    .append(".jpg");
+		
 		dadosPanel2 = new CluePanel(b.toString());
 		gamePanel.add(dadosPanel2);
 		dadosPanel2.setBounds(730, 350, 95, 106);
-		
-		gamePanel.repaint();
-		
 	}
 
 	public void notify(Observed o) {
 		int n = o.get();
+		// clicou no tabuleiro (personagem andou)
+		if (n == 0) {
+			gamePanel.remove(dadosPanel);
+			gamePanel.remove(dadosPanel2);
+			l1.setText("Palpite ou passe a vez");
+		}
+		// rolou dados
 		if (n == 1) {
+			gamePanel.remove(dadosPanel);
+			gamePanel.remove(dadosPanel2);
 			printaDados();
 		}
+		// passou vez
 		if (n == 2) {
+			gamePanel.remove(dadosPanel);
+			gamePanel.remove(dadosPanel2);
+			gamePanel.remove(jogadorLabel);
+			
 			Jogo jogo = Jogo.getJogo();
 			jogador = jogo.getJogadorAtualNome();
-			JLabel l = new JLabel(jogador);
-			gamePanel.add(l);
-			l.setBounds(620, 300,160,30);
-			l.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
+			jogadorLabel.setText(jogador);
+			gamePanel.add(jogadorLabel);
+			l1.setText("Role os dados");
+			
 		}
+		
+		gamePanel.revalidate();
+		gamePanel.repaint();
 	}
 	
 }

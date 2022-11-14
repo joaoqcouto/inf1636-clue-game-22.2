@@ -166,7 +166,7 @@ public class Jogo {
 	
 	// controle de qual 'fase' da rodada esta
 	public int getFase() { return fase_rodada; }
-	public void proxFase() { if (fase_rodada<3) fase_rodada++; }
+	public void proxFase() { fase_rodada++; }
 		
 	// jogando dados
 	public void rolaDados() { dados.rolaDados(); }

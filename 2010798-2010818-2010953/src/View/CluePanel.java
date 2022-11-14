@@ -14,6 +14,7 @@ public class CluePanel extends JPanel {
 		this.panelName = panelName;
 	}
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		
 		Image i;
 		try {
@@ -25,5 +26,6 @@ public class CluePanel extends JPanel {
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
+		
 	}
 }
