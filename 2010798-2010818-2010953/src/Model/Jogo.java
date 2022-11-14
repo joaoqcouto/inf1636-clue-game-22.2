@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Jogo {
-	// jogo é singleton
+	// jogo ï¿½ singleton
 	static Jogo jogo = null;
 	
 	// mantem o tabuleiro, os jogadores, a ordem das jogadas, a resposta certa, etc.
@@ -152,6 +152,16 @@ public class Jogo {
 		// criando tabuleiro e posicionando os jogadores nele
 		tabuleiro = new Tabuleiro(jogadores);
 		
+	}
+	
+	//Cartas jogador atual
+	public Cartas[] getCartasJogadorAtual(){
+		Pessoa atual = filaJogadores.peek();
+		return atual.cartas(); 
+	}
+	public int getQtdCartasJogadorAtual(){
+		Pessoa atual = filaJogadores.peek();
+		return atual.qtdCartas(); 
 	}
 	
 	// controle de qual 'fase' da rodada esta
