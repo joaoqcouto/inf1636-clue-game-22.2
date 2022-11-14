@@ -5,8 +5,11 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Enumeration;
 
 import javax.swing.*;
+
+import Controller.PalpiteClickHandler;
 
 public class PalpiteFrame extends JFrame {
 	
@@ -23,18 +26,6 @@ public class PalpiteFrame extends JFrame {
 		JRadioButton r4 = new JRadioButton("Reverendo Green");
 		JRadioButton r5 = new JRadioButton("Sra. Peacock");
 		JRadioButton r6 = new JRadioButton("Professor Plum");
-		
-		JLabel l2=new JLabel("Cômodos:");
-		ButtonGroup comodos = new ButtonGroup();
-		JRadioButton r7 = new JRadioButton("Escritorio");
-		JRadioButton r8 = new JRadioButton("Entrada");
-		JRadioButton r9 = new JRadioButton("Sala de estar");
-		JRadioButton r10 = new JRadioButton("Biblioteca");
-		JRadioButton r11 = new JRadioButton("Salao de jogos");
-		JRadioButton r12 = new JRadioButton("Sala de jantar");
-		JRadioButton r13 = new JRadioButton("Jardim de inverno");
-		JRadioButton r14 = new JRadioButton("Sala de musica");
-		JRadioButton r15 = new JRadioButton("Cozinha");
 		
 		JLabel l3=new JLabel("Armas:");
 		ButtonGroup armas = new ButtonGroup();
@@ -72,36 +63,6 @@ public class PalpiteFrame extends JFrame {
 		c.add(r5);
 		c.add(r6);
 		
-		l2.setBounds(200,20,150,30);
-		comodos.add(r7);
-		comodos.add(r8);
-		comodos.add(r9);
-		comodos.add(r10);
-		comodos.add(r11);
-		comodos.add(r12);
-		comodos.add(r13);
-		comodos.add(r14);
-		comodos.add(r15);
-		r7.setBounds(200,50,150,30);
-		r8.setBounds(200,80,150,30);
-		r9.setBounds(200,110,150,30);
-		r10.setBounds(200,140,150,30);
-		r11.setBounds(200,170,150,30);
-		r12.setBounds(200,200,150,30);
-		r13.setBounds(200,230,150,30);
-		r14.setBounds(200,260,150,30);
-		r15.setBounds(200,290,150,30);
-		c.add(l2);
-		c.add(r7);
-		c.add(r8);
-		c.add(r9);
-		c.add(r10);
-		c.add(r11);
-		c.add(r12);
-		c.add(r13);
-		c.add(r14);
-		c.add(r15);
-		
 		l3.setBounds(350,20,150,30);
 		armas.add(r16);
 		armas.add(r17);
@@ -124,12 +85,33 @@ public class PalpiteFrame extends JFrame {
 		c.add(r21);
 		
 		c.add(b1);
+		
+		PalpiteClickHandler handler = PalpiteClickHandler.getInstance();
 		b1.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-            	dispose();
+            	String palpitado = getSelectedButtonText(personagens);
+            	String arma = getSelectedButtonText(armas);
+            	
+            	if (palpitado != null && arma != null) {
+            		handler.mouseClicked(palpitado, arma);
+                	dispose();
+            	}
             }
         });
+		
 		setSize(570,420);
 		setVisible(true);
 	}
+	
+	public String getSelectedButtonText(ButtonGroup buttonGroup) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+
+        return null;
+    }
 }

@@ -21,7 +21,7 @@ public class Jogo {
 	
 	// mantem em que 'fase' de uma rodada o jogo esta
 	// vai ser util para limitar as acoes possiveis do jogador
-	// 0 => rola dados ; 1 => escolhe pra onde vai ; 2 => palpita/acusa/passa a vez 
+	// 0 => rola dados ; 1 => escolhe pra onde vai ; 2 => palpita/acusa/passa a vez ; 3 => acusa/passa a vez
 	int fase_rodada = 0;
 	
 	// operadores de singleton
@@ -166,7 +166,7 @@ public class Jogo {
 	
 	// controle de qual 'fase' da rodada esta
 	public int getFase() { return fase_rodada; }
-	public void proxFase() { if (fase_rodada<2) fase_rodada++; }
+	public void proxFase() { if (fase_rodada<3) fase_rodada++; }
 		
 	// jogando dados
 	public void rolaDados() { dados.rolaDados(); }
@@ -186,7 +186,7 @@ public class Jogo {
 	
 	// passa jogador atual pro fim
 	public void passaVez() {
-		if (fase_rodada == 2) {
+		if (fase_rodada >= 2) {
 			fase_rodada = 0;
 			Pessoa atual = filaJogadores.remove();
 			filaJogadores.add(atual);
@@ -195,7 +195,7 @@ public class Jogo {
 	
 	// tira jogador atual da rotacao apos acusacao errada
 	public void tiraDoJogo() {
-		if (fase_rodada == 2) {
+		if (fase_rodada >= 2) {
 			fase_rodada = 0;
 			filaJogadores.remove();
 		}
@@ -228,7 +228,7 @@ public class Jogo {
 		Cartas cartaPalpite = palpite_corrente.isPalpiteTrue(new LinkedList<>(filaPalpites));
 		
 		// retorna o nome da carta (ou nada)
-		if (cartaPalpite==null) return null;
+		if (cartaPalpite==null) return "n";
 		return cartaPalpite.Nome();
 	}
 	

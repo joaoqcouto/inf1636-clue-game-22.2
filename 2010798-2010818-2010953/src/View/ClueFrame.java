@@ -48,6 +48,7 @@ public class ClueFrame extends JFrame implements Observer{
 		
 		EscolherDadosClickHandler.getInstance().add(this);
 		JogarDadosClickHandler.getInstance().add(this);
+		PalpiteClickHandler.getInstance().add(this);
 		
 		Toolkit tk=Toolkit.getDefaultToolkit();
 		Dimension screenSize=tk.getScreenSize();
@@ -145,15 +146,21 @@ public class ClueFrame extends JFrame implements Observer{
 		//gamePanel.add();
 		b5.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-            	PalpiteFrame p = new PalpiteFrame("Palpite");
-                p.setVisible(true);
+            	Jogo jogo = Jogo.getJogo();
+            	if (jogo.getFase()==2) {
+            		PalpiteFrame p = new PalpiteFrame("Palpite");
+                    p.setVisible(true);
+            	}
             }
         });
 		
 		b6.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-            	AcusacaoFrame a = new AcusacaoFrame("Acusação");
-                a.setVisible(true);
+                Jogo jogo = Jogo.getJogo();
+            	if (jogo.getFase()>=2) {
+            		AcusacaoFrame a = new AcusacaoFrame("Acusação");
+                    a.setVisible(true);
+            	}
             }
         });
 		
@@ -200,7 +207,7 @@ public class ClueFrame extends JFrame implements Observer{
 		gamePanel.repaint();
 		
 	}
-	@Override
+
 	public void notify(Observed o) {
 		int n = o.get();
 		if (n == 1) {

@@ -296,9 +296,15 @@ class Tabuleiro {
 		Object casa_alvo = tabuleiro[alvo[0]][alvo[1]];
 		if (!(casa_alvo instanceof Comodo)) return null;
 		
+		Comodo comodoFim = (Comodo)casa_alvo;
+		
 		// posicao inicial
 		int[] posicaoIni = p.posicao();
-			
+		
+		// checagens de redundancia
+		if (comodoFim.estaEmComodo(p)) return comodoFim.nome();
+		if (alvo[0] == posicaoIni[0] && alvo[1] == posicaoIni[1]) return comodoFim.nome();
+		
 		// atualizando tabuleiro
 		if (tabuleiro[posicaoIni[0]][posicaoIni[1]] instanceof Casa) {
 			Casa casaIni = (Casa)tabuleiro[posicaoIni[0]][posicaoIni[1]];
@@ -310,7 +316,6 @@ class Tabuleiro {
 			comodoIni.saiComodo(p);
 		}
 		
-		Comodo comodoFim = (Comodo)tabuleiro[alvo[0]][alvo[1]];
 		int[] livre = comodoFim.getPosicaoLivre();
 		comodoFim.entraComodo(p);
 		

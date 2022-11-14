@@ -24,7 +24,7 @@ public class ProximoClickHandler implements MouseListener, Observed {
 	public void mouseClicked(MouseEvent e) {
 		Jogo jogo = Jogo.getJogo();
 		
-		if (jogo.getFase() == 2) {
+		if (jogo.getFase() >= 2) {
 			jogo.passaVez();
 			System.out.println("Passou a vez");
 			System.out.println(jogo.getJogadorAtualNome());
