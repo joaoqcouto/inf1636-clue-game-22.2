@@ -325,4 +325,10 @@ class Tabuleiro {
 		// movimento feito
 		return comodoFim.nome();
 	}
+	
+	public boolean estaEmComodo(Pessoa p) {
+		int[] posicao = p.posicao();
+		if (tabuleiro[posicao[0]][posicao[1]] instanceof Comodo) return true;
+		return false;
+	}
 }

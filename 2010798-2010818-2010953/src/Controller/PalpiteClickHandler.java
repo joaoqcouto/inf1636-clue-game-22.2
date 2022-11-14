@@ -19,7 +19,7 @@ public class PalpiteClickHandler implements Observed {
 	public void mouseClicked(String palpitado, String arma) {
 		Jogo jogo = Jogo.getJogo();
 		
-		// pode dar palpite depois de andar
+		// pode dar palpite depois de andar, de dentro de um comodo
 		if (jogo.getFase() == 2) {
 			
 			String palpiteResposta = jogo.palpita(palpitado, arma);

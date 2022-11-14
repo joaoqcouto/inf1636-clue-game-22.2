@@ -171,7 +171,7 @@ public class ClueFrame extends JFrame implements Observer{
 		b5.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
             	Jogo jogo = Jogo.getJogo();
-            	if (jogo.getFase()==2) {
+            	if (jogo.getFase()==2 && jogo.estaEmComodo()) {
             		PalpiteFrame p = new PalpiteFrame("Palpite");
                     p.setVisible(true);
             	}

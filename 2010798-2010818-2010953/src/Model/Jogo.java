@@ -233,6 +233,11 @@ public class Jogo {
 	}
 	
 	// palpite e acusacao
+	public boolean estaEmComodo() {
+		Pessoa atual = filaJogadores.peek();
+		return tabuleiro.estaEmComodo(atual);
+	}
+	
 	// retorna nome da carta que nega palpite (ou null)
 	public String palpita(String palpitado, String arma) {
 		Pessoa atual = filaJogadores.peek();
