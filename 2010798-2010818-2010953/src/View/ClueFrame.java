@@ -9,6 +9,10 @@ import javax.swing.*;
 import java.awt.geom.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import Model.Cartas;
 import Model.Jogo;
 
 public class ClueFrame extends JFrame implements Observer{
@@ -28,7 +32,8 @@ public class ClueFrame extends JFrame implements Observer{
 	JLabel l1 = new JLabel();
 	JLabel jogadorLabel = new JLabel();
 
-	Color coresPersonagens[] = { Color.RED, Color.YELLOW, Color.PINK, Color.GREEN, Color.WHITE, Color.BLUE };
+	Map<String, Color> coresPersonagens = new HashMap<String, Color>();
+	
 	CluePanel gamePanel;
 	String jogador;
 		
@@ -39,6 +44,7 @@ public class ClueFrame extends JFrame implements Observer{
 	
 	CluePanel dadosPanel;
 	CluePanel dadosPanel2;
+	PiecesPanel piecesPanel;
 
 	
 	public static final int TXT_X=0;
@@ -46,6 +52,15 @@ public class ClueFrame extends JFrame implements Observer{
 	
 	public ClueFrame(String name) {
 		super(name); 
+		
+		// keeping background colors
+		coresPersonagens.put("Srta. Scarlet", new Color(255, 160, 160));
+		coresPersonagens.put("Coronel Mustard", new Color(255, 255, 160));
+		coresPersonagens.put("Professor Plum", new Color(220, 160, 255));
+		coresPersonagens.put("Reverendo Green", new Color(160, 255, 225));
+		coresPersonagens.put("Sra. White", new Color(255, 255, 255));
+		coresPersonagens.put("Sra. Peacock", new Color(150, 150, 255));
+		
 		ProximoClickHandler.getInstance().add(this);
 		EscolherDadosClickHandler.getInstance().add(this);
 		JogarDadosClickHandler.getInstance().add(this);
@@ -65,7 +80,14 @@ public class ClueFrame extends JFrame implements Observer{
 		
 		//Putting on Panel
 		gamePanel = new CluePanel("./Resources/Tabuleiro-Clue.jpg");
+		
+		piecesPanel = new PiecesPanel();
 		getContentPane().add(gamePanel);
+		gamePanel.add(piecesPanel);
+		piecesPanel.setBounds(0, 0, 603, 626);
+		piecesPanel.setOpaque(false);
+		// piecesPanel.setBackground(Color.BLACK);
+		
 		gamePanel.add(b1);
 		gamePanel.add(b2);
 		gamePanel.add(b3);
@@ -146,7 +168,7 @@ public class ClueFrame extends JFrame implements Observer{
 		b2.addMouseListener(ProximoClickHandler.getInstance());
 		b8.addMouseListener(JogarDadosClickHandler.getInstance());
 		b9.addMouseListener(EscolherDadosClickHandler.getInstance());
-		//gamePanel.add();
+		
 		b5.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
             	Jogo jogo = Jogo.getJogo();
@@ -182,9 +204,14 @@ public class ClueFrame extends JFrame implements Observer{
 		gamePanel.remove(dadosPanel);
 		gamePanel.remove(dadosPanel2);
 		
+		jogador = jogo.getJogadorAtualNome();
+		gamePanel.setBackground(coresPersonagens.get(jogador));
+		
 		gamePanel.setLayout(null);
+		piecesPanel.setLayout(null);
 		
 	}
+	
 	public void printaDados () {		
 		Jogo jogo = Jogo.getJogo();
 		int vet[] = jogo.getDados();
@@ -240,6 +267,7 @@ public class ClueFrame extends JFrame implements Observer{
 			jogador = jogo.getJogadorAtualNome();
 			jogadorLabel.setText(jogador);
 			l1.setText("Role os dados");
+			gamePanel.setBackground(coresPersonagens.get(jogador));
 			
 		}
 		// palpite
@@ -264,6 +292,7 @@ public class ClueFrame extends JFrame implements Observer{
 			}
 			
 			jogador = jogo.getJogadorAtualNome();
+			gamePanel.setBackground(coresPersonagens.get(jogador));
 			jogadorLabel.setText(jogador);
 			l1.setText("Role os dados");
 		}

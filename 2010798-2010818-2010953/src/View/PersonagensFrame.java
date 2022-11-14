@@ -30,12 +30,12 @@ public class PersonagensFrame extends JFrame{
         getContentPane().add(p);
         
         checkboxes = new JCheckBox[] {
-        	new JCheckBox("Mrs Scarlett",false),
-        	new JCheckBox("Col. Mustard",false),
-        	new JCheckBox("Mrs. White",false),
-        	new JCheckBox("Rev. Green",false),
-        	new JCheckBox("Mrs. Peacock",false),
-        	new JCheckBox("Prof. Plum",false),
+        	new JCheckBox("Srta. Scarlet",false),
+        	new JCheckBox("Coronel Mustard",false),
+        	new JCheckBox("Sra. White",false),
+        	new JCheckBox("Reverendo Green",false),
+        	new JCheckBox("Sra. Peacock",false),
+        	new JCheckBox("Professor Plum",false),
         };
         
         JButton j1 = new JButton("JOGAR");
@@ -61,13 +61,13 @@ public class PersonagensFrame extends JFrame{
 		j1.setBackground(Color.BLACK);
 		j1.setForeground(Color.WHITE);
 		
-		checkboxes[0].setBackground(Color.RED);
-		checkboxes[1].setBackground(Color.YELLOW);
-		checkboxes[2].setBackground(Color.WHITE);
-		checkboxes[3].setBackground(Color.GREEN);
-		checkboxes[4].setBackground(Color.BLUE);
-		checkboxes[5].setBackground(Color.CYAN);
-
+		checkboxes[0].setBackground(new Color(255, 160, 160));
+		checkboxes[1].setBackground(new Color(255, 255, 160));
+		checkboxes[2].setBackground(new Color(255, 255, 255));
+		checkboxes[3].setBackground(new Color(160, 255, 225));
+		checkboxes[4].setBackground(new Color(150, 150, 255));
+		checkboxes[5].setBackground(new Color(220, 160, 255));
+		
         p.setLayout(null);
 
         //Botão Jogo

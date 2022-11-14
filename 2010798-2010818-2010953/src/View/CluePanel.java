@@ -15,7 +15,6 @@ public class CluePanel extends JPanel {
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
 		Image i;
 		try {
 			i=ImageIO.read(new File(panelName));
@@ -25,7 +24,6 @@ public class CluePanel extends JPanel {
 		catch(IOException e) {
 			System.out.println(e.getMessage());
 			System.exit(1);
-		}
-		
+		}	
 	}
 }
