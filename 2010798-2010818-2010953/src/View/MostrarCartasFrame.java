@@ -9,7 +9,9 @@ public class MostrarCartasFrame extends JFrame {
 	CluePanel cartasPanel1;
 	CluePanel cartasPanel2;
 	 
-	public MostrarCartasFrame() {
+	public MostrarCartasFrame(String name) {
+		super(name); 
+		
 		Toolkit tk=Toolkit.getDefaultToolkit();
 		Dimension screenSize=tk.getScreenSize();
 		int sl=screenSize.width;
@@ -17,7 +19,6 @@ public class MostrarCartasFrame extends JFrame {
 		int x=sl/2 - LARG_DEFAULT/2;
 		int y=sa/2 - ALT_DEFAULT/2;
 		setBounds(x,y,LARG_DEFAULT,ALT_DEFAULT);
-		setDefaultCloseOperation(EXIT_ON_CLOSE); 
 		
 		setLayout(null);
 		Container c=getContentPane();
@@ -30,14 +31,6 @@ public class MostrarCartasFrame extends JFrame {
 		
 		c.add(cartasPanel1);
 		c.add(cartasPanel2);
-		
-		
-		
-	}
-	public static void main(String[] args ) {
-		MostrarCartasFrame f= new MostrarCartasFrame();
-		f.setTitle("Minha Primeira GUI");
-		f.setVisible(true);
 		
 	}
 }

@@ -164,6 +164,13 @@ public class ClueFrame extends JFrame implements Observer{
             }
         });
 		
+		b3.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+        		MostrarCartasFrame cartas = new MostrarCartasFrame("Cartas");
+        		cartas.setVisible(true);
+            }
+        });
+		
 		// log do estado
 		b1.addMouseListener(new PrintGameStateHandler());
 		
