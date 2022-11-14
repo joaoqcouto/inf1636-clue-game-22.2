@@ -5,8 +5,11 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Enumeration;
 
 import javax.swing.*;
+
+import Controller.AcusacaoClickHandler;
 
 
 public class AcusacaoFrame extends JFrame{
@@ -125,12 +128,35 @@ public class AcusacaoFrame extends JFrame{
 		c.add(r21);
 		
 		c.add(b1);
+
+		AcusacaoClickHandler handler = AcusacaoClickHandler.getInstance();
 		b1.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-            	dispose();
+            	String acusado = getSelectedButtonText(personagens);
+            	String local = getSelectedButtonText(comodos);
+            	String arma = getSelectedButtonText(armas);
+            	
+            	if (acusado != null && local != null && arma != null) {
+            		handler.mouseClicked(acusado, local, arma);
+                	dispose();
+            	}
             }
         });
+		
 		setSize(570,420);
 		setVisible(true);
 	}
+	
+	public String getSelectedButtonText(ButtonGroup buttonGroup) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+
+        return null;
+    }
+	
 }

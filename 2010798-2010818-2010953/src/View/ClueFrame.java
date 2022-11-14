@@ -17,7 +17,7 @@ public class ClueFrame extends JFrame implements Observer{
 	
 	// botao b1 de teste (printa no console estado atual)
 	JButton b1 = new JButton ("Print Game State");
-	JButton b2 = new JButton ("Pr�ximo");
+	JButton b2 = new JButton ("Passar vez");
 	JButton b3 = new JButton ("Mostrar Cartas");
 	JButton b4 = new JButton ("Bloco de Notas");
 	JButton b5 = new JButton ("Palpite");
@@ -51,6 +51,7 @@ public class ClueFrame extends JFrame implements Observer{
 		JogarDadosClickHandler.getInstance().add(this);
 		PalpiteClickHandler.getInstance().add(this);
 		TabuleiroClickHandler.getInstance().add(this);
+		AcusacaoClickHandler.getInstance().add(this);
 		
 		Toolkit tk=Toolkit.getDefaultToolkit();
 		Dimension screenSize=tk.getScreenSize();
@@ -160,7 +161,7 @@ public class ClueFrame extends JFrame implements Observer{
             public void mousePressed(MouseEvent e) {
                 Jogo jogo = Jogo.getJogo();
             	if (jogo.getFase()>=2) {
-            		AcusacaoFrame a = new AcusacaoFrame("Acusa��o");
+            		AcusacaoFrame a = new AcusacaoFrame("Acusacao");
                     a.setVisible(true);
             	}
             }
@@ -184,9 +185,7 @@ public class ClueFrame extends JFrame implements Observer{
 		gamePanel.setLayout(null);
 		
 	}
-	public void printaDados () {
-		gamePanel.remove(l1);
-		
+	public void printaDados () {		
 		Jogo jogo = Jogo.getJogo();
 		int vet[] = jogo.getDados();
 		
@@ -197,8 +196,6 @@ public class ClueFrame extends JFrame implements Observer{
 			    .append(" posicoes");
 
 		l1.setText(c.toString());
-		gamePanel.add(l1);
-		
 		int num = vet[0];
 		StringBuilder a = new StringBuilder()
 				.append("./Resources/dado")
@@ -226,7 +223,7 @@ public class ClueFrame extends JFrame implements Observer{
 		if (n == 0) {
 			gamePanel.remove(dadosPanel);
 			gamePanel.remove(dadosPanel2);
-			l1.setText("Palpite ou passe a vez");
+			l1.setText("Palpite, acuse ou passe a vez");
 		}
 		// rolou dados
 		if (n == 1) {
@@ -238,14 +235,31 @@ public class ClueFrame extends JFrame implements Observer{
 		if (n == 2) {
 			gamePanel.remove(dadosPanel);
 			gamePanel.remove(dadosPanel2);
-			gamePanel.remove(jogadorLabel);
 			
 			Jogo jogo = Jogo.getJogo();
 			jogador = jogo.getJogadorAtualNome();
 			jogadorLabel.setText(jogador);
-			gamePanel.add(jogadorLabel);
 			l1.setText("Role os dados");
 			
+		}
+		// palpite
+		if (n == 3) {
+			l1.setText("Acuse ou passe a vez");
+		}
+		// acusacao errada
+		// talvez precisa checar a chance de ter sido o ultimo jogador (acabou o jogo)
+		if (n == 4) {
+			gamePanel.remove(dadosPanel);
+			gamePanel.remove(dadosPanel2);
+			
+			Jogo jogo = Jogo.getJogo();
+			jogador = jogo.getJogadorAtualNome();
+			jogadorLabel.setText(jogador);
+			l1.setText("Role os dados");
+		}
+		// acusacao certa (acabou o jogo)
+		if (n == 5) {
+			// abrir uma tela de parabens que mata o jogo qd fecha
 		}
 		
 		gamePanel.revalidate();
