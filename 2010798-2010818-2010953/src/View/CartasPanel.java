@@ -10,10 +10,8 @@ public class CartasPanel extends JPanel{
 	public int TXT_Y= 0;
 	private String panelName;
 	
-	public CartasPanel(String panelName, int x, int y) {
+	public CartasPanel(String panelName) {
 		this.panelName = panelName;
-		this.TXT_X = x;
-		this.TXT_Y = y;
 	}
 	public void paintComponent(Graphics g ) {
 		

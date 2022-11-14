@@ -17,7 +17,7 @@ public class ClueFrame extends JFrame implements Observer{
 	
 	// botao b1 de teste (printa no console estado atual)
 	JButton b1 = new JButton ("Print Game State");
-	JButton b2 = new JButton ("Próximo");
+	JButton b2 = new JButton ("Prï¿½ximo");
 	JButton b3 = new JButton ("Mostrar Cartas");
 	JButton b4 = new JButton ("Bloco de Notas");
 	JButton b5 = new JButton ("Palpite");
@@ -158,7 +158,7 @@ public class ClueFrame extends JFrame implements Observer{
             public void mousePressed(MouseEvent e) {
                 Jogo jogo = Jogo.getJogo();
             	if (jogo.getFase()>=2) {
-            		AcusacaoFrame a = new AcusacaoFrame("Acusação");
+            		AcusacaoFrame a = new AcusacaoFrame("Acusaï¿½ï¿½o");
                     a.setVisible(true);
             	}
             }
@@ -179,9 +179,9 @@ public class ClueFrame extends JFrame implements Observer{
 		
 		int total = vet[0]+vet[1];
 		StringBuilder c = new StringBuilder()
-				.append("Você deve andar ")
+				.append("Vocï¿½ deve andar ")
 			    .append(String.valueOf(total))
-			    .append(" posições");
+			    .append(" posiï¿½ï¿½es");
 
 		l1.setText(c.toString());
 		super.update(this.getGraphics());
