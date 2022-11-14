@@ -5,6 +5,7 @@ import java.util.Queue;
 
 class Tabuleiro {
 	Object [][]tabuleiro;
+	Pessoa []jogadores;
 	
 	// matriz de ints que representa o tabuleiro
 	// 0 = espa�o v�lido; 1 - 9 = c�modos; -1 -> -6 = jogadores; 10 = espa�o inv�lido
@@ -40,6 +41,7 @@ class Tabuleiro {
 	public Tabuleiro(Pessoa jogadores[]) {
 		// alocando espa�o para tabuleiro
 		tabuleiro = new Object[tabuleiro_base.length][tabuleiro_base[0].length];
+		this.jogadores = jogadores;
 		
 		// inicializando todo o tabuleiro exceto os c�modos (c�modos precisam vir depois por causa de suas entradas)
 		int rowI = 0;
@@ -279,12 +281,25 @@ class Tabuleiro {
 		return false;
 	}
 		
-	// levando para comodo (palpite)
-	void transportaPessoa(Pessoa p, Comodo comodoFim) {
+	// levando para comodo, retorna nome do comodo se levou
+	// retorna "" caso pessoa nao esteja em comodo/nao encontre alvo
+	String transportaPessoa(Pessoa atual, String a_trazer) {
+		// pegando pessoa a ser transportada
+		Pessoa p = null;
+		for (Pessoa pi:jogadores) {
+			if (pi.nome() == a_trazer) p = pi;
+		}
+		if (p == null) return null;
+		
+		// posicao final
+		int[] alvo = atual.posicao();
+		Object casa_alvo = tabuleiro[alvo[0]][alvo[1]];
+		if (!(casa_alvo instanceof Comodo)) return null;
+		
+		// posicao inicial
 		int[] posicaoIni = p.posicao();
-
-		System.out.println("Movimento checado");
 			
+		// atualizando tabuleiro
 		if (tabuleiro[posicaoIni[0]][posicaoIni[1]] instanceof Casa) {
 			Casa casaIni = (Casa)tabuleiro[posicaoIni[0]][posicaoIni[1]];
 			casaIni.desocupar();
@@ -295,9 +310,14 @@ class Tabuleiro {
 			comodoIni.saiComodo(p);
 		}
 		
+		Comodo comodoFim = (Comodo)tabuleiro[alvo[0]][alvo[1]];
 		int[] livre = comodoFim.getPosicaoLivre();
 		comodoFim.entraComodo(p);
 		
+		// movendo
 		p.moverPara(livre[0], livre[1]);
+		
+		// movimento feito
+		return comodoFim.nome();
 	}
 }

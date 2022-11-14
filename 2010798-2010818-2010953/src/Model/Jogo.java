@@ -19,9 +19,6 @@ public class Jogo {
 	Dados dados;
 	Armas armas[];
 	
-	Palpite palpite_corrente = null;
-	Acusacao acusacao_corrente = null;
-	
 	// mantem em que 'fase' de uma rodada o jogo esta
 	// vai ser util para limitar as acoes possiveis do jogador
 	// 0 => rola dados ; 1 => escolhe pra onde vai ; 2 => palpita/acusa/passa a vez 
@@ -187,7 +184,7 @@ public class Jogo {
 	}
 	
 	// tira jogador atual da rotacao apos acusacao errada
-	public void tiraDoJogo(String nome) {
+	public void tiraDoJogo() {
 		if (fase_rodada == 2) {
 			fase_rodada = 0;
 			filaJogadores.remove();
@@ -208,7 +205,35 @@ public class Jogo {
 	}
 	
 	// palpite e acusacao
+	// retorna nome da carta que nega palpite (ou null)
+	public String palpita(String palpitado, String arma) {
+		Pessoa atual = filaJogadores.peek();
+		
+		// tenta transportar jogador e pegar nome do comodo
+		String comodo = tabuleiro.transportaPessoa(atual, palpitado);
+		if (comodo == null) return null;
+		
+		// monta e valida o palpite
+		Palpite palpite_corrente = new Palpite(atual.nome(), palpitado, comodo, arma);
+		Cartas cartaPalpite = palpite_corrente.isPalpiteTrue(new LinkedList<>(filaPalpites));
+		
+		// retorna o nome da carta (ou nada)
+		if (cartaPalpite==null) return null;
+		return cartaPalpite.Nome();
+	}
 	
+	public boolean acusa(String acusado, String lugar, String arma) {
+		Pessoa atual = filaJogadores.peek();
+		Acusacao acusacao_corrente = new Acusacao(atual.nome(), acusado, lugar, arma);
+		
+		Boolean acertou = acusacao_corrente.isAcusacaoTrue(envelope);
+		// se errou perdeu a vez pra sempre
+		if (!acertou) {
+			tiraDoJogo();
+		}
+		
+		return acertou;
+	}
 	
 	public Cartas[] getCartasEnvelope() { return envelope; }
 }

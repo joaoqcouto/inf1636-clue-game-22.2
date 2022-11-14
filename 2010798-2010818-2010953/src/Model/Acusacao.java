@@ -1,12 +1,12 @@
 package Model;
 
 class Acusacao {
-	private Pessoa acusador;
-	private Pessoa acusado;
-	private Comodo lugar_acusacao;
-	private Armas arma_acusacao;
+	private String acusador;
+	private String acusado;
+	private String lugar_acusacao;
+	private String arma_acusacao;
 
-	public Acusacao(Pessoa acusador, Pessoa acusado, Comodo lugar, Armas arma) {
+	public Acusacao(String acusador, String acusado, String lugar, String arma) {
 		this.acusador = acusador;
 		this.acusado = acusado;
 		this.lugar_acusacao = lugar;
@@ -14,12 +14,11 @@ class Acusacao {
 	}
 	
 	// checa gabarito, compara com acusacao feita
-	boolean isAcusacaoTrue() {
-		Cartas envelope[] = Jogo.getJogo().getCartasEnvelope();
+	boolean isAcusacaoTrue(Cartas[] envelope) {
 		if (
-			envelope[0].Nome() == arma_acusacao.NomeArma() &&
-			envelope[1].Nome() == acusado.nome() &&
-			envelope[2].Nome() == lugar_acusacao.nome()
+			envelope[0].Nome() == arma_acusacao &&
+			envelope[1].Nome() == acusado &&
+			envelope[2].Nome() == lugar_acusacao
 		) return true;
 			
 		return false;
