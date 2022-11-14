@@ -16,13 +16,15 @@ public class PalpiteClickHandler implements Observed {
 	}
 	private PalpiteClickHandler() {}
 	
+	String palpiteResposta;
+	
 	public void mouseClicked(String palpitado, String arma) {
 		Jogo jogo = Jogo.getJogo();
 		
 		// pode dar palpite depois de andar, de dentro de um comodo
 		if (jogo.getFase() == 2) {
 			
-			String palpiteResposta = jogo.palpita(palpitado, arma);
+			palpiteResposta = jogo.palpita(palpitado, arma);
 			
 			System.out.println("PALPITE FEITO");
 			if (palpiteResposta==null) {
@@ -41,6 +43,9 @@ public class PalpiteClickHandler implements Observed {
 			this.update();
 		}
 	}
+	
+	// getting result
+	public String getResposta() { return palpiteResposta; }
 	
 	// observed structure
 	private List<Observer> observerList = new ArrayList<Observer>();

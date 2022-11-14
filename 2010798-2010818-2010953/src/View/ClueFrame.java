@@ -247,9 +247,12 @@ public class ClueFrame extends JFrame implements Observer{
 		int n = o.get();
 		// clicou no tabuleiro (personagem andou)
 		if (n == 0) {
+			Jogo jogo = Jogo.getJogo();
+			boolean podePalpitar = jogo.estaEmComodo();
 			gamePanel.remove(dadosPanel);
 			gamePanel.remove(dadosPanel2);
-			l1.setText("Palpite, acuse ou passe a vez");
+			if (podePalpitar) l1.setText("Palpite, acuse ou passe a vez");
+			else l1.setText("Acuse ou passe a vez");
 		}
 		// rolou dados
 		if (n == 1) {
@@ -271,10 +274,25 @@ public class ClueFrame extends JFrame implements Observer{
 		}
 		// palpite
 		if (n == 3) {
+			PalpiteClickHandler pp = (PalpiteClickHandler)o;
+			String resposta = pp.getResposta();
+			
+			// ninguem desprovou
+			if (resposta == "n") {
+				String message = "Nenhum jogador mostrou cartas que desprovam o seu palpite.";
+				JOptionPane.showMessageDialog(null, message,"Resultado do palpite", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+			// alguma carta desprovou
+			else if (resposta!=null) {
+				CartaFrame cartaFrame = new CartaFrame(resposta);
+				cartaFrame.setVisible(true);
+			}
+			
 			l1.setText("Acuse ou passe a vez");
 		}
 		// acusacao errada
-		// talvez precisa checar a chance de ter sido o ultimo jogador (acabou o jogo)
+		// existe a chance de ter sido o ultimo jogador (acabou o jogo)
 		if (n == 4) {
 			gamePanel.remove(dadosPanel);
 			gamePanel.remove(dadosPanel2);
