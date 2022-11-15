@@ -156,15 +156,17 @@ public class Jogo {
 	}
 	
 	//Cartas jogador atual
-	public Cartas[] getCartasJogadorAtual(){
+	public String[] getCartasJogadorAtual(){
 		Pessoa atual = filaJogadores.peek();
-		return atual.cartas(); 
+		Cartas cartas[] = atual.cartas(); 
+		int qtd = atual.qtdCartas();
+		
+		String cartasNomes[] = new String[qtd];
+		for (int i = 0; i<qtd; i++) cartasNomes[i] = cartas[i].Nome();
+		
+		return cartasNomes;
 	}
-	public int getQtdCartasJogadorAtual(){
-		Pessoa atual = filaJogadores.peek();
-		return atual.qtdCartas(); 
-	}
-	
+
 	// controle de qual 'fase' da rodada esta
 	public int getFase() { return fase_rodada; }
 	public void proxFase() { fase_rodada++; }

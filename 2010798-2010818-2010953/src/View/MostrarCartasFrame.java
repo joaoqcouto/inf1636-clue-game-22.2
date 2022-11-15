@@ -4,13 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MostrarCartasFrame extends JFrame {
-	public final int LARG_DEFAULT=800;
-	public final int ALT_DEFAULT=700;
-	CluePanel cartasPanel1;
-	CluePanel cartasPanel2;
+	final int WCARTA = 150;
+	final int HCARTA = 230;
 	 
-	public MostrarCartasFrame(String name) {
-		super(name); 
+	public MostrarCartasFrame(String[] cartasArray, String titulo) {
+		super(titulo);
+		
+		int LARG_DEFAULT = WCARTA*3+60;
+		int ALT_DEFAULT = HCARTA*2+70;
+		if (cartasArray.length<4) ALT_DEFAULT = HCARTA+60;
 		
 		Toolkit tk=Toolkit.getDefaultToolkit();
 		Dimension screenSize=tk.getScreenSize();
@@ -19,19 +21,23 @@ public class MostrarCartasFrame extends JFrame {
 		int x=sl/2 - LARG_DEFAULT/2;
 		int y=sa/2 - ALT_DEFAULT/2;
 		setBounds(x,y,LARG_DEFAULT,ALT_DEFAULT);
-		
 		setLayout(null);
+		
 		Container c=getContentPane();
 		
-		cartasPanel1 = new CluePanel("./Resources/Cartas/Cano.jpg");
-		cartasPanel1.setBounds(10, 10, 300, 500);
-		
-		cartasPanel2 = new CluePanel("./Resources/Cartas/Faca.jpg");
-		cartasPanel2.setBounds(330, 10, 300, 500);
-		
-		c.add(cartasPanel1);
-		c.add(cartasPanel2);
-		
+		// adding cards
+		int i = 0;
+		int j = 0;
+		for (String cartaNome:cartasArray) {
+			CartasPanel cartasPanel = new CartasPanel(CardImages.getImage(cartaNome));
+			cartasPanel.setBounds(10 + 10*i + i*WCARTA, 10 + 10*j + j*HCARTA, WCARTA, HCARTA);
+			c.add(cartasPanel);
+			i++;
+			if (i == 3) {
+				i = 0;
+				j++;
+			}
+		}
 	}
 }
 

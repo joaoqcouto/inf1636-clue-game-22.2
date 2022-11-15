@@ -18,7 +18,7 @@ public class CartasPanel extends JPanel{
 		Image i;
 		try {
 			i=ImageIO.read(new File(panelName));
-			g.drawImage(i,TXT_X,TXT_Y,null);
+			g.drawImage(i.getScaledInstance(150, -1, Image.SCALE_SMOOTH),TXT_X,TXT_Y,this);
 			
 		}
 		catch(IOException e) {

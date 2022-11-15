@@ -40,8 +40,6 @@ public class ClueFrame extends JFrame implements Observer{
 	public final int LARG_DEFAULT=850;
 	public final int ALT_DEFAULT=665;
 	
-	public int currentColor = 0;
-	
 	CluePanel dadosPanel;
 	CluePanel dadosPanel2;
 	PiecesPanel piecesPanel;
@@ -159,7 +157,8 @@ public class ClueFrame extends JFrame implements Observer{
 		
 		b4.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-            	NotasFrame n = new NotasFrame(new StringBuilder().append(jogo.getJogadorAtualNome()).append("'s notes").toString() );
+            	String titulo = new StringBuilder().append(jogo.getJogadorAtualNome()).append("'s notes").toString();
+            	NotasFrame n = new NotasFrame(titulo);
                 n.setVisible(true);
             }
         });
@@ -190,8 +189,11 @@ public class ClueFrame extends JFrame implements Observer{
 		
 		b3.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-        		MostrarCartasFrame cartas = new MostrarCartasFrame("Cartas");
-        		cartas.setVisible(true);
+            	Jogo jogo = Jogo.getJogo();
+            	String cartas[] = jogo.getCartasJogadorAtual();
+            	String titulo = new StringBuilder().append(jogo.getJogadorAtualNome()).append("'s cards").toString();
+        		MostrarCartasFrame c = new MostrarCartasFrame(cartas, titulo);
+        		c.setVisible(true);
             }
         });
 		
