@@ -281,5 +281,10 @@ public class Jogo {
 		return acertou;
 	}
 	
-	public Cartas[] getCartasEnvelope() { return envelope; }
+	public String[] getCartasEnvelope() {
+		String cartasNomes[] = new String[3];
+		for (int i = 0; i<3; i++) cartasNomes[i] = envelope[i].Nome();
+		
+		return cartasNomes;
+	}
 }

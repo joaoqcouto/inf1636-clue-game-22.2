@@ -299,11 +299,15 @@ public class ClueFrame extends JFrame implements Observer{
 			gamePanel.remove(dadosPanel);
 			gamePanel.remove(dadosPanel2);
 			
+			Jogo jogo = Jogo.getJogo();
+			
+			MostrarCartasFrame c = new MostrarCartasFrame(jogo.getCartasEnvelope(), "Cartas do envelope");
+    		c.setVisible(true);
+			
 			// abrir uma tela de parabens que mata o jogo qd fecha
 			String errou = "Voce fez uma acusacao errada. Seu personagem foi removido do jogo";
 			JOptionPane.showMessageDialog(null, errou,"Acusacao errada", JOptionPane.ERROR_MESSAGE);
 						
-			Jogo jogo = Jogo.getJogo();
 			if (jogo.semJogadores()) {
 				String fim = "Todos os jogadores erraram. Fim de jogo.";
 				JOptionPane.showMessageDialog(null, fim,"Sem mais jogadores", JOptionPane.ERROR_MESSAGE);
@@ -318,6 +322,11 @@ public class ClueFrame extends JFrame implements Observer{
 		// acusacao certa (acabou o jogo)
 		if (n == 5) {
 			// abrir uma tela de parabens que mata o jogo qd fecha
+			
+			Jogo jogo = Jogo.getJogo();
+			MostrarCartasFrame c = new MostrarCartasFrame(jogo.getCartasEnvelope(), "Cartas do envelope");
+    		c.setVisible(true);
+    		
 			String message = "Parabens! Acusacao correta. Voce ganhou!";
 			JOptionPane.showMessageDialog(null, message,"Fim de jogo", JOptionPane.INFORMATION_MESSAGE);
 			System.exit(0);
