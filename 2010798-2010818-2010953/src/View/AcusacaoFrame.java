@@ -2,7 +2,9 @@ package View;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Enumeration;
@@ -13,9 +15,20 @@ import Controller.AcusacaoClickHandler;
 
 
 public class AcusacaoFrame extends JFrame{
+	int LARG_DEFAULT = 570;
+	int ALT_DEFAULT = 420;
 	
 	public AcusacaoFrame(String name) {
 		super(name);
+		
+		Toolkit tk=Toolkit.getDefaultToolkit();
+		Dimension screenSize=tk.getScreenSize();
+		int sl=screenSize.width;
+		int sa=screenSize.height;
+		int x=sl/2 - LARG_DEFAULT/2;
+		int y=sa/2 - ALT_DEFAULT/2;
+		setBounds(x,y,LARG_DEFAULT,ALT_DEFAULT);
+		
 		setLayout(null);
 		Container c=getContentPane();
 		
@@ -143,7 +156,7 @@ public class AcusacaoFrame extends JFrame{
             }
         });
 		
-		setSize(570,420);
+		setSize(LARG_DEFAULT,ALT_DEFAULT);
 		setVisible(true);
 	}
 	

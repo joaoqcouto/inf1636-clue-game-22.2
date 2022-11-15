@@ -5,9 +5,8 @@ package Model;
 class Comodo {
 	// um cômodo sabe que cômodo ele é, quantos e quem está dentro dele
 	private String comodo;
-	private Pessoa []pessoasDentro;
+	private Pessoa [] pessoasDentro = {};
 	private Casa []entradas;
-	private int qtdDentro;
 	private Comodo passagemSecreta;
 	private int[] centro;
 	
@@ -15,9 +14,7 @@ class Comodo {
 	public Comodo(String comodo, Casa entradas[], int[] centro) {
 		this.comodo = comodo;
 		this.entradas = entradas;
-		this.pessoasDentro = new Pessoa[6];
 		this.passagemSecreta = null;
-		this.qtdDentro = 0;
 		this.centro = centro;
 	}
 	
@@ -34,16 +31,17 @@ class Comodo {
 	// coloca 'p' no cômodo
 	public void entraComodo(Pessoa p) {
 		if (estaEmComodo(p)) return;
-		
-		pessoasDentro[qtdDentro] = p;
-		qtdDentro++;
+		Pessoa []novoDentro = new Pessoa[pessoasDentro.length+1];
+		System.arraycopy(pessoasDentro, 0, novoDentro, 0, pessoasDentro.length);
+		novoDentro[pessoasDentro.length] = p;
+		pessoasDentro = novoDentro;
 	}
 	
 	// tira 'p' do cômodo
 	public void saiComodo(Pessoa p) {
 		if (!estaEmComodo(p)) return;
 		
-		Pessoa []novoDentro = new Pessoa[6];
+		Pessoa []novoDentro = new Pessoa[pessoasDentro.length-1];
 		int qtd = 0;
 		for (Pessoa pi: pessoasDentro) {
 			if (pi != p) {
@@ -53,7 +51,6 @@ class Comodo {
 		}
 		
 		pessoasDentro = novoDentro;
-		qtdDentro = qtd;
 	}
 	
 	// operações para entrar e sair vão precisar saber as entradas de um cômodo
@@ -80,11 +77,10 @@ class Comodo {
 		for (int[] posicao : possibilidades) {
 			boolean ocupada = false;
 			
-			for (int i = 0; i < qtdDentro; i++) {
+			for (int i = 0; i < pessoasDentro.length || ocupada; i++) {
 				int[] posicaoPessoa = pessoasDentro[i].posicao();
 				if (posicaoPessoa[0] == posicao[0] && posicaoPessoa[1] == posicao[1]) {
 					ocupada=true;
-					break;
 				}
 				
 			}
