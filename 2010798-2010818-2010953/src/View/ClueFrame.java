@@ -180,7 +180,15 @@ public class ClueFrame extends JFrame implements Observer{
 		
 		b2.addMouseListener(ProximoClickHandler.getInstance());
 		b8.addMouseListener(JogarDadosClickHandler.getInstance());
-		b9.addMouseListener(EscolherDadosClickHandler.getInstance());
+		
+		EscolherDadosClickHandler escolhaHandler = EscolherDadosClickHandler.getInstance();
+		b9.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+    			int d1=(int) c1.getSelectedItem();
+    			int d2=(int) c2.getSelectedItem();
+            	escolhaHandler.mouseClicked(d1, d2);
+            }
+        });
 		
 		b5.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -285,7 +293,8 @@ public class ClueFrame extends JFrame implements Observer{
 			Jogo jogo = Jogo.getJogo();
 			jogador = jogo.getJogadorAtualNome();
 			jogadorLabel.setText(jogador);
-			l1.setText("Role os dados");
+			if (jogo.getFase()==0) l1.setText("Role os dados");
+			else l1.setText("Palpite, acuse ou passe a vez");
 			gamePanel.setBackground(coresPersonagens.get(jogador));
 			
 		}
@@ -364,8 +373,6 @@ public class ClueFrame extends JFrame implements Observer{
 		}
 		// escolheu dados
 		if(n==6) {
-			jogo.getDados()[0]=(int) c1.getSelectedItem();
-			jogo.getDados()[1]=(int) c2.getSelectedItem();
 			gamePanel.remove(dadosPanel);
 			gamePanel.remove(dadosPanel2);
 			printaDados();

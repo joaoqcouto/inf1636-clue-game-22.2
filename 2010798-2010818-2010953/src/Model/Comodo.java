@@ -90,6 +90,16 @@ class Comodo {
 		return centro;
 	}
 	
+	// se comodo ta sem saida disponivel
+	public boolean estaFechado() {
+		// se nao tem passagem secreta e nenhuma entrada ta livre
+		if (passagemSecreta != null) return false;
+		for (Casa c:entradas) {
+			if (!c.ocupado()) return false;
+		}
+		return true;
+	}
+	
 	public String nome() { return comodo; }
 	
 }

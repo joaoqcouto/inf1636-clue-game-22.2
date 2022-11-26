@@ -173,6 +173,7 @@ public class Jogo {
 		
 	// jogando dados
 	public void rolaDados() { dados.rolaDados(); }
+	public void setDados(int[] d) { dados.setDados(d); }
 	public int[] getDados() { return dados.getDados(); }
 	
 	// checa se tem jogadores
@@ -199,6 +200,9 @@ public class Jogo {
 			Pessoa atual = filaJogadores.remove();
 			filaJogadores.add(atual);
 		}
+		
+		// passa para palpite caso esteja preso
+		if (tabuleiro.estaPresoEmComodo(filaJogadores.peek())) fase_rodada = 2;
 	}
 	
 	// tira jogador atual da rotacao apos acusacao errada
@@ -207,6 +211,9 @@ public class Jogo {
 			fase_rodada = 0;
 			filaJogadores.remove();
 		}
+		
+		// passa para palpite caso esteja preso
+		if (tabuleiro.estaPresoEmComodo(filaJogadores.peek())) fase_rodada = 2;
 	}
 	
 	public boolean moveJogador(int[] posFinal) {

@@ -193,7 +193,7 @@ class Tabuleiro {
 		
 		// final fora do tabuleiro jogï¿½vel
 		if (!(tabuleiro[rowFim][colFim] instanceof Casa) && !(tabuleiro[rowFim][colFim] instanceof Comodo)) return false;
-
+		
 		// ambos sï¿½o casas
 		if (tabuleiro[rowIni][colIni] instanceof Casa && tabuleiro[rowFim][colFim] instanceof Casa) {
 			// custo atï¿½ a casa precisa ser igual ao custo do trajeto
@@ -206,6 +206,7 @@ class Tabuleiro {
 			Comodo f = (Comodo)tabuleiro[rowFim][colFim];
 			Casa destinos[] = f.entradas();
 			for (Casa dest:destinos) {
+				if (calculaDistancia((Casa)tabuleiro[rowIni][colIni], dest) == 0) return true;
 				if (!dest.ocupado() && calculaDistancia((Casa)tabuleiro[rowIni][colIni], dest) <= dado) return true;				
 			}
 		}
@@ -227,7 +228,7 @@ class Tabuleiro {
 			Casa inicios[] = i.entradas();
 			Comodo f = (Comodo)tabuleiro[rowFim][colFim];
 			Casa destinos[] = f.entradas();
-			
+						
 			// mesmo cômodo
 			if (i == f) return false;
 			
@@ -329,6 +330,15 @@ class Tabuleiro {
 	public boolean estaEmComodo(Pessoa p) {
 		int[] posicao = p.posicao();
 		if (tabuleiro[posicao[0]][posicao[1]] instanceof Comodo) return true;
+		return false;
+	}
+	
+	public boolean estaPresoEmComodo(Pessoa p) {
+		int[] posicao = p.posicao();
+		if (tabuleiro[posicao[0]][posicao[1]] instanceof Comodo) {
+			Comodo c = (Comodo)tabuleiro[posicao[0]][posicao[1]];
+			if (c.estaFechado()) return true;
+		}
 		return false;
 	}
 }
