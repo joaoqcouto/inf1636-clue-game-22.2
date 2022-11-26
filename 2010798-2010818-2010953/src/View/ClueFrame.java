@@ -1,6 +1,7 @@
 package View;
 import Controller.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -31,6 +32,9 @@ public class ClueFrame extends JFrame implements Observer{
 	JButton b9 = new JButton ("Escolher Dados");
 	JLabel l1 = new JLabel();
 	JLabel jogadorLabel = new JLabel();
+	Object dadosOptions[] = {1,2,3,4,5,6,7,8,9,10,11,12};
+	JComboBox c1 = new JComboBox(dadosOptions);
+	JComboBox c2 = new JComboBox(dadosOptions);
 
 	Map<String, Color> coresPersonagens = new HashMap<String, Color>();
 	
@@ -94,6 +98,18 @@ public class ClueFrame extends JFrame implements Observer{
 		gamePanel.add(b7);
 		gamePanel.add(b8);
 		gamePanel.add(b9);
+		gamePanel.add(c1);
+		gamePanel.add(c2);
+
+		c1.setSelectedItem(null);
+		c1.setBounds(620, 580, 80, 30);
+		c1.setBackground(Color.WHITE);
+		c1.setForeground(Color.BLACK);
+		
+		c2.setSelectedItem(null);
+		c2.setBounds(700, 580, 80, 30);
+		c2.setBackground(Color.WHITE);
+		c2.setForeground(Color.BLACK);
 		
 		b1.setBounds(620,20,160,30);
 		b1.setFont(new java.awt.Font("Verdana", Font.BOLD, 10));
@@ -152,6 +168,7 @@ public class ClueFrame extends JFrame implements Observer{
 		
 		// listener do tabuleiro
 		gamePanel.addMouseListener(TabuleiroClickHandler.getInstance());
+		
 		
 		// listeners dos botoes
 		
@@ -331,7 +348,14 @@ public class ClueFrame extends JFrame implements Observer{
 			JOptionPane.showMessageDialog(null, message,"Fim de jogo", JOptionPane.INFORMATION_MESSAGE);
 			System.exit(0);
 		}
-		
+		// escolheu dados
+		if(n==6) {
+			jogo.getDados()[0]=(int) c1.getSelectedItem();
+			jogo.getDados()[1]=(int) c2.getSelectedItem();
+			gamePanel.remove(dadosPanel);
+			gamePanel.remove(dadosPanel2);
+			printaDados();
+		}
 		gamePanel.revalidate();
 		gamePanel.repaint();
 	}

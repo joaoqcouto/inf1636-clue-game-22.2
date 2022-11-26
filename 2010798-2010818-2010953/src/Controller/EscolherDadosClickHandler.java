@@ -23,15 +23,15 @@ public class EscolherDadosClickHandler implements MouseListener, Observed {
 	
 	public void mouseClicked(MouseEvent e) {
 		Jogo jogo = Jogo.getJogo();
-		
-		jogo.rolaDados();
-		
-		System.out.println("Jogou dados (PELO ESCOLHER)");
-		int[] dados = jogo.getDados();
-		System.out.println(dados[0]);
-		System.out.println(dados[1]);
-		
-		this.update();
+		if (jogo.getFase() == 0 ) {
+			jogo.proxFase();
+			
+			System.out.println("Jogou dados (PELO ESCOLHER)");
+			int[] dados = jogo.getDados();
+			System.out.println(dados[0]);
+			System.out.println(dados[1]);	
+			this.update();
+		}
 	}
 	
 	// observed structure
@@ -43,8 +43,8 @@ public class EscolherDadosClickHandler implements MouseListener, Observed {
 		observerList.remove(o);
 	}
 	public int get() {
-		// 1 indicates dados update
-		return 1;
+		// 6 indicates escolher dados with dados update
+		return 6;
 	}
 	private void update() {
 		ListIterator<Observer> li = observerList.listIterator();
