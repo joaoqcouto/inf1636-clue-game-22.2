@@ -32,7 +32,7 @@ public class ClueFrame extends JFrame implements Observer{
 	JButton b9 = new JButton ("Escolher Dados");
 	JLabel l1 = new JLabel();
 	JLabel jogadorLabel = new JLabel();
-	Object dadosOptions[] = {1,2,3,4,5,6,7,8,9,10,11,12};
+	Object dadosOptions[] = {1,2,3,4,5,6};
 	JComboBox c1 = new JComboBox(dadosOptions);
 	JComboBox c2 = new JComboBox(dadosOptions);
 
@@ -101,12 +101,10 @@ public class ClueFrame extends JFrame implements Observer{
 		gamePanel.add(c1);
 		gamePanel.add(c2);
 
-		c1.setSelectedItem(null);
 		c1.setBounds(620, 580, 80, 30);
 		c1.setBackground(Color.WHITE);
 		c1.setForeground(Color.BLACK);
 		
-		c2.setSelectedItem(null);
 		c2.setBounds(700, 580, 80, 30);
 		c2.setBackground(Color.WHITE);
 		c2.setForeground(Color.BLACK);
@@ -340,13 +338,29 @@ public class ClueFrame extends JFrame implements Observer{
 		if (n == 5) {
 			// abrir uma tela de parabens que mata o jogo qd fecha
 			
+			gamePanel.remove(dadosPanel);
+			gamePanel.remove(dadosPanel2);
+			
 			Jogo jogo = Jogo.getJogo();
 			MostrarCartasFrame c = new MostrarCartasFrame(jogo.getCartasEnvelope(), "Cartas do envelope");
     		c.setVisible(true);
     		
 			String message = "Parabens! Acusacao correta. Voce ganhou!";
-			JOptionPane.showMessageDialog(null, message,"Fim de jogo", JOptionPane.INFORMATION_MESSAGE);
-			System.exit(0);
+			JOptionPane.showMessageDialog(null, message,"Vencedor", JOptionPane.INFORMATION_MESSAGE);
+			int a = JOptionPane.showConfirmDialog(null,"Deseja continuar o jogo?", "Pergunta", JOptionPane.YES_NO_OPTION );
+			
+			if(a==JOptionPane.YES_OPTION){  
+				jogo.tiraDoJogo();
+				jogador = jogo.getJogadorAtualNome();
+				gamePanel.setBackground(coresPersonagens.get(jogador));
+				jogadorLabel.setText(jogador);
+				l1.setText("Role os dados");
+			} 
+			
+			else {
+			    c.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+				System.exit(0);
+			}
 		}
 		// escolheu dados
 		if(n==6) {
