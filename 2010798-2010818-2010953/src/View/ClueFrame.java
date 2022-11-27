@@ -243,7 +243,7 @@ public class ClueFrame extends JFrame implements Observer{
             		Jogo jogo = Jogo.getJogo();
                 	boolean salvou = jogo.salvaJogo(fileToSave.getAbsolutePath());
                 	if (salvou) {
-                		String message = "Estado do jogo salvo no arquivo 'gamesave.txt'.";
+                		String message = "Estado do jogo salvo";
         				JOptionPane.showMessageDialog(null, message,"Jogo salvo", JOptionPane.INFORMATION_MESSAGE);
                 	} else {
                 		String message = "Erro ao salvar o jogo.";
@@ -258,12 +258,34 @@ public class ClueFrame extends JFrame implements Observer{
 		gamePanel.remove(dadosPanel);
 		gamePanel.remove(dadosPanel2);
 		
+		// in case of game that has started, upate accordingly
+		if (jogo.getFase() > 0) {
+			if (jogo.getFase() == 1) {
+				printaDados();
+				int vet[] = jogo.getDados();
+				int total = vet[0]+vet[1];
+				StringBuilder c = new StringBuilder()
+						.append("Voce deve andar ")
+					    .append(String.valueOf(total))
+					    .append(" posicoes");
+
+				l1.setText(c.toString());
+			}
+			else if (jogo.getFase() == 2 && jogo.estaEmComodo()) {
+				l1.setText("Palpite, acuse ou passe a vez");
+			}
+			else {
+				l1.setText("Acuse ou passe a vez");
+			}
+		}
+		
 		jogador = jogo.getJogadorAtualNome();
 		gamePanel.setBackground(coresPersonagens.get(jogador));
 		
-		gamePanel.setLayout(null);
-		piecesPanel.setLayout(null);
 		
+		
+		gamePanel.setLayout(null);
+		piecesPanel.setLayout(null);	
 	}
 	
 	public void printaDados () {		

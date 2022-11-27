@@ -2,7 +2,13 @@ package View;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import Controller.GameMain;
+import Model.Jogo;
+
 import java.awt.event.*;
+import java.io.File;
 
 public class CapaFrame extends JFrame {
 	JButton b1 = new JButton ("Novo Jogo");
@@ -51,12 +57,39 @@ public class CapaFrame extends JFrame {
                 newGameButtonPressed();
             }
         });
+        
+        b2.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+            	continueGameButtonPressed();
+            }
+        });
 	}
 	
 	// opening character menu
-	public void newGameButtonPressed() {
+	private void newGameButtonPressed() {
 		dispose();
         PersonagensFrame p = new PersonagensFrame("Clue - Personagens");
         p.setVisible(true);
 	}
+	
+	// choosing game text file
+	private void continueGameButtonPressed() {
+		// configuring file chooser
+    	JFileChooser fileChooser = new JFileChooser();
+    	fileChooser.setDialogTitle("Escolha um arquivo de jogo");
+    	FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivo texto", "txt");
+    	fileChooser.setFileFilter(filter);
+    	
+    	int userSelection = fileChooser.showDialog(this,"Abrir");
+    	if (userSelection == JFileChooser.APPROVE_OPTION) {
+    		// file was selected
+    		dispose();
+    		File fileToLoad = fileChooser.getSelectedFile();
+    		System.out.println("Load file: " + fileToLoad.getAbsolutePath());
+    		
+    		Jogo.loadJogo(fileToLoad);
+    		GameMain.gameLoop();
+    	}
+	}
+		
 }

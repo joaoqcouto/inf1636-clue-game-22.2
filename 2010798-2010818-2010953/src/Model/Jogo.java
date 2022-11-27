@@ -1,4 +1,7 @@
 package Model;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.*;
@@ -9,6 +12,7 @@ public class Jogo {
 	
 	// mantem o tabuleiro, os jogadores, a ordem das jogadas, a resposta certa, etc.
 	Cartas cartas_jogo[];
+	int total_cartas;
 	Pessoa jogadores[];
 	Queue<Pessoa> filaJogadores;
 	Queue<Pessoa> filaPalpites;
@@ -27,14 +31,17 @@ public class Jogo {
 		jogo = new Jogo(a_jogar);
 	}
 	
+	public static void loadJogo(File gameFile) {
+		jogo = new Jogo(gameFile);
+	}
+	
 	public static Jogo getJogo() {
 		return jogo;
 	}
 	
-	private Jogo(boolean a_jogar[]) {
-		Random gerador = new Random();
+	// initializing block (before constructor, code used by both constructors)
+	{
 		dados = new Dados();
-		
 		armas = new Armas[] 
 		{
 				new Armas("Corda"),
@@ -44,22 +51,6 @@ public class Jogo {
 				new Armas( "Castical"),
 				new Armas("Revolver"),
 		};
-		
-		int pos_arma[] = new int[6];
-		 
-		for (int i = 0; i < pos_arma.length; i++) {
-			pos_arma[i] = -1; 
-		}
-		
-		for(int i = 0; i < pos_arma.length; i++) {
-			int position = 1 + gerador.nextInt(9);
-			pos_arma[i] = position; 
-		}
-		
-		for(int i = 0; i<6;i++) {
-			armas[i].inicializaPosicaoArma(pos_arma[i]); 
-		}
-		
 		
 		cartas_jogo = new Cartas[] 
 			{
@@ -97,10 +88,14 @@ public class Jogo {
 				new Pessoa("Professor Plum", 5),
 			};
 		
-		int total_cartas = 21; 
-		
+		total_cartas = 21; 
+	}
+	
+	// creating game constructor
+	private Jogo(boolean a_jogar[]) {
 		//gabarito
-		
+		Random gerador = new Random();
+
 		int num_arma = gerador.nextInt(6);
 		int num_suspeito = 6 + gerador.nextInt(6);
 		int num_comodo = 12 + gerador.nextInt(9);
@@ -149,29 +144,120 @@ public class Jogo {
 		
 		// criando tabuleiro e posicionando os jogadores nele
 		tabuleiro = new Tabuleiro(jogadores);
-		
+	}
+	
+	// file loader constructor
+	private Jogo(File gameFile) {
+		Scanner scanner = null;
+		try {
+			// creating scanner for file
+			Locale l;
+			l = new Locale.Builder().setLanguage("pt").setScript("Latn").setRegion("BR").build();
+			scanner = new Scanner(new BufferedReader(new FileReader(gameFile)));
+			scanner.useLocale(l);
+			
+			int posicoes[][] =
+				{
+					{0, 0},
+					{0, 0},
+					{0, 0},
+					{0, 0},
+					{0, 0},
+					{0, 0},
+				};
+			filaJogadores = new LinkedList<>();
+			filaPalpites = new LinkedList<>();
+			
+			// skip to int
+			while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+			
+			// reading positions
+			for (int i = 0; i < 6; i++) {
+				for (int j = 0; j < 2; j++) {
+					int pos = scanner.nextInt();
+					posicoes[i][j] = pos;
+					while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+				}
+			}
+			
+			// building next queue
+			int filaVezQtd = scanner.nextInt();
+			while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+			for (int i = 0; i < filaVezQtd; i++) {
+				int iVez = scanner.nextInt();
+				filaJogadores.add(jogadores[iVez]);
+				while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+			}
+			
+			// building palpite queue
+			int filaPalpiteQtd = scanner.nextInt();
+			while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+			for (int i = 0; i < filaPalpiteQtd; i++) {
+				int iPalpite = scanner.nextInt();
+				filaPalpites.add(jogadores[iPalpite]);
+				while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+			}
+			
+			// getting current phase
+			fase_rodada = scanner.nextInt();
+			while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+			
+			// getting dice
+			int dadosFile[] = {1, 1};
+			dadosFile[0] = scanner.nextInt();
+			while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+			dadosFile[1] = scanner.nextInt();
+			while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+			
+			// distributing cards
+			for (Pessoa j:jogadores) {
+				int cartasJogadorQtd = scanner.nextInt();
+				while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+				for (int i = 0; i < cartasJogadorQtd; i++) {
+					int iCarta = scanner.nextInt();
+					j.atribuirCarta(cartas_jogo[iCarta]);
+					while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+				}
+			}
+			
+			// getting envelope cards
+			int num_arma, num_suspeito, num_comodo;
+			num_arma = scanner.nextInt();
+			while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+			num_suspeito = scanner.nextInt();
+			while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+			num_comodo = scanner.nextInt();
+			while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+			envelope = new Cartas[] 
+						{
+								cartas_jogo[num_arma],
+								cartas_jogo[num_suspeito],
+								cartas_jogo[num_comodo],
+						};
+			
+			// getting notes
+			for (Pessoa j:jogadores) {
+				int notasJogadorQtd = scanner.nextInt();
+				while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+				for (int i = 0; i < notasJogadorQtd; i++) {
+					int iNota = scanner.nextInt();
+					j.updateNotas(cartas_jogo[iNota].Nome(), true);
+					while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+				}
+			}
+			
+			// building tabuleiro
+			tabuleiro = new Tabuleiro(jogadores);
+			tabuleiro.updatePositions(posicoes);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			// erro ao salvar
+		}
+		finally {scanner.close();}
 	}
 	
 	// salvando jogo para inicializar certo
-	/*
-		para salvar o jogo precisa salvar:
-		
-		TABULEIRO
-		- onde estao os jogadores
-		
-		TURNO
-		- fila do jogo
-		- fila de desprovar palpite (tem eliminados)
-		- fase da rodada
-		- dados
-		
-		PALPITES
-		- quem tem quais cartas
-		- anotacoes
-		- envelope
-		
-		
-	*/
 	public boolean salvaJogo(String path) {
 		PrintWriter out = null;
 		Locale l;

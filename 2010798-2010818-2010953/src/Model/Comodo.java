@@ -75,9 +75,11 @@ class Comodo {
 		
 		// checa as posicoes ate encontrar uma que ta vazia
 		for (int[] posicao : possibilidades) {
+			if (pessoasDentro.length == 0) return posicao;
 			boolean ocupada = false;
-			
-			for (int i = 0; i < pessoasDentro.length || ocupada; i++) {
+			System.out.println("Quantidade dentro do comodo: "+pessoasDentro.length);
+			for (int i = 0; i < pessoasDentro.length; i++) {
+				System.out.println("Indice: "+i);
 				int[] posicaoPessoa = pessoasDentro[i].posicao();
 				if (posicaoPessoa[0] == posicao[0] && posicaoPessoa[1] == posicao[1]) {
 					ocupada=true;

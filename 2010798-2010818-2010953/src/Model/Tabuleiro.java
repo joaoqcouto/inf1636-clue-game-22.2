@@ -341,4 +341,31 @@ class Tabuleiro {
 		}
 		return false;
 	}
+	
+	// updating all positions (used when loading game from file)
+	public void updatePositions(int positions[][]) {
+		int iPessoa = 0;
+		for (Pessoa p:jogadores) {
+			// livrando posicao inicial (a rigor deve sempre ser casa)
+			int[] posicaoIni = p.posicao();
+			if (tabuleiro[posicaoIni[0]][posicaoIni[1]] instanceof Casa) {
+				Casa casaIni = (Casa)tabuleiro[posicaoIni[0]][posicaoIni[1]];
+				casaIni.desocupar();
+			}
+			int finalI = positions[iPessoa][0];
+			int finalJ = positions[iPessoa][1];
+			
+			// ocupando posicao final
+			if (tabuleiro[finalI][finalJ] instanceof Casa) {
+				Casa casaFim = (Casa)tabuleiro[finalI][finalJ];
+				casaFim.ocupar();
+			}
+			if (tabuleiro[finalI][finalJ] instanceof Comodo) {
+				Comodo comodoFim = (Comodo)tabuleiro[finalI][finalJ];
+				comodoFim.entraComodo(p);
+			}
+			p.moverPara(finalI, finalJ);
+			iPessoa++;
+		}
+	}
 }
