@@ -408,20 +408,9 @@ public class ClueFrame extends JFrame implements Observer{
     		
 			String message = "Parabens! Acusacao correta. Voce ganhou!";
 			JOptionPane.showMessageDialog(null, message,"Vencedor", JOptionPane.INFORMATION_MESSAGE);
-			int a = JOptionPane.showConfirmDialog(null,"Deseja continuar o jogo?", "Pergunta", JOptionPane.YES_NO_OPTION );
-			
-			if(a==JOptionPane.YES_OPTION){  
-				jogo.tiraDoJogo();
-				jogador = jogo.getJogadorAtualNome();
-				gamePanel.setBackground(coresPersonagens.get(jogador));
-				jogadorLabel.setText(jogador);
-				l1.setText("Role os dados");
-			} 
-			
-			else {
-			    c.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-				System.exit(0);
-			}
+
+			c.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+	    	System.exit(0);
 		}
 		// escolheu dados
 		if(n==6) {
