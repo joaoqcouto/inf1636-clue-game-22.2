@@ -8,23 +8,23 @@ import java.util.*;
 
 public class Jogo {
 	// jogo � singleton
-	static Jogo jogo = null;
+	private static Jogo jogo = null;
 	
 	// mantem o tabuleiro, os jogadores, a ordem das jogadas, a resposta certa, etc.
-	Cartas cartas_jogo[];
-	int total_cartas;
-	Pessoa jogadores[];
-	Queue<Pessoa> filaJogadores;
-	Queue<Pessoa> filaPalpites;
-	Cartas envelope [];
-	Tabuleiro tabuleiro;
-	Dados dados;
-	Armas armas[];
+	private Cartas cartas_jogo[];
+	private int total_cartas;
+	private Pessoa jogadores[];
+	private Queue<Pessoa> filaJogadores;
+	private Queue<Pessoa> filaPalpites;
+	private Cartas envelope [];
+	private Tabuleiro tabuleiro;
+	private Dados dados;
+	private Armas armas[];
 	
 	// mantem em que 'fase' de uma rodada o jogo esta
 	// vai ser util para limitar as acoes possiveis do jogador
 	// 0 => rola dados ; 1 => escolhe pra onde vai ; 2 => palpita/acusa/passa a vez ; 3 => acusa/passa a vez
-	int fase_rodada = 0;
+	private int fase_rodada = 0;
 	
 	// operadores de singleton
 	public static void createJogo(boolean a_jogar[]) {

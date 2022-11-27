@@ -1,7 +1,7 @@
 package Model;
 
 class Dados {
-	int dados[];
+	private int dados[];
 	
 	public Dados() {
 		int dado1 = (int)((Math.random() * (7 - 1)) + 1);
@@ -9,22 +9,22 @@ class Dados {
 		dados = new int[] {dado1, dado2};
 	}
 	
-	int[] rolaDados() {
+	public int[] rolaDados() {
 		int dado1 = (int)((Math.random() * (7 - 1)) + 1);
 		int dado2 = (int)((Math.random() * (7 - 1)) + 1);
 		dados = new int[] {dado1, dado2};
 		return dados;
 	}
 	
-	int[] getDados() { return dados; }
+	public int[] getDados() { return dados; }
 	
-	int getSomaDados() {
+	public int getSomaDados() {
 		int s = 0;
 		for (int dado:dados) s += dado;
 		return s;
 	}
 	
 	// para testes somente
-	void setDados(int[] d) { dados = d; }
+	public void setDados(int[] d) { dados = d; }
 
 }

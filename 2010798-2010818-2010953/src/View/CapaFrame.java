@@ -11,11 +11,12 @@ import java.awt.event.*;
 import java.io.File;
 
 public class CapaFrame extends JFrame {
-	JButton b1 = new JButton ("Novo Jogo");
-	JButton b2 = new JButton ("Continuar");
-	public final int LARG_DEFAULT=1023;
-	public final int ALT_DEFAULT=520;
-	JPanel capaPanel;
+	private static final long serialVersionUID = 802503119670911929L;
+	private JButton b1 = new JButton ("Novo Jogo");
+	private JButton b2 = new JButton ("Continuar");
+	private final int LARG_DEFAULT=1023;
+	private final int ALT_DEFAULT=520;
+	private JPanel capaPanel;
 	
 	public CapaFrame(String name) {
 		super(name);

@@ -6,10 +6,9 @@ import java.awt.geom.Ellipse2D;
 
 import Model.Jogo;
 
-public class PiecesPanel extends JPanel {
-	public static final int TXT_X=0;
-	public static final int TXT_Y=0;
-	public Color colors[] =
+class PiecesPanel extends JPanel {
+	private static final long serialVersionUID = 3380945211855975123L;
+	private Color colors[] =
 		{ 
 			new Color(200, 80, 80),
 			new Color(200, 200, 80),

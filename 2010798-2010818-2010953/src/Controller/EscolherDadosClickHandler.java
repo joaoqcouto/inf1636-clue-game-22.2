@@ -1,14 +1,13 @@
 package Controller;
 import Model.Jogo;
-import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
 public class EscolherDadosClickHandler implements Observed {
 	// singleton structure
-	static EscolherDadosClickHandler instance = null;
-	static public EscolherDadosClickHandler getInstance() {
+	public static EscolherDadosClickHandler instance = null;
+	public static EscolherDadosClickHandler getInstance() {
 		if (instance == null) {
 			instance = new EscolherDadosClickHandler();
 		}

@@ -3,7 +3,6 @@ package View;
 import java.awt.Container;
 import javax.swing.border.*;
 
-import Model.Cartas;
 import Model.Jogo;
 
 import java.awt.Dimension;
@@ -12,38 +11,37 @@ import java.util.Map;
 
 import javax.swing.*;
 
-public class NotasFrame extends JFrame{
-	public final int LARG_DEFAULT=520;
-	public final int ALT_DEFAULT=400;
+class NotasFrame extends JFrame{
+	private static final long serialVersionUID = 7991836060861919672L;
+	private final int LARG_DEFAULT=520;
+	private final int ALT_DEFAULT=400;
 	
-	Jogo jogo = Jogo.getJogo();
-	Map<String, Boolean> notas = jogo.getNotas();
+	private Jogo jogo = Jogo.getJogo();
+	private Map<String, Boolean> notas = jogo.getNotas();
 			
-	JCheckBox cb1 = new JCheckBox("Reverendo Green"		, notas.get("Reverendo Green"));
-	JCheckBox cb2 = new JCheckBox("Coronel Mustard"		, notas.get("Coronel Mustard"));
-	JCheckBox cb3 = new JCheckBox("Sra. White"			, notas.get("Sra. White"));
-	JCheckBox cb4 = new JCheckBox("Professor Plum"		, notas.get("Professor Plum"));
-	JCheckBox cb5 = new JCheckBox("Srta. Scarlet"		, notas.get("Srta. Scarlet"));
-	JCheckBox cb6 = new JCheckBox("Sra. Peacock"		, notas.get("Sra. Peacock"));
+	private JCheckBox cb1 = new JCheckBox("Reverendo Green"		, notas.get("Reverendo Green"));
+	private JCheckBox cb2 = new JCheckBox("Coronel Mustard"		, notas.get("Coronel Mustard"));
+	private JCheckBox cb3 = new JCheckBox("Sra. White"			, notas.get("Sra. White"));
+	private JCheckBox cb4 = new JCheckBox("Professor Plum"		, notas.get("Professor Plum"));
+	private JCheckBox cb5 = new JCheckBox("Srta. Scarlet"		, notas.get("Srta. Scarlet"));
+	private JCheckBox cb6 = new JCheckBox("Sra. Peacock"		, notas.get("Sra. Peacock"));
 	
-	JCheckBox cb7 = new JCheckBox("Escritorio"			, notas.get("Escritorio"));
-	JCheckBox cb8 = new JCheckBox("Entrada"				, notas.get("Entrada"));
-	JCheckBox cb9 = new JCheckBox("Sala de estar"		, notas.get("Sala de estar"));
-	JCheckBox cb10 = new JCheckBox("Biblioteca"			, notas.get("Biblioteca"));
-	JCheckBox cb11 = new JCheckBox("Salao de jogos"		, notas.get("Salao de jogos"));
-	JCheckBox cb12 = new JCheckBox("Sala de jantar"		, notas.get("Sala de jantar"));
-	JCheckBox cb13 = new JCheckBox("Jardim de inverno"	, notas.get("Jardim de inverno"));
-	JCheckBox cb14 = new JCheckBox("Sala de musica"		, notas.get("Sala de musica"));
-	JCheckBox cb15 = new JCheckBox("Cozinha"			, notas.get("Cozinha"));
+	private JCheckBox cb7 = new JCheckBox("Escritorio"			, notas.get("Escritorio"));
+	private JCheckBox cb8 = new JCheckBox("Entrada"				, notas.get("Entrada"));
+	private JCheckBox cb9 = new JCheckBox("Sala de estar"		, notas.get("Sala de estar"));
+	private JCheckBox cb10 = new JCheckBox("Biblioteca"			, notas.get("Biblioteca"));
+	private JCheckBox cb11 = new JCheckBox("Salao de jogos"		, notas.get("Salao de jogos"));
+	private JCheckBox cb12 = new JCheckBox("Sala de jantar"		, notas.get("Sala de jantar"));
+	private JCheckBox cb13 = new JCheckBox("Jardim de inverno"	, notas.get("Jardim de inverno"));
+	private JCheckBox cb14 = new JCheckBox("Sala de musica"		, notas.get("Sala de musica"));
+	private JCheckBox cb15 = new JCheckBox("Cozinha"			, notas.get("Cozinha"));
 	
-	JCheckBox cb16 = new JCheckBox("Corda"				, notas.get("Corda"));
-	JCheckBox cb17 = new JCheckBox("Cano de Chumbo"		, notas.get("Cano de Chumbo"));
-	JCheckBox cb18 = new JCheckBox("Faca"				, notas.get("Faca"));
-	JCheckBox cb19 = new JCheckBox("Chave Inglesa"		, notas.get("Chave Inglesa"));
-	JCheckBox cb20 = new JCheckBox("Castical"			, notas.get("Castical"));
-	JCheckBox cb21 = new JCheckBox("Revolver"			, notas.get("Revolver"));
-	
-	
+	private JCheckBox cb16 = new JCheckBox("Corda"				, notas.get("Corda"));
+	private JCheckBox cb17 = new JCheckBox("Cano de Chumbo"		, notas.get("Cano de Chumbo"));
+	private JCheckBox cb18 = new JCheckBox("Faca"				, notas.get("Faca"));
+	private JCheckBox cb19 = new JCheckBox("Chave Inglesa"		, notas.get("Chave Inglesa"));
+	private JCheckBox cb20 = new JCheckBox("Castical"			, notas.get("Castical"));
+	private JCheckBox cb21 = new JCheckBox("Revolver"			, notas.get("Revolver"));
 	
 	public NotasFrame(String nome) {
 		super(nome);

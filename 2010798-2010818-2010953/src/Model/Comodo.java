@@ -19,7 +19,7 @@ class Comodo {
 	}
 	
 	// se uma pessoa 'p' está no cômodo
-	boolean estaEmComodo(Pessoa p) {
+	public boolean estaEmComodo(Pessoa p) {
 		for (Pessoa pi: pessoasDentro) {
 			if (pi == p) {
 				return true;

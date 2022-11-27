@@ -2,8 +2,8 @@ package View;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CardImages {
-	static Map<String, String> imagens = new HashMap<String, String>();
+class CardImages {
+	private static Map<String, String> imagens = new HashMap<String, String>();
 	
 	static {
 		imagens.put("Corda", "./Resources/Cartas/Corda.jpg");

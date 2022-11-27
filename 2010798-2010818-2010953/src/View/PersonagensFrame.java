@@ -8,15 +8,14 @@ import Model.Jogo;
 import java.awt.event.*;
 
 public class PersonagensFrame extends JFrame{
+	private static final long serialVersionUID = 8548773917709225304L;
+	private final int LARG_DEFAULT=934;
+	private final int ALT_DEFAULT=700;
 	
-	public final int LARG_DEFAULT=934;
-	public final int ALT_DEFAULT=700;
-	
-	JCheckBox checkboxes[];
+	private JCheckBox checkboxes[];
 	
 	public PersonagensFrame(String name) {
         super(name);
-        Dimension size;
         Toolkit tk=Toolkit.getDefaultToolkit();
         Dimension screenSize=tk.getScreenSize();
         int sl=screenSize.width;
@@ -78,7 +77,7 @@ public class PersonagensFrame extends JFrame{
         });
     }
 	
-	public void playButtonPressed() {
+	private void playButtonPressed() {
 		// getting checkbox values
 		int amount_checked = 0;
 		boolean pressedCheckbox[] = new boolean[checkboxes.length];

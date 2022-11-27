@@ -17,7 +17,7 @@ class Palpite {
 	// checa as cartas das outras pessoas
 	// retorna uma carta que desprova o palpite
 	// retorna null caso ninguem desprove
-	Cartas isPalpiteTrue(Queue<Pessoa> filaPalpites) {
+	public Cartas isPalpiteTrue(Queue<Pessoa> filaPalpites) {
 		// roda fila ate colocar palpiteiro no topo
 		while (filaPalpites.peek().nome() != palpiteiro) {
 			Pessoa p = filaPalpites.remove();

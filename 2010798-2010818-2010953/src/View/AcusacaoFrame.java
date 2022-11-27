@@ -14,9 +14,10 @@ import javax.swing.*;
 import Controller.AcusacaoClickHandler;
 
 
-public class AcusacaoFrame extends JFrame{
-	int LARG_DEFAULT = 570;
-	int ALT_DEFAULT = 420;
+class AcusacaoFrame extends JFrame{
+	private static final long serialVersionUID = 2624672048065688965L;
+	private int LARG_DEFAULT = 570;
+	private int ALT_DEFAULT = 420;
 	
 	public AcusacaoFrame(String name) {
 		super(name);
@@ -160,7 +161,7 @@ public class AcusacaoFrame extends JFrame{
 		setVisible(true);
 	}
 	
-	public String getSelectedButtonText(ButtonGroup buttonGroup) {
+	private String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
 

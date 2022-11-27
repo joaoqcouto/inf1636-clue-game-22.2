@@ -7,8 +7,8 @@ import java.util.ListIterator;
 
 public class JogarDadosClickHandler implements MouseListener, Observed {
 	// singleton structure
-	static JogarDadosClickHandler instance = null;
-	static public JogarDadosClickHandler getInstance() {
+	private static JogarDadosClickHandler instance = null;
+	public static JogarDadosClickHandler getInstance() {
 		if (instance == null) {
 			instance = new JogarDadosClickHandler();
 		}

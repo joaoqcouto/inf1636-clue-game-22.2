@@ -6,10 +6,11 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class CartaFrame extends JFrame {
-	public final int LARG_DEFAULT=320;
-	public final int ALT_DEFAULT=580;
-	CluePanel cartaPanel;
+class CartaFrame extends JFrame {
+	private static final long serialVersionUID = -4288466601153569156L;
+	private final int LARG_DEFAULT=320;
+	private final int ALT_DEFAULT=580;
+	private CluePanel cartaPanel;
 	 
 	public CartaFrame(String carta) {
 		super(carta); 
@@ -24,7 +25,7 @@ public class CartaFrame extends JFrame {
 		setLayout(null);
 		
 		Container c = getContentPane();
-		CluePanel cartaPanel = new CluePanel(CardImages.getImage(carta));
+		cartaPanel = new CluePanel(CardImages.getImage(carta));
 		cartaPanel.setBounds(10, 30, 300, 500);
 		
 		JButton sair = new JButton ("OK");

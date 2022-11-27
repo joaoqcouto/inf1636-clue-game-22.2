@@ -1,14 +1,13 @@
 package Controller;
 import Model.Jogo;
-import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
 public class PalpiteClickHandler implements Observed {
 	// singleton structure
-	static PalpiteClickHandler instance = null;
-	static public PalpiteClickHandler getInstance() {
+	private static PalpiteClickHandler instance = null;
+	public static PalpiteClickHandler getInstance() {
 		if (instance == null) {
 			instance = new PalpiteClickHandler();
 		}

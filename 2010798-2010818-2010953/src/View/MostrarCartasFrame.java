@@ -3,9 +3,10 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 
-public class MostrarCartasFrame extends JFrame {
-	final int WCARTA = 150;
-	final int HCARTA = 230;
+class MostrarCartasFrame extends JFrame {
+	private static final long serialVersionUID = 4086954017683108917L;
+	private final int WCARTA = 150;
+	private final int HCARTA = 230;
 	 
 	public MostrarCartasFrame(String[] cartasArray, String titulo) {
 		super(titulo);

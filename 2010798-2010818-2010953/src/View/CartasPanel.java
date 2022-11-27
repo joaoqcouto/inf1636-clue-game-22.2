@@ -5,9 +5,10 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class CartasPanel extends JPanel{
-	public int TXT_X= 0;
-	public int TXT_Y= 0;
+class CartasPanel extends JPanel{
+	private static final long serialVersionUID = -2507305774755697200L;
+	private int TXT_X= 0;
+	private int TXT_Y= 0;
 	private String panelName;
 	
 	public CartasPanel(String panelName) {

@@ -1,54 +1,48 @@
 package View;
 import Controller.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import java.awt.geom.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import Model.Cartas;
 import Model.Jogo;
 
 public class ClueFrame extends JFrame implements Observer{
-	
-	Jogo jogo = Jogo.getJogo();
+	private static final long serialVersionUID = -2685162052017635295L;
+
+	private Jogo jogo = Jogo.getJogo();
 	
 	// botao b1 de teste (printa no console estado atual)
-	JButton b1 = new JButton ("Print Game State");
-	JButton b2 = new JButton ("Passar vez");
-	JButton b3 = new JButton ("Mostrar Cartas");
-	JButton b4 = new JButton ("Bloco de Notas");
-	JButton b5 = new JButton ("Palpite");
-	JButton b6 = new JButton ("Acusar");
-	JButton b7 = new JButton ("Salvar Jogo");
-	JButton b8 = new JButton ("Jogar Dados");
-	JButton b9 = new JButton ("Escolher Dados");
-	JLabel l1 = new JLabel();
-	JLabel jogadorLabel = new JLabel();
-	Object dadosOptions[] = {1,2,3,4,5,6};
-	JComboBox c1 = new JComboBox(dadosOptions);
-	JComboBox c2 = new JComboBox(dadosOptions);
+	private JButton b1 = new JButton ("Print Game State");
+	private JButton b2 = new JButton ("Passar vez");
+	private JButton b3 = new JButton ("Mostrar Cartas");
+	private JButton b4 = new JButton ("Bloco de Notas");
+	private JButton b5 = new JButton ("Palpite");
+	private JButton b6 = new JButton ("Acusar");
+	private JButton b7 = new JButton ("Salvar Jogo");
+	private JButton b8 = new JButton ("Jogar Dados");
+	private JButton b9 = new JButton ("Escolher Dados");
+	private JLabel l1 = new JLabel();
+	private JLabel jogadorLabel = new JLabel();
+	private Object dadosOptions[] = {1,2,3,4,5,6};
+	private JComboBox c1 = new JComboBox<>(dadosOptions);
+	private JComboBox c2 = new JComboBox<>(dadosOptions);
 
-	Map<String, Color> coresPersonagens = new HashMap<String, Color>();
+	private Map<String, Color> coresPersonagens = new HashMap<String, Color>();
 	
-	CluePanel gamePanel;
-	String jogador;
+	private CluePanel gamePanel;
+	private String jogador;
 		
-	public final int LARG_DEFAULT=850;
-	public final int ALT_DEFAULT=665;
+	private final int LARG_DEFAULT=850;
+	private final int ALT_DEFAULT=665;
 	
-	CluePanel dadosPanel;
-	CluePanel dadosPanel2;
-	PiecesPanel piecesPanel;
+	private CluePanel dadosPanel;
+	private CluePanel dadosPanel2;
+	private PiecesPanel piecesPanel;
 
 	
 	public static final int TXT_X=0;
@@ -288,7 +282,7 @@ public class ClueFrame extends JFrame implements Observer{
 		piecesPanel.setLayout(null);	
 	}
 	
-	public void printaDados () {		
+	private void printaDados () {		
 		Jogo jogo = Jogo.getJogo();
 		int vet[] = jogo.getDados();
 		

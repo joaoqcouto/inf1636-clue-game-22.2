@@ -5,9 +5,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-public class CluePanel extends JPanel {
-	public static final int TXT_X=0;
-	public static final int TXT_Y=0;
+class CluePanel extends JPanel {
+	private static final long serialVersionUID = -8063434957322899576L;
+	private static final int TXT_X=0;
+	private static final int TXT_Y=0;
 	private String panelName;
 	
 	public CluePanel(String panelName) {

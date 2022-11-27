@@ -13,9 +13,10 @@ import javax.swing.*;
 
 import Controller.PalpiteClickHandler;
 
-public class PalpiteFrame extends JFrame {
-	int LARG_DEFAULT = 570;
-	int ALT_DEFAULT = 420;
+class PalpiteFrame extends JFrame {
+	private static final long serialVersionUID = 9206804598625611658L;
+	private int LARG_DEFAULT = 570;
+	private int ALT_DEFAULT = 420;
 	
 	public PalpiteFrame(String name) {
 		super(name);
@@ -116,7 +117,7 @@ public class PalpiteFrame extends JFrame {
 		setVisible(true);
 	}
 	
-	public String getSelectedButtonText(ButtonGroup buttonGroup) {
+	private String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
 

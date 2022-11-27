@@ -14,7 +14,7 @@ class Acusacao {
 	}
 	
 	// checa gabarito, compara com acusacao feita
-	boolean isAcusacaoTrue(Cartas[] envelope) {
+	public boolean isAcusacaoTrue(Cartas[] envelope) {
 		if (
 			envelope[0].Nome() == arma_acusacao &&
 			envelope[1].Nome() == acusado &&

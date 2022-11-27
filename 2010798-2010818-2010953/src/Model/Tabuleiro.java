@@ -4,12 +4,12 @@ import java.util.Queue;
 // imports para busca por largura dos caminhos
 
 class Tabuleiro {
-	Object [][]tabuleiro;
-	Pessoa []jogadores;
+	private Object [][]tabuleiro;
+	private Pessoa []jogadores;
 	
 	// matriz de ints que representa o tabuleiro
 	// 0 = espaï¿½o vï¿½lido; 1 - 9 = cï¿½modos; -1 -> -6 = jogadores; 10 = espaï¿½o invï¿½lido
-	int tabuleiro_base[][] =
+	private int tabuleiro_base[][] =
 		{
 			{ 1,  1,  1,  1,  1,  1, 10,  0, 10,  2,  2,  2,  2,  2,  2, 10, -1, 10,  3,  3,  3,  3,  3,  3},
 			{ 1,  1,  1,  1,  1,  1,  1,  0,  0,  2,  2,  2,  2,  2,  2,  0,  0,  3,  3,  3,  3,  3,  3,  3},
@@ -159,12 +159,12 @@ class Tabuleiro {
 	}
 	
 	// reset do tabuleiro para algoritmo de distância
-	void resetDist() {
+	private void resetDist() {
 		for (Object row[]:tabuleiro) for (Object casa:row) if (casa instanceof Casa) ((Casa) casa).resetDist();
 	}
 	
 	// cï¿½lculo da distï¿½ncia entre duas casas do tabuleiro
-	int calculaDistancia(Casa ini, Casa fim) {
+	private int calculaDistancia(Casa ini, Casa fim) {
 		this.resetDist();
 		Queue<Casa> q = new LinkedList<>();
 		
@@ -246,7 +246,7 @@ class Tabuleiro {
 	}
 	
 	// movimento comum
-	boolean movePessoa(Pessoa p, int[] posicaoFim, int dados) {
+	public boolean movePessoa(Pessoa p, int[] posicaoFim, int dados) {
 		int[] posicaoIni = p.posicao();
 		
 		// se movimento pode ser feito
@@ -284,7 +284,7 @@ class Tabuleiro {
 		
 	// levando para comodo, retorna nome do comodo se levou
 	// retorna "" caso pessoa nao esteja em comodo/nao encontre alvo
-	String transportaPessoa(Pessoa atual, String a_trazer) {
+	public String transportaPessoa(Pessoa atual, String a_trazer) {
 		// pegando pessoa a ser transportada
 		Pessoa p = null;
 		for (Pessoa pi:jogadores) {
