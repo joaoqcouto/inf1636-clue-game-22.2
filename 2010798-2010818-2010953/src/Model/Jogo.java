@@ -208,6 +208,7 @@ public class Jogo {
 			while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
 			dadosFile[1] = scanner.nextInt();
 			while (scanner.hasNext() && !scanner.hasNextInt()) scanner.next();
+			dados.setDados(dadosFile);
 			
 			// distributing cards
 			for (Pessoa j:jogadores) {
