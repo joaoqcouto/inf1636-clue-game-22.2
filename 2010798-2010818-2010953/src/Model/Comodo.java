@@ -82,7 +82,6 @@ class Comodo {
 				if (posicaoPessoa[0] == posicao[0] && posicaoPessoa[1] == posicao[1]) {
 					ocupada=true;
 				}
-				
 			}
 			if (!ocupada) return posicao;
 		}

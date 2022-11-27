@@ -4,14 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 class Pessoa {
-	public int posicao[] = new int[2];
+	private int numero;
+	private int posicao[] = new int[2];
 	private String nome;
 	private Cartas cartas_jogador[] = new Cartas[6];
 	private int num_cartas = 0; 
 	private Map<String, Boolean> notasCartas = new HashMap<String, Boolean>();
 	
-	public Pessoa (String name) {
+	public Pessoa (String name, int numero) {
 		this.nome = name;
+		this.numero = numero;
 		
 		notasCartas.put("Corda", false);
 		notasCartas.put("Cano de Chumbo", false);
@@ -67,4 +69,6 @@ class Pessoa {
 	public void updateNotas(String campo, boolean b) {
 		notasCartas.replace(campo, b);
 	}
+	
+	public int numero() { return numero; }
 }

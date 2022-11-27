@@ -18,21 +18,21 @@ public class AcusacaoTeste {
 		
 		envelope = new Cartas[] 
 				{
-						new Cartas("arma", "Corda"),
-						new Cartas("suspeito", "Srta. Scarlet"),
-						new Cartas("comodo", "Entrada"),
+						new Cartas("arma", "Corda", 0),
+						new Cartas("suspeito", "Srta. Scarlet", 1),
+						new Cartas("comodo", "Entrada", 2),
 				};
 		testCartas = new Cartas[] 
 				{
-						new Cartas("arma", "Corda"),
-						new Cartas("suspeito", "Srta. Scarlet"),
-						new Cartas("comodo", "Entrada"),
+						new Cartas("arma", "Corda", 0),
+						new Cartas("suspeito", "Srta. Scarlet", 1),
+						new Cartas("comodo", "Entrada", 2),
 				};
 		test2Cartas = new Cartas[] 
 				{
-						new Cartas("arma", "Faca"),
-						new Cartas("suspeito", "Professor Plum"),
-						new Cartas("comodo", "Sala de jantar"),
+						new Cartas("arma", "Faca", 3),
+						new Cartas("suspeito", "Professor Plum", 4),
+						new Cartas("comodo", "Sala de jantar", 5),
 				};
 	}
 	

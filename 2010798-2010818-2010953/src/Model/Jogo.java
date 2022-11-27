@@ -1,10 +1,7 @@
 package Model;
-import java.util.Random;
-import javax.swing.JCheckBox;
-import java.awt.Color;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.*;
 
 public class Jogo {
 	// jogo � singleton
@@ -66,38 +63,38 @@ public class Jogo {
 		
 		cartas_jogo = new Cartas[] 
 			{
-				new Cartas("arma", "Corda"),
-				new Cartas("arma", "Cano de Chumbo"),
-				new Cartas("arma", "Faca"),
-				new Cartas("arma", "Chave Inglesa"),
-				new Cartas("arma", "Castical"),
-				new Cartas("arma", "Revolver"),
-				new Cartas("suspeito", "Srta. Scarlet"),
-				new Cartas("suspeito", "Coronel Mustard"),
-				new Cartas("suspeito", "Professor Plum"),
-				new Cartas("suspeito", "Reverendo Green"),
-				new Cartas("suspeito", "Sra. White"),
-				new Cartas("suspeito", "Sra. Peacock"),
-				new Cartas("comodo", "Escritorio"),
-				new Cartas("comodo", "Entrada"),
-				new Cartas("comodo", "Sala de estar"),
-				new Cartas("comodo", "Biblioteca"),
-				new Cartas("comodo", "Salao de jogos"),
-				new Cartas("comodo", "Sala de jantar"),
-				new Cartas("comodo", "Jardim de inverno"),
-				new Cartas("comodo", "Sala de musica"),
-				new Cartas("comodo", "Cozinha"),
+				new Cartas("arma", "Corda", 0),
+				new Cartas("arma", "Cano de Chumbo", 1),
+				new Cartas("arma", "Faca", 2),
+				new Cartas("arma", "Chave Inglesa", 3),
+				new Cartas("arma", "Castical", 4),
+				new Cartas("arma", "Revolver", 5),
+				new Cartas("suspeito", "Srta. Scarlet", 6),
+				new Cartas("suspeito", "Coronel Mustard", 7),
+				new Cartas("suspeito", "Professor Plum", 8),
+				new Cartas("suspeito", "Reverendo Green", 9),
+				new Cartas("suspeito", "Sra. White", 10),
+				new Cartas("suspeito", "Sra. Peacock", 11),
+				new Cartas("comodo", "Escritorio", 12),
+				new Cartas("comodo", "Entrada", 13),
+				new Cartas("comodo", "Sala de estar", 14),
+				new Cartas("comodo", "Biblioteca", 15),
+				new Cartas("comodo", "Salao de jogos", 16),
+				new Cartas("comodo", "Sala de jantar", 17),
+				new Cartas("comodo", "Jardim de inverno", 18),
+				new Cartas("comodo", "Sala de musica", 19),
+				new Cartas("comodo", "Cozinha", 20),
 		};
 		
 		// criando jogadores (Da pra dar mais liberdade na escolha)
 		jogadores = new Pessoa[]
 			{
-				new Pessoa("Srta. Scarlet"),	
-				new Pessoa("Coronel Mustard"),
-				new Pessoa("Sra. White"),
-				new Pessoa("Reverendo Green"),
-				new Pessoa("Sra. Peacock"),
-				new Pessoa("Professor Plum"),
+				new Pessoa("Srta. Scarlet", 0),	
+				new Pessoa("Coronel Mustard", 1),
+				new Pessoa("Sra. White", 2),
+				new Pessoa("Reverendo Green", 3),
+				new Pessoa("Sra. Peacock", 4),
+				new Pessoa("Professor Plum", 5),
 			};
 		
 		int total_cartas = 21; 
@@ -153,6 +150,118 @@ public class Jogo {
 		// criando tabuleiro e posicionando os jogadores nele
 		tabuleiro = new Tabuleiro(jogadores);
 		
+	}
+	
+	// salvando jogo para inicializar certo
+	/*
+		para salvar o jogo precisa salvar:
+		
+		TABULEIRO
+		- onde estao os jogadores
+		
+		TURNO
+		- fila do jogo
+		- fila de desprovar palpite (tem eliminados)
+		- fase da rodada
+		- dados
+		
+		PALPITES
+		- quem tem quais cartas
+		- anotacoes
+		- envelope
+		
+		
+	*/
+	public boolean salvaJogo() {
+		PrintWriter out = null;
+		Locale l;
+		try {
+			out = new PrintWriter(new FileWriter("gamesave.txt"));
+			l = new Locale.Builder().setLanguage("pt").setScript("Latn").setRegion("BR").build();
+			
+			// saving player positions
+			out.format(l, "POSICOES\n");
+			for (Pessoa p:jogadores) {
+				int[] pos = p.posicao();
+				out.format(l, "%d %d\n", pos[0], pos[1]);
+			}
+			
+			// saving play queue
+			Queue<Pessoa> copiaFilaJogadores = new LinkedList<>(filaJogadores);
+			out.format(l, "\nFILA VEZ\n");
+			out.format(l, "%d\n", copiaFilaJogadores.size());
+			while (!copiaFilaJogadores.isEmpty()) {
+				Pessoa p = copiaFilaJogadores.poll();
+				out.format(l, "%d ", p.numero());
+			}
+			out.format(l, "\n");
+			
+			// saving guess queue
+			Queue<Pessoa> copiaFilaPalpites = new LinkedList<>(filaPalpites);
+			out.format(l, "\nFILA PALPITES\n");
+			out.format(l, "%d\n", copiaFilaPalpites.size());
+			while (!copiaFilaPalpites.isEmpty()) {
+				Pessoa p = copiaFilaPalpites.poll();
+				out.format(l, "%d ", p.numero());
+			}
+			out.format(l, "\n");
+			
+			// saving turn phase
+			out.format(l, "\nFASE RODADA\n");
+			out.format(l, "%d\n", fase_rodada);
+			
+			// saving dice
+			int d[] = dados.getDados();
+			out.format(l, "\nDADOS\n");
+			out.format(l, "%d %d\n", d[0], d[1]);
+			
+			// saving cards for each person
+			// one line is (number of cards for person) - (their cards)
+			out.format(l, "\nCARTAS\n");
+			for (Pessoa p:jogadores) {
+				
+				int num = p.qtdCartas();
+				Cartas c[] = p.cartas();
+				
+				out.format(l, "%d - ", num);
+				for (int i = 0; i < num; i++) {
+					out.format(l, "%d ", c[i].numero());
+				}
+				out.format(l, "\n");
+			}
+			
+			// saving envelope
+			out.format(l, "\nENVELOPE\n");
+			for (Cartas c:envelope) {
+				out.format(l, "%d ", c.numero());
+			}
+			out.format(l, "\n");
+			
+			// saving notes for each person
+			// one line is (number of notes for person) - (cards they have notes on)
+			out.format(l, "\nNOTAS\n");
+			for (Pessoa p:jogadores) {
+				
+				Map<String, Boolean> notas = p.getNotas();
+				
+				int qtdNotas = 0;
+				for (Map.Entry<String,Boolean> nota : notas.entrySet()) {
+					if (nota.getValue()) qtdNotas++;
+				}
+				
+				out.format(l, "%d - ", qtdNotas);
+				for (Map.Entry<String,Boolean> nota : notas.entrySet()) {
+					if (nota.getValue()) out.format(l, "(%s) ", nota.getKey());
+				}
+				out.format(l, "\n");
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return false; // erro ao salvar
+		}
+		finally { out.close(); }
+		return true; // salvou com sucesso
 	}
 	
 	//Cartas jogador atual

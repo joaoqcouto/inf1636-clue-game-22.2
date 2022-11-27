@@ -17,27 +17,27 @@ public class CartasTest {
 	public void setUp() {
 		cartas_jogo = new Cartas[] 
 				{
-					new Cartas("arma", "Corda"),
-					new Cartas("arma", "Cano de Chumbo"),
-					new Cartas("arma", "Faca"),
-					new Cartas("arma", "Chave Inglesa"),
-					new Cartas("arma", "Castiçal"),
-					new Cartas("arma", "Revólver"),
-					new Cartas("suspeito", "Srta. Scarlet"),
-					new Cartas("suspeito", "Coronel Mustard"),
-					new Cartas("suspeito", "Professor Plum"),
-					new Cartas("suspeito", "Reverendo Green"),
-					new Cartas("suspeito", "Sra. White"),
-					new Cartas("suspeito", "Sra. Peacock"),
-					new Cartas("comodo", "Escritorio"),
-					new Cartas("comodo", "Entrada"),
-					new Cartas("comodo", "Sala de estar"),
-					new Cartas("comodo", "Biblioteca"),
-					new Cartas("comodo", "Salao de jogos"),
-					new Cartas("comodo", "Sala de jantar"),
-					new Cartas("comodo", "Jardim de inverno"),
-					new Cartas("comodo", "Sala de musica"),
-					new Cartas("comodo", "Cozinha"),
+					new Cartas("arma", "Corda", 0),
+					new Cartas("arma", "Cano de Chumbo", 1),
+					new Cartas("arma", "Faca", 2),
+					new Cartas("arma", "Chave Inglesa", 3),
+					new Cartas("arma", "Castical", 4),
+					new Cartas("arma", "Revolver", 5),
+					new Cartas("suspeito", "Srta. Scarlet", 6),
+					new Cartas("suspeito", "Coronel Mustard", 7),
+					new Cartas("suspeito", "Professor Plum", 8),
+					new Cartas("suspeito", "Reverendo Green", 9),
+					new Cartas("suspeito", "Sra. White", 10),
+					new Cartas("suspeito", "Sra. Peacock", 11),
+					new Cartas("comodo", "Escritorio", 12),
+					new Cartas("comodo", "Entrada", 13),
+					new Cartas("comodo", "Sala de estar", 14),
+					new Cartas("comodo", "Biblioteca", 15),
+					new Cartas("comodo", "Salao de jogos", 16),
+					new Cartas("comodo", "Sala de jantar", 17),
+					new Cartas("comodo", "Jardim de inverno", 18),
+					new Cartas("comodo", "Sala de musica", 19),
+					new Cartas("comodo", "Cozinha", 20),
 			};
 		Random gerador = new Random();
 		num_arma = gerador.nextInt(6);
@@ -45,9 +45,9 @@ public class CartasTest {
 		num_comodo = 12 + gerador.nextInt(9);
 		testCartas = new Cartas[] 
 				{
-						new Cartas(cartas_jogo[num_arma].Tipo(), cartas_jogo[num_arma].Nome()),
-						new Cartas(cartas_jogo[num_suspeito].Tipo(), cartas_jogo[num_suspeito].Nome()),
-						new Cartas(cartas_jogo[num_comodo].Tipo(), cartas_jogo[num_comodo].Nome()),
+						new Cartas(cartas_jogo[num_arma].Tipo(), cartas_jogo[num_arma].Nome(), 0),
+						new Cartas(cartas_jogo[num_suspeito].Tipo(), cartas_jogo[num_suspeito].Nome(), 1),
+						new Cartas(cartas_jogo[num_comodo].Tipo(), cartas_jogo[num_comodo].Nome(), 2),
 				};
 	}
 	@Test

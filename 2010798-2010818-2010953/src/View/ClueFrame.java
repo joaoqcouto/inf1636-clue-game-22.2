@@ -223,6 +223,21 @@ public class ClueFrame extends JFrame implements Observer{
 		// log do estado
 		b1.addMouseListener(new PrintGameStateHandler());
 		
+		b7.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+            	Jogo jogo = Jogo.getJogo();
+            	boolean salvou = jogo.salvaJogo();
+            	if (salvou) {
+            		String message = "Estado do jogo salvo no arquivo 'gamesave.txt'.";
+    				JOptionPane.showMessageDialog(null, message,"Jogo salvo", JOptionPane.INFORMATION_MESSAGE);
+            	} else {
+            		String message = "Erro ao salvar o jogo.";
+    				JOptionPane.showMessageDialog(null, message,"Erro", JOptionPane.ERROR_MESSAGE);
+            	}
+            	
+            }
+        });
+		
 		printaDados();
 		l1.setText("Role os dados");
 		gamePanel.remove(dadosPanel);

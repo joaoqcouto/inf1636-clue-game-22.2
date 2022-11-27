@@ -11,12 +11,12 @@ public class TabuleiroTest {
 	public void setUp() {
 		Pessoa jogadores[] =
 			{
-				new Pessoa("Srta. Scarlet"),	
-				new Pessoa("Coronel Mustard"),
-				new Pessoa("Professor Plum"),
-				new Pessoa("Reverendo Green"),
-				new Pessoa("Sra. White"),
-				new Pessoa("Sra. Peacock"),
+				new Pessoa("Srta. Scarlet", 0),	
+				new Pessoa("Coronel Mustard", 1),
+				new Pessoa("Professor Plum", 2),
+				new Pessoa("Reverendo Green", 3),
+				new Pessoa("Sra. White", 4),
+				new Pessoa("Sra. Peacock", 5),
 			};
 		testTabuleiro = new Tabuleiro(jogadores);
 	}
