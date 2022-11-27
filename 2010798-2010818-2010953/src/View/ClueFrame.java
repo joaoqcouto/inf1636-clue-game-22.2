@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.geom.*;
 import java.io.File;
 import java.io.IOException;
@@ -225,16 +227,29 @@ public class ClueFrame extends JFrame implements Observer{
 		
 		b7.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-            	Jogo jogo = Jogo.getJogo();
-            	boolean salvou = jogo.salvaJogo();
-            	if (salvou) {
-            		String message = "Estado do jogo salvo no arquivo 'gamesave.txt'.";
-    				JOptionPane.showMessageDialog(null, message,"Jogo salvo", JOptionPane.INFORMATION_MESSAGE);
-            	} else {
-            		String message = "Erro ao salvar o jogo.";
-    				JOptionPane.showMessageDialog(null, message,"Erro", JOptionPane.ERROR_MESSAGE);
-            	}
+            	// configuring file chooser
+            	JFileChooser fileChooser = new JFileChooser();
+            	fileChooser.setDialogTitle("Escolha um local para salvar o jogo");
+            	FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivo texto", "txt");
+            	fileChooser.setFileFilter(filter);
             	
+            	int userSelection = fileChooser.showSaveDialog(null);
+            	if (userSelection == JFileChooser.APPROVE_OPTION) {
+            		// file was selected
+            		
+            		File fileToSave = fileChooser.getSelectedFile();
+            		System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+            		
+            		Jogo jogo = Jogo.getJogo();
+                	boolean salvou = jogo.salvaJogo(fileToSave.getAbsolutePath());
+                	if (salvou) {
+                		String message = "Estado do jogo salvo no arquivo 'gamesave.txt'.";
+        				JOptionPane.showMessageDialog(null, message,"Jogo salvo", JOptionPane.INFORMATION_MESSAGE);
+                	} else {
+                		String message = "Erro ao salvar o jogo.";
+        				JOptionPane.showMessageDialog(null, message,"Erro", JOptionPane.ERROR_MESSAGE);
+                	}
+            	}
             }
         });
 		

@@ -172,11 +172,11 @@ public class Jogo {
 		
 		
 	*/
-	public boolean salvaJogo() {
+	public boolean salvaJogo(String path) {
 		PrintWriter out = null;
 		Locale l;
 		try {
-			out = new PrintWriter(new FileWriter("gamesave.txt"));
+			out = new PrintWriter(new FileWriter(path));
 			l = new Locale.Builder().setLanguage("pt").setScript("Latn").setRegion("BR").build();
 			
 			// saving player positions
@@ -250,8 +250,16 @@ public class Jogo {
 				}
 				
 				out.format(l, "%d - ", qtdNotas);
+				
 				for (Map.Entry<String,Boolean> nota : notas.entrySet()) {
-					if (nota.getValue()) out.format(l, "(%s) ", nota.getKey());
+					if (nota.getValue()) {
+						int iNota = 0;
+						for (Cartas c:cartas_jogo) {
+							if (c.Nome() == nota.getKey()) break;
+							iNota++;
+						}
+						out.format(l, "%d ", iNota);
+					}
 				}
 				out.format(l, "\n");
 			}
