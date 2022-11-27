@@ -76,7 +76,7 @@ public class CapaFrame extends JFrame {
 	// choosing game text file
 	private void continueGameButtonPressed() {
 		// configuring file chooser
-    	JFileChooser fileChooser = new JFileChooser();
+		JFileChooser fileChooser = new JFileChooser();
     	fileChooser.setDialogTitle("Escolha um arquivo de jogo");
     	FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivo texto", "txt");
     	fileChooser.setFileFilter(filter);
@@ -84,13 +84,18 @@ public class CapaFrame extends JFrame {
     	int userSelection = fileChooser.showDialog(this,"Abrir");
     	if (userSelection == JFileChooser.APPROVE_OPTION) {
     		// file was selected
-    		dispose();
-    		File fileToLoad = fileChooser.getSelectedFile();
-    		System.out.println("Load file: " + fileToLoad.getAbsolutePath());
-    		
-    		Jogo.loadJogo(fileToLoad);
-    		GameMain.gameLoop();
+    		try {
+	    		File fileToLoad = fileChooser.getSelectedFile();
+	    		System.out.println("Load file: " + fileToLoad.getAbsolutePath());
+	    		Jogo.loadJogo(fileToLoad);
+	    		GameMain.gameLoop();
+	    		dispose();
+    		}
+    		catch (Exception e) {
+    			e.printStackTrace();
+    			String message = "Houve um erro ao tentar ler o arquivo de entrada.";
+    			JOptionPane.showMessageDialog(null, message,"Erro", JOptionPane.ERROR_MESSAGE);
+    		}
     	}
 	}
-		
 }
